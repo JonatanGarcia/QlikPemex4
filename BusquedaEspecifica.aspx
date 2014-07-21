@@ -39,8 +39,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <asp:scriptmanager runat="server"></asp:scriptmanager>
-    
-            <asp:Button ID="Button13" CssClass="btn btn-default" runat="server" Text="Exportar" />
+    <asp:Button ID="Button13" CssClass="btn btn-default" runat="server" Text="Exportar" />
+            
     <asp:updatepanel runat="server">
         <ContentTemplate>
       
@@ -166,10 +166,18 @@
                         <td class="style12">
                             <table>
                                 <tr>
-                                    <td class="style001"
-                                        colspan="3">
-                                        <asp:Label ID="Label3" runat="server" Text="Año"></asp:Label>
+                                    <%-- AQUI VA EL AÑO --%>
+                                     
+                                    <td class="style001" colspan="2">
+                                     <asp:Label ID="Label6" runat="server" Text="Plataforma"></asp:Label>
                                     </td>
+                                    <td class="style001">
+                                        <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server" 
+                                            TargetControlID="TextBox4" WatermarkCssClass="watermarked" 
+                                            WatermarkText="Busqueda de Plataforma" />
+                                    </td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>
@@ -218,19 +226,15 @@
                         <td>
                              <table>
                                 <tr>
-                                    <td class="style001" colspan="3">
+                                    <td class="style001" colspan="2">
                                         <asp:Label ID="Label5" runat="server" Text="Pozo"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
+                                        </td>
+                                    <td class="style001">
                                         <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <aspS:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
+                                        <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
                                             TargetControlID="TextBox3" WatermarkCssClass="watermarked" 
                                             WatermarkText="Busqueda de pozo" />
                                     </td>
-                                   <td></td>
-                                   <td></td>
                                 </tr>
                                 <tr>
                                     <td><asp:ListBox ID="LbPozo" runat="server"
@@ -253,19 +257,11 @@
                         <td>
                              <table>
                                 <tr>
-                                    <td class="style001" colspan="3">
-                                        <asp:Label ID="Label6" runat="server" Text="Plataforma"></asp:Label>
+                                    <%-- AQUI VA LA PLATAFORMA --%>
+                                   <td class="style001"
+                                        colspan="3">
+                                        <asp:Label ID="Label3" runat="server" Text="Año"></asp:Label>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server" 
-                                            TargetControlID="TextBox4" WatermarkCssClass="watermarked" 
-                                            WatermarkText="Busqueda de Plataforma" />
-                                    </td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -290,19 +286,15 @@
                         <td>
                                 <table>
                                     <tr>
-                                        <td class="style001" colspan="3">
+                                        <td class="style001" colspan="2">
                                             <asp:Label ID="Label7" runat="server" Text="Equipo"></asp:Label>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                        <td class="style001">
                                             <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control"></asp:TextBox>
                                             <aspS:TextBoxWatermarkExtender ID="TBWE3" runat="server" 
                                                 TargetControlID="TextBox5" WatermarkCssClass="watermarked" 
                                                 WatermarkText="Busqueda de Equipo" />
                                         </td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -326,14 +318,13 @@
                     </tr>
                </table>
             
-            </Content>
+            </Content>      
         </aspS:AccordionPane>      
-     </Panes>            
-    </aspS:Accordion>
-        
-            <br />
-            <br />            
-            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+  
+        <aspS:AccordionPane ID="AccordionPane4" runat="server">
+        <Header> Excel</Header>
+            <Content>
+                <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                 AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="False" 
                 BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
                 CellPadding="4" CssClass="mGrid" 
@@ -445,6 +436,15 @@
                 <RowStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
             </asp:GridView>
+
+            </Content>
+        </aspS:AccordionPane>
+     </Panes>            
+    </aspS:Accordion>
+        
+            <br />
+            <br />            
+            
 </ContentTemplate>
 </asp:updatepanel>
 

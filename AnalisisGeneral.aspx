@@ -8,6 +8,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
     <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .style8
         {
@@ -47,7 +48,7 @@
     </asp:ScriptManager>
 
     
-                        <asp:Button ID="Button4" runat="server" Text="Exportar" />
+    <asp:Button ID="Button4" runat="server" Text="Exportar" CssClass="btn btn-default" />
 
     
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -90,7 +91,11 @@
                 </tr>
                 <tr>
                     <th colspan="5">
-                        <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
+                        
+                    </th>
+                </tr>
+                </table>
+            <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
                             ContentCssClass="accordionContent" FadeTransitions="true" FramesPerSecond="40" 
                             HeaderCssClass="accordionHeader" 
                             HeaderSelectedCssClass="accordionHeaderSelected" RequireOpenedPane="false" 
@@ -210,8 +215,7 @@
                                 </aspS:AccordionPane>
                             </Panes>
                         </aspS:Accordion>
-                    </th>
-                </tr>
+                <table>
                 <tr>
                    <th class="style15">
                    </th>
