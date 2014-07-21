@@ -40,12 +40,6 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
-
- .MiLabel
-{
-    color: white;
-    background-color: #24476F;
-     font-family: Arial, Sans-Serif;
-     font-size: 12px;
-     font-weight: bold;
+.validation-summary-valid2 {
+    display: none;
 }
