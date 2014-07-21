@@ -1,0 +1,371 @@
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="AnalisisGeneral.aspx.vb" Inherits="_Default"  EnableEventValidation="False" %>
+
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="aspS" %>
+
+<%@ Register assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" namespace="System.Web.UI.DataVisualization.Charting" tagprefix="asp" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
+    <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .style8
+        {
+            width: 100%;
+        }
+        .style9
+        {
+            height: 23px;
+        }
+        .style10
+        {
+            width: 586px;
+        }
+        .style11
+        {
+            width: 1470px;
+        }
+        .style14
+        {
+            width: 861px;
+        } 
+        .style15
+        {
+            width: 87px;
+        }
+        .style16
+        {
+            height: 23px;
+            width: 87px;
+        }
+        
+        </style>
+    
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+
+    
+                        <asp:Button ID="Button4" runat="server" Text="Exportar" />
+
+    
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+          <table style="width: 1178px">
+    
+                <tr>
+                <th class="style14"></th>
+                   <th style="background-color: #333333; color: #FFFFFF">
+                      <asp:Label ID="Label6" runat="server" Text="Selecciones Actuales"></asp:Label>
+                   </th>
+                </tr>
+                <tr>
+                 <th class="style14"></th>
+                   <td style="text-align: center">
+                  
+                       <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
+                           Font-Overline="False" Font-Underline="True" AutoPostBack="True">
+                       </asp:ListBox>
+                    </td>
+                </tr>
+
+                        </table>
+            <table class="style8">
+                <tr>
+                    <th class="style15">
+                        &nbsp;</th>
+                    <th>
+                        &nbsp;</th>
+                    <th>
+                        <asp:Button ID="Button1" runat="server" Text="Recargar" />
+                    </th>
+                    <th>
+                        <asp:Button ID="Button3" runat="server" Text="Atras" />
+                        <asp:Button ID="Button2" runat="server" Text="Borrar" />
+                    </th>
+                    <th>
+                        <asp:HiddenField ID="HiddenField1" runat="server" />
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
+                            ContentCssClass="accordionContent" FadeTransitions="true" FramesPerSecond="40" 
+                            HeaderCssClass="accordionHeader" 
+                            HeaderSelectedCssClass="accordionHeaderSelected" RequireOpenedPane="false" 
+                            SelectedIndex="0" SuppressHeaderPostbacks="true" TransitionDuration="250">
+                            <Panes>
+                                <aspS:AccordionPane runat="server">
+                                    <Header>
+                                        Años
+                                    </Header>
+                                    <Content>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <asp:ListBox ID="LbAnio" runat="server" SelectionMode="Multiple" 
+                                                        AutoPostBack="True" Width="150px"></asp:ListBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </Content>
+                                 </aspS:AccordionPane>
+                                 <aspS:AccordionPane ID="AccordionPane2" runat="server">
+                                    <Header>
+                                          Internveciones
+                                    </Header>
+                                    <Content>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                     <asp:ListBox ID="LbIntervencion" runat="server" SelectionMode="Multiple" 
+                                                        Width="150px" AutoPostBack="True"></asp:ListBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </Content>
+                                </aspS:AccordionPane>
+                                <aspS:AccordionPane ID="AccordionPane3" runat="server">
+                                     <Header>
+                                        Pozos
+                                    </Header>
+                                    <Content>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                                                <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                                                    TargetControlID="TextBox2"
+                                                    WatermarkText="Busqueda de pozo"
+                                                    WatermarkCssClass="watermarked" />
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:ListBox ID="LbPozo" runat="server" SelectionMode="Multiple" Width="150px" 
+                                                    AutoPostBack="True">
+                                                </asp:ListBox>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    
+                                   
+                                
+                                    
+                                    </Content>
+                                </aspS:AccordionPane>
+                                <aspS:AccordionPane ID="AccordionPane4" runat="server">
+                                      <Header>
+                                        Plataformas
+                                    </Header>
+                                    <Content>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                  <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                                                 <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server"
+                                                        TargetControlID="TextBox4"
+                                                        WatermarkText="Busqueda de Plataforma"
+                                                        WatermarkCssClass="watermarked" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                             <asp:ListBox ID="LbPlataforma" runat="server" SelectionMode="Multiple" 
+                                                Width="150px" AutoPostBack="True"></asp:ListBox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                   
+                                       
+                                    </Content>
+                                </aspS:AccordionPane>
+                                <aspS:AccordionPane ID="AccordionPane5" runat="server">
+                                      <Header>
+                                        Equipos
+                                    </Header>
+                                    <Content>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                 <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                     <aspS:TextBoxWatermarkExtender ID="TBWE3" runat="server"
+                                            TargetControlID="TextBox3"
+                                            WatermarkText="Busqueda de Equipo"
+                                            WatermarkCssClass="watermarked" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                             <asp:ListBox ID="LbEquipo" runat="server" SelectionMode="Multiple" 
+                                                Width="150px" AutoPostBack="True"></asp:ListBox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                   
+                                       
+                                    </Content>
+                                </aspS:AccordionPane>
+                            </Panes>
+                        </aspS:Accordion>
+                    </th>
+                </tr>
+                <tr>
+                   <th class="style15">
+                   </th>
+                    <th colspan="4" style="text-align: center">
+                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+                            AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="False" 
+                            BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+                            CellPadding="4" CssClass="mGrid" EnableModelValidation="True" 
+                            Font-Size="Smaller" ForeColor="Black" GridLines="Horizontal" 
+                            PagerStyle-CssClass="pgr">
+                            <AlternatingRowStyle CssClass="alt" />
+                            <Columns>
+                                <asp:BoundField DataField="NPozo" HeaderText="Pozo" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="dateOperacion" dataformatstring="{0:dd/MM/yyyy}" 
+                                    HeaderText="Día" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="intCon" HeaderText="Consecutivo" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="intProf" HeaderText="Profundidad" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="floatTiempo" HeaderText="Tiempo" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="N1" HeaderText="Nivel 1" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="N2" HeaderText="Nivel 2" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="N3" HeaderText="Nivel 3" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="N4" HeaderText="Nivel 4" HtmlEncode="false">
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
+                                </asp:BoundField>
+                            </Columns>
+                            <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                            <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="White" CssClass="pgr" ForeColor="Black" 
+                                HorizontalAlign="Right" />
+                            <RowStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        </asp:GridView>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="style15">
+                        &nbsp;</th>
+                    <th colspan="3" rowspan="2">
+                        <table style="width: 772px">
+                            <tr>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días Perforación"></asp:Label></th>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días Terminación"></asp:Label></th>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días RMA"></asp:Label></th>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días NPT's"></asp:Label></th>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Continuidad OP."></asp:Label></th>
+                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="#Pozos"></asp:Label></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="LbldiasPerfora" runat="server" Text="Label"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LblDiasTerm" runat="server" Text="Label"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LblDiasRMA" runat="server" Text="Label"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LblDiasNPTS" runat="server" Text="Label"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LblCO" runat="server" Text="Label"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LblPozos" runat="server" Text="Label"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                        </th>
+                    <th>
+                        &nbsp;</th>
+                </tr>
+                <tr>
+                    <td class="style16">
+                    </td>
+                    <td class="style9">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="style15">
+                        &nbsp;</td>
+                    <td colspan="3">
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        &nbsp;</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th class="style11">
+                        <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
+                            Width="768px">
+                            <chartareas>
+                                <asp:ChartArea Name="ChartArea1">
+                                    <AxisY Crossing="Min" IsReversed="True" Minimum="0">
+                                    </AxisY>
+                                    <AxisX Crossing="Min" Minimum="0">
+                                    </AxisX>
+                                </asp:ChartArea>
+                            </chartareas>
+                        </asp:Chart>
+                    </th>
+                    <th class="style10">
+                        &nbsp;</th>
+                    <th>
+                        <asp:Chart ID="Chart2" runat="server" Width="399px" Palette="None" 
+                            PaletteCustomColors="Highlight; Gray; 255, 128, 0">
+                            <Series>
+                                <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
+                                    Name="Series1">
+                                </asp:Series>
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1">
+                                    <Area3DStyle Enable3D="True" Inclination="50" />
+                                </asp:ChartArea>
+                            </ChartAreas>
+                            <Legends>
+                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1">
+                                </asp:Legend>
+                            </Legends>
+                        </asp:Chart>
+                    </th>
+                </tr>
+            </table>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>
