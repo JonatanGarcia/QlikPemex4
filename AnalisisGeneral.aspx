@@ -39,7 +39,23 @@
             height: 23px;
             width: 87px;
         }
-        
+          .style001
+        {
+            background-color: #333333;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: bold;
+            }
+        .auto-style1 {
+            background-color: #333333;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: bold;
+            width: 1097px;
+        }
+        .auto-style2 {
+            width: 1097px;
+        }
         </style>
     
 </asp:Content>
@@ -53,48 +69,27 @@
     
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-          <table style="width: 1178px">
+          <table>
     
                 <tr>
-                <th class="style14"></th>
-                   <th style="background-color: #333333; color: #FFFFFF">
-                      <asp:Label ID="Label6" runat="server" Text="Selecciones Actuales"></asp:Label>
-                   </th>
+                <th class="style001">
+                    <asp:Label ID="Label6" runat="server" Text="Selecciones Actuales"></asp:Label>
+                </th>
                 </tr>
                 <tr>
-                 <th class="style14"></th>
-                   <td style="text-align: center">
-                  
+                 <th>
                        <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
                            Font-Overline="False" Font-Underline="True" AutoPostBack="True">
                        </asp:ListBox>
-                    </td>
+                 </th>
                 </tr>
 
                         </table>
-            <table class="style8">
-                <tr>
-                    <th class="style15">
-                        &nbsp;</th>
-                    <th>
-                        &nbsp;</th>
-                    <th>
-                        <asp:Button ID="Button1" runat="server" Text="Recargar" />
-                    </th>
-                    <th>
-                        <asp:Button ID="Button3" runat="server" Text="Atras" />
-                        <asp:Button ID="Button2" runat="server" Text="Borrar" />
-                    </th>
-                    <th>
-                        <asp:HiddenField ID="HiddenField1" runat="server" />
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="5">
-                        
-                    </th>
-                </tr>
-                </table>
+            <asp:Button ID="Button1" runat="server" Text="Recargar" CssClass="btn btn-default"/>
+            <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-default"/>
+            <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-default" />
+            <asp:HiddenField ID="HiddenField1" runat="server" />
+
             <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
                             ContentCssClass="accordionContent" FadeTransitions="true" FramesPerSecond="40" 
                             HeaderCssClass="accordionHeader" 
@@ -110,7 +105,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:ListBox ID="LbAnio" runat="server" SelectionMode="Multiple" 
-                                                        AutoPostBack="True" Width="150px"></asp:ListBox>
+                                                        AutoPostBack="True" Width="150px" CssClass="list-group-item"></asp:ListBox>
                                                 </td>
                                             </tr>
                                         </table>
@@ -125,7 +120,7 @@
                                             <tr>
                                                 <td>
                                                      <asp:ListBox ID="LbIntervencion" runat="server" SelectionMode="Multiple" 
-                                                        Width="150px" AutoPostBack="True"></asp:ListBox>
+                                                        Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
                                                 </td>
                                             </tr>
                                         </table>
@@ -149,7 +144,7 @@
                                         <tr>
                                             <td>
                                                 <asp:ListBox ID="LbPozo" runat="server" SelectionMode="Multiple" Width="150px" 
-                                                    AutoPostBack="True">
+                                                    AutoPostBack="True" CssClass="list-group-item">
                                                 </asp:ListBox>
                                             </td>
 
@@ -179,7 +174,7 @@
                                         <tr>
                                             <td>
                                              <asp:ListBox ID="LbPlataforma" runat="server" SelectionMode="Multiple" 
-                                                Width="150px" AutoPostBack="True"></asp:ListBox>
+                                                Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
                                             </td>
                                         </tr>
                                     </table>
@@ -205,7 +200,7 @@
                                         <tr>
                                             <td>
                                              <asp:ListBox ID="LbEquipo" runat="server" SelectionMode="Multiple" 
-                                                Width="150px" AutoPostBack="True"></asp:ListBox>
+                                                Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
                                             </td>
                                         </tr>
                                     </table>
@@ -213,14 +208,10 @@
                                        
                                     </Content>
                                 </aspS:AccordionPane>
-                            </Panes>
-                        </aspS:Accordion>
-                <table>
-                <tr>
-                   <th class="style15">
-                   </th>
-                    <th colspan="4" style="text-align: center">
-                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+                                <aspS:AccordionPane ID="AccorditionPane6" runat="server">
+                                    <Header>Excel</Header>
+                                    <Content>
+                                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                             AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="False" 
                             BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
                             CellPadding="4" CssClass="mGrid" EnableModelValidation="True" 
@@ -273,6 +264,16 @@
                             <RowStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
                         </asp:GridView>
+                                    </Content>
+                                </aspS:AccordionPane>
+                            </Panes>
+                        </aspS:Accordion>
+                <table>
+                <tr>
+                   <th class="style15">
+                   </th>
+                    <th colspan="4" style="text-align: center">
+                        
                     </th>
                 </tr>
                 <tr>

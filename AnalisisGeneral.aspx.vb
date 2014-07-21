@@ -280,7 +280,7 @@ Partial Class _Default
         LbPozo.DataSource = (From Pozo In ds3.Tables(0) _
                             Select Pozo.Field(Of String)("NPozo")).Distinct()
         LbPozo.DataBind()
-        TextBox2.Text = ""
+        bandera = False
     End Sub
 
     Protected Sub TextBox3_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
@@ -289,10 +289,23 @@ Partial Class _Default
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("Equ LIKE '%" & TextBox3.Text & "%'"))
+        bandera = False
         LbEquipo.Items.Clear()
         LbEquipo.DataSource = (From Pozo In ds3.Tables(0) _
                             Select Pozo.Field(Of String)("Equ")).Distinct()
         LbEquipo.DataBind()
+    End Sub
+    Protected Sub TextBox4_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
+        Dim ds As New DataSet
+        ds = Me.Cache("myTestCache")
+        LbAnio.Items.Remove(0)
+        Dim ds3 As New DataSet
+        ds3.Merge(ds.Tables(0).Select("plata LIKE '%" & TextBox4.Text & "%'"))
+        bandera = False
+        LbPlataforma.Items.Clear()
+        LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
+                            Select Pozo.Field(Of String)("plata")).Distinct()
+        LbPlataforma.DataBind()
     End Sub
 
 
@@ -417,68 +430,62 @@ Partial Class _Default
         ' End If
     End Sub
 
+    Dim bandera As Boolean = True
     Protected Sub Button4_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button4.Click
-        Dim sw As New System.IO.StringWriter()
-        Dim htw As New HtmlTextWriter(sw)
-     
+        If bandera Then
 
-        Dim ds As New DataSet
-        ds = Me.Cache("myTestCache")
 
-        If LbSelecciones.Items.Count <> 0 Then
-            selecciones = Me.Cache("Selecciones")
-            Dim newBusqueda As New StringBuilder
-            For i As Integer = 0 To selecciones.Length - 1
-                If selecciones(i) <> "" Then
-                    newBusqueda.Append(selecciones(i)).Append("AND ")
-                End If
-            Next
-            Dim dsAux As New DataSet
-            'dsAux.Merge(ds.Tables(0).Select(busqueda))
-            dsAux.Merge(ds.Tables(0).Select(newBusqueda.ToString.Substring(0, newBusqueda.Length - 4)))
-            ds = dsAux
+            Dim sw As New System.IO.StringWriter()
+            Dim htw As New HtmlTextWriter(sw)
+
+
+            Dim ds As New DataSet
+            ds = Me.Cache("myTestCache")
+
+            If LbSelecciones.Items.Count <> 0 Then
+                selecciones = Me.Cache("Selecciones")
+                Dim newBusqueda As New StringBuilder
+                For i As Integer = 0 To selecciones.Length - 1
+                    If selecciones(i) <> "" Then
+                        newBusqueda.Append(selecciones(i)).Append("AND ")
+                    End If
+                Next
+                Dim dsAux As New DataSet
+                'dsAux.Merge(ds.Tables(0).Select(busqueda))
+                dsAux.Merge(ds.Tables(0).Select(newBusqueda.ToString.Substring(0, newBusqueda.Length - 4)))
+                ds = dsAux
+            End If
+
+            Response.Clear()
+            Response.Buffer = True
+            Response.ContentType = "application/ms-excel"
+            Response.AddHeader("content-Disposition", "attachment;filename=Example.xls")
+
+
+
+            GridView1.EnableViewState = False
+            GridView1.AllowPaging = False
+            '' LLenar Grid
+            GridView1.DataSource = ds.Tables(0)
+            GridView1.DataBind()
+
+            GridView1.RenderControl(htw)
+            Response.Charset = "UTF-8"
+            Response.ContentEncoding = Encoding.Default
+            Response.Write(sw.ToString)
+            Response.End()
+
+            inicializar()
+            llenar("", 0)
+            'llenaGrid()
+            Me.Cache("Selecciones") = selecciones
         End If
-
-        Response.Clear()
-        Response.Buffer = True
-        Response.ContentType = "application/ms-excel"
-        Response.AddHeader("content-Disposition", "attachment;filename=Example.xls")
-
-
-
-        GridView1.EnableViewState = False
-        GridView1.AllowPaging = False
-        '' LLenar Grid
-        GridView1.DataSource = ds.Tables(0)
-        GridView1.DataBind()
-
-        GridView1.RenderControl(htw)
-        Response.Charset = "UTF-8"
-        Response.ContentEncoding = Encoding.Default
-        Response.Write(sw.ToString)
-        Response.End()
-
-        inicializar()
-        llenar("", 0)
-        'llenaGrid()
-        Me.Cache("Selecciones") = selecciones
-
     End Sub
     Public Overrides Sub VerifyRenderingInServerForm(ByVal control As Control)
         Return
     End Sub
 
-    Protected Sub TextBox4_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
-        Dim ds As New DataSet
-        ds = Me.Cache("myTestCache")
-        LbAnio.Items.Remove(0)
-        Dim ds3 As New DataSet
-        ds3.Merge(ds.Tables(0).Select("plata LIKE '%" & TextBox4.Text & "%'"))
-        LbPlataforma.Items.Clear()
-        LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("plata")).Distinct()
-        LbPlataforma.DataBind()
-    End Sub
+   
 
 
 End Class

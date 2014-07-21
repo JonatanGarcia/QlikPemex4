@@ -315,6 +315,7 @@ Partial Class _Default
                 End If
                 llenarGrid(ds)
                 Me.Cache("pageIndex") = ds
+                MyAccordion.SelectedIndex = 3
             End If
         End If
     End Sub
@@ -364,7 +365,6 @@ Partial Class _Default
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
         LbAnio.Items.Remove(0)
-        Dim test As String = 2011
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & TextBox3.Text & "%'"))
         LbPozo.Items.Clear()
@@ -401,8 +401,6 @@ Partial Class _Default
     Protected Sub Button13_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button13.Click
 
         If bandera Then
-
-
             Dim sw As New System.IO.StringWriter()
             Dim htw As New HtmlTextWriter(sw)
             Dim ds As New DataSet
