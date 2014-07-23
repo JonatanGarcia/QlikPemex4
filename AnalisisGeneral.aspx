@@ -342,6 +342,10 @@
                     <th class="style11">
                         <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
                             Width="768px">
+                            <Series>
+                                <asp:Series ChartArea="ChartArea1" Font="Microsoft Sans Serif, 8.25pt" Name="Series1">
+                                </asp:Series>
+                            </Series>
                             <chartareas>
                                 <asp:ChartArea Name="ChartArea1">
                                     <AxisY Crossing="Min" IsReversed="True" Minimum="0">
@@ -364,11 +368,10 @@
                             </Series>
                             <ChartAreas>
                                 <asp:ChartArea Name="ChartArea1">
-                                    <Area3DStyle Enable3D="True" Inclination="50" />
                                 </asp:ChartArea>
                             </ChartAreas>
                             <Legends>
-                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1">
+                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
                                 </asp:Legend>
                             </Legends>
                         </asp:Chart>

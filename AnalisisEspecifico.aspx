@@ -209,34 +209,37 @@
                            </Panes>
             </aspS:Accordion>
 
-            <asp:Button ID="Button1" runat="server" 
-                Text="Nivel 1" CssClass="btn btn-default" />
-            <br />
-            <asp:Button ID="Button2" runat="server" Text="Nivel 2" CssClass="btn btn-default"/>
-            <br />
-            <asp:Button ID="Button3" runat="server" Text="Nivel 3" CssClass="btn btn-default"/>
-            <br />
-            <asp:Button ID="Button4" runat="server" Text="Nivel 4" CssClass="btn btn-default"/>
-            <br />
-
-<asp:Chart ID="Chart1" runat="server" Width="980px" Height="501px">
+            <table>
+                <tr>
+                    <td>
+                        <asp:Button ID="Button1" runat="server" Text="Nivel 1" CssClass="btn btn-default" />
+                        <br />
+                        <asp:Button ID="Button2" runat="server" Text="Nivel 2" CssClass="btn btn-default"/>
+                        <br />
+                        <asp:Button ID="Button3" runat="server" Text="Nivel 3" CssClass="btn btn-default"/>
+                        <br />
+                        <asp:Button ID="Button4" runat="server" Text="Nivel 4" CssClass="btn btn-default"/>
+                    </td>
+                    <td>
+                        <asp:Chart ID="Chart1" runat="server" Width="980px" Height="501px">
                             <Series>
                                 <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
-                                    Name="Series1">
+                                    Name="Series1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
                                 </asp:Series>
                             </Series>
                             <ChartAreas>
                                 <asp:ChartArea Name="ChartArea1">
-                                    <Area3DStyle Enable3D="True" Inclination="50" />
                                 </asp:ChartArea>
                             </ChartAreas>
                             <Legends>
-                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1">
+                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
                                 </asp:Legend>
                             </Legends>
                         </asp:Chart>
 
-
+                    </td>
+                </tr>
+            </table>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
