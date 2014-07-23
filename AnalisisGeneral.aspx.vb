@@ -10,6 +10,7 @@ Partial Class _Default
             inicializar()
             llenar("", 0)
             'llenaGrid()
+            MyAccordion.SelectedIndex = -1
             Me.Cache("Selecciones") = selecciones
         End If
 
@@ -246,7 +247,6 @@ Partial Class _Default
 
         Chart2.Series("Series1").Points.DataBindXY(x3, y3)
         Me.Chart2.Legends(0).Alignment = Drawing.StringAlignment.Near
-
         'WHERE IN
         'Dim ids As Integer() = {1, 2}
 
@@ -269,17 +269,28 @@ Partial Class _Default
         llenar("", 0)
     End Sub
 
+    Function validarDs(ds As DataSet, mensaje As String) As Boolean
+        If ds.Tables.Count = 0 Then
+            LblMsg.Text = "* No se encontró " & mensaje
+            Return False
+        End If
+        LblMsg.Text = ""
+        Return True
+    End Function
+
     Protected Sub TextBox2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox2.TextChanged
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
         LbAnio.Items.Remove(0)
-        Dim test As String = 2011
+        Dim msg As String = TextBox2.Text & " en la lista Pozo"
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & TextBox2.Text & "%'"))
-        LbPozo.Items.Clear()
-        LbPozo.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("NPozo")).Distinct()
-        LbPozo.DataBind()
+        If validarDs(ds3, msg) Then
+            LbPozo.Items.Clear()
+            LbPozo.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("NPozo") Order By ("NPozo")).Distinct()
+            LbPozo.DataBind()
+        End If
         bandera = False
     End Sub
 
@@ -288,24 +299,30 @@ Partial Class _Default
         ds = Me.Cache("myTestCache")
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
+        Dim msg As String = TextBox3.Text & " en la lista Equipo"
         ds3.Merge(ds.Tables(0).Select("Equ LIKE '%" & TextBox3.Text & "%'"))
+        If validarDs(ds3, msg) Then
+            LbEquipo.Items.Clear()
+            LbEquipo.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("Equ") Order By ("Equ")).Distinct()
+            LbEquipo.DataBind()
+        End If
         bandera = False
-        LbEquipo.Items.Clear()
-        LbEquipo.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("Equ")).Distinct()
-        LbEquipo.DataBind()
     End Sub
     Protected Sub TextBox4_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
+        Dim msg As String = TextBox4.Text & " en la lista Plataforma"
         ds3.Merge(ds.Tables(0).Select("plata LIKE '%" & TextBox4.Text & "%'"))
+        If validarDs(ds3, msg) Then
+            LbPlataforma.Items.Clear()
+            LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("plata") Order By ("plata")).Distinct()
+            LbPlataforma.DataBind()
+        End If
         bandera = False
-        LbPlataforma.Items.Clear()
-        LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("plata")).Distinct()
-        LbPlataforma.DataBind()
     End Sub
 
 
@@ -385,10 +402,6 @@ Partial Class _Default
         llenar(obtenerSeleccionados(LbAnio, "anio", 0), 1)
     End Sub
 
-    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
-
-    End Sub
-
     Protected Sub Button3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button3.Click
         If LbSelecciones.Items.Count > 1 Then
             selecciones = Me.Cache("Selecciones")
@@ -422,7 +435,6 @@ Partial Class _Default
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Clear()
             llenar("", 0)
-
         End If
 
 
@@ -433,8 +445,6 @@ Partial Class _Default
     Dim bandera As Boolean = True
     Protected Sub Button4_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button4.Click
         If bandera Then
-
-
             Dim sw As New System.IO.StringWriter()
             Dim htw As New HtmlTextWriter(sw)
 
@@ -484,8 +494,4 @@ Partial Class _Default
     Public Overrides Sub VerifyRenderingInServerForm(ByVal control As Control)
         Return
     End Sub
-
-   
-
-
 End Class

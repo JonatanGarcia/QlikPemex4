@@ -8,6 +8,7 @@ Partial Class _Default
             inicializar()
             llenar("")
             Me.Cache("Selecciones") = selecciones
+            MyAccordion.SelectedIndex = -1
         End If
     End Sub
     Public Function Generic(ByVal sql As String) As DataSet
@@ -94,6 +95,9 @@ Partial Class _Default
             ds = dsAux
 
         End If
+        '' LLenar Grid
+        GridView1.DataSource = ds.Tables(0)
+        GridView1.DataBind()
 
         LbPozo.DataSource = (From Pozo In ds.Tables(0) _
                             Select Pozo.Field(Of String)("NPozo")).Distinct()
@@ -133,9 +137,10 @@ Partial Class _Default
                                         .N1 = lol,
                                         .dias = Group.Sum(Function(x) x.Field(Of Double)("floatTiempo") / 24)}
 
-        Dim listaNiveles(lista.Count) As String
-        Dim listaDias(lista.Count) As Double
-        For i As Integer = 0 To lista.Count - 1
+        Dim tamano As Integer = lista.Count
+        Dim listaNiveles(tamano) As String
+        Dim listaDias(tamano) As Double
+        For i As Integer = 0 To tamano - 1
             listaNiveles(i) = lista(i).N1
             listaDias(i) = lista(i).dias.ToString("0.00")
         Next
@@ -144,8 +149,6 @@ Partial Class _Default
 
         Chart1.Series("Series1").Points.DataBindXY(listaNiveles, listaDias)
         Me.Chart1.Legends(0).Alignment = Drawing.StringAlignment.Near
-
-
     End Sub
 
     Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
@@ -163,16 +166,27 @@ Partial Class _Default
     Protected Sub Button4_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button4.Click
         LlenarGraficas("N4", 0, Me.Cache("actual"))
     End Sub
+    Function validarDs(ds As DataSet, mensaje As String) As Boolean
+        If ds.Tables.Count = 0 Then
+            LblMsg.Text = "* No se encontró " & mensaje
+            Return False
+        End If
+        LblMsg.Text = ""
+        Return True
+    End Function
     Public Sub manejadorLista(ByVal textBox As String, ByVal lista As ListBox, ByVal campoBuscar As String)
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
         lista.Items.Remove(0)
         Dim ds3 As New DataSet
+        Dim msg As String = textBox & "en la lista "
         ds3.Merge(ds.Tables(0).Select(campoBuscar & " LIKE '%" & textBox & "%'"))
-        lista.Items.Clear()
-        lista.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)(campoBuscar)).Distinct()
-        lista.DataBind()
+        If validarDs(ds3, msg) Then
+            lista.Items.Clear()
+            lista.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)(campoBuscar)).Distinct()
+            lista.DataBind()
+        End If
 
     End Sub
     Protected Sub TxtPozos_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TxtPozos.TextChanged

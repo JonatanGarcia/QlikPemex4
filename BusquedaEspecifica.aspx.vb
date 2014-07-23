@@ -7,6 +7,7 @@ Partial Class _Default
         If Not IsPostBack Then
             inicializar()
             llenar("")
+            MyAccordion.SelectedIndex = -1
         End If
 
     End Sub
@@ -18,7 +19,7 @@ Partial Class _Default
         movimientos(LbFinal, LbInicial)
     End Sub
 
-    Sub movimientos(ByVal lista1 As ListBox, ByVal lista2 As ListBox)
+    Sub movimientos(ByVal lista1 As ListBox, ByVal lista2 As ListBox) ', posicion As Integer, campoBusqueda As String)
         Dim seleccion As Integer
         seleccion = lista1.GetSelectedIndices.Count
         Dim aux As Integer = 0
@@ -28,6 +29,9 @@ Partial Class _Default
                 lista2.Items.Add(lista1.Items(i).Text)
                 lista2.Items(lista2.Items.Count - 1).Value = lista1.Items(i).Value
                 index.Add(lista1.SelectedIndex)
+
+
+
                 aux = aux + 1
                 If aux = seleccion Then
                     Exit For
@@ -130,53 +134,53 @@ Partial Class _Default
         LbAnio.DataBind()
 
     End Sub
-    Public Function obtenerSeleccionados(ByVal lista As ListBox, ByVal campoBusqueda As String, ByVal posicion As Integer) As String
-        Dim ultimo As Integer = lista.GetSelectedIndices.Count
-        Dim aux As Integer = 0
-        Dim busqueda As New StringBuilder
+    'Public Function obtenerSeleccionados(ByVal lista As ListBox, ByVal campoBusqueda As String, ByVal posicion As Integer) As String
+    '    Dim ultimo As Integer = lista.GetSelectedIndices.Count
+    '    Dim aux As Integer = 0
+    '    Dim busqueda As New StringBuilder
 
-        Dim ds As New DataSet
-        ds = Me.Cache("myTestCache")
+    '    Dim ds As New DataSet
+    '    ds = Me.Cache("myTestCache")
 
-        Dim muestaBusqueda As New StringBuilder
+    '    Dim muestaBusqueda As New StringBuilder
 
-        Select Case posicion
-            Case 0
-                muestaBusqueda.Append("Año= ")
-            Case 1
-                muestaBusqueda.Append("Intervencion= ")
-            Case 2
-                muestaBusqueda.Append("Pozo= ")
-            Case 3
-                muestaBusqueda.Append("Plataforma= ")
-            Case 4
-                muestaBusqueda.Append("Equipo= ")
-        End Select
-
-
-        busqueda.Append(campoBusqueda).Append(" IN('")
-        For i As Integer = 0 To lista.Items.Count
-            If lista.Items(i).Selected Then
-                'busqueda.Append(campoBusqueda).Append("='").Append(lista.Items(i).ToString).Append("',")
-                busqueda.Append(lista.Items(i).ToString).Append("','")
-                muestaBusqueda.Append(lista.Items(i).ToString).Append(", ")
-                aux = aux + 1
-                If aux = ultimo Then
-                    Exit For
-                End If
-            End If
-        Next
-
-        LbSelecciones.Items.Add(muestaBusqueda.ToString().Substring(0, muestaBusqueda.Length - 2))
-        LbSelecciones.Items.Item(LbSelecciones.Items.Count - 1).Value = posicion
+    '    Select Case posicion
+    '        Case 0
+    '            muestaBusqueda.Append("Año= ")
+    '        Case 1
+    '            muestaBusqueda.Append("Intervencion= ")
+    '        Case 2
+    '            muestaBusqueda.Append("Pozo= ")
+    '        Case 3
+    '            muestaBusqueda.Append("Plataforma= ")
+    '        Case 4
+    '            muestaBusqueda.Append("Equipo= ")
+    '    End Select
 
 
-        selecciones = Me.Cache("Selecciones")
-        selecciones(posicion) = busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
-        Me.Cache("Selecciones") = selecciones
+    '    busqueda.Append(campoBusqueda).Append(" IN('")
+    '    For i As Integer = 0 To lista.Items.Count
+    '        If lista.Items(i).Selected Then
+    '            'busqueda.Append(campoBusqueda).Append("='").Append(lista.Items(i).ToString).Append("',")
+    '            busqueda.Append(lista.Items(i).ToString).Append("','")
+    '            muestaBusqueda.Append(lista.Items(i).ToString).Append(", ")
+    '            aux = aux + 1
+    '            If aux = ultimo Then
+    '                Exit For
+    '            End If
+    '        End If
+    '    Next
 
-        Return busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
-    End Function
+    '    LbSelecciones.Items.Add(muestaBusqueda.ToString().Substring(0, muestaBusqueda.Length - 2))
+    '    LbSelecciones.Items.Item(LbSelecciones.Items.Count - 1).Value = posicion
+
+
+    '    selecciones = Me.Cache("Selecciones")
+    '    selecciones(posicion) = busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
+    '    Me.Cache("Selecciones") = selecciones
+
+    '    Return busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
+    'End Function
  
     Protected Sub Button3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button3.Click
         movimientos(LbAnio,LbAnioFinal)
@@ -333,7 +337,7 @@ Partial Class _Default
     Public Function validarRangos() As Boolean
         LblError.Text = ""
         If TxtFechaFinal.Text < TxtFechaInicial.Text Then
-            LblError.Text = "Verifique su rango de fechas"
+            LblError.Text = "* Verifique su rango de fechas"
             MyAccordion.SelectedIndex = 0
             Return False
         End If
@@ -361,16 +365,27 @@ Partial Class _Default
         Return
     End Sub
 
+    Function validarDs(ds As DataSet, mensaje As String) As Boolean
+        If ds.Tables.Count = 0 Then
+            LblMsg.Text = "* No se encontró " & mensaje
+            Return False
+        End If
+        LblMsg.Text = ""
+        Return True
+    End Function
     Protected Sub TextBox3_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & TextBox3.Text & "%'"))
-        LbPozo.Items.Clear()
-        LbPozo.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("NPozo")).Distinct()
-        LbPozo.DataBind()
+        Dim msg As String = TextBox3.Text & " en la lista Pozo"
+        If validarDs(ds3, msg) Then
+            LbPozo.Items.Clear()
+            LbPozo.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("NPozo")).Distinct()
+            LbPozo.DataBind()
+        End If
         bandera = False
     End Sub
 
@@ -380,10 +395,14 @@ Partial Class _Default
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("Equ LIKE '%" & TextBox5.Text & "%'"))
-        LbEquipo.Items.Clear()
-        LbEquipo.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("Equ")).Distinct()
-        LbEquipo.DataBind()
+        Dim msg As String = TextBox5.Text & " en la lista Equipo"
+        If validarDs(ds3, msg) Then
+            LbEquipo.Items.Clear()
+            LbEquipo.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("Equ")).Distinct()
+            LbEquipo.DataBind()
+        End If
+        bandera = False
     End Sub
 
     Protected Sub TextBox4_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
@@ -392,10 +411,14 @@ Partial Class _Default
         LbAnio.Items.Remove(0)
         Dim ds3 As New DataSet
         ds3.Merge(ds.Tables(0).Select("plata LIKE '%" & TextBox4.Text & "%'"))
-        LbPlataforma.Items.Clear()
-        LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
-                            Select Pozo.Field(Of String)("plata")).Distinct()
-        LbPlataforma.DataBind()
+        Dim msg As String = TextBox4.Text & " en la lista Plataforma"
+        If validarDs(ds3, msg) Then
+            LbPlataforma.Items.Clear()
+            LbPlataforma.DataSource = (From Pozo In ds3.Tables(0) _
+                                Select Pozo.Field(Of String)("plata")).Distinct()
+            LbPlataforma.DataBind()
+        End If
+        bandera = False
     End Sub
 
     Protected Sub Button13_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button13.Click
@@ -456,4 +479,25 @@ Partial Class _Default
             Response.End()
         End If
     End Sub
+
+
+    'Protected Sub LbSelecciones_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LbSelecciones.SelectedIndexChanged
+    '    If LbSelecciones.Items.Count > 1 Then
+    '        For i As Integer = 0 To LbSelecciones.Items.Count - 1
+    '            If LbSelecciones.Items(i).Selected Then
+    '                selecciones = Me.Cache("Selecciones")
+    '                selecciones(LbSelecciones.Items.Item(i).Value) = ""
+    '                Me.Cache("Selecciones") = selecciones
+    '                LbSelecciones.Items.Remove(LbSelecciones.Items(i))
+    '                llenar("busca")
+    '                Exit For
+    '            End If
+    '        Next
+    '    Else
+    '        Me.Cache.Remove("Selecciones")
+    '        Me.Cache("Selecciones") = selecciones
+    '        LbSelecciones.Items.Clear()
+    '        llenar("")
+    '    End If
+    'End Sub
 End Class

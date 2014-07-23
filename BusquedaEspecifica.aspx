@@ -49,8 +49,24 @@
             <br />
             
     <br />
-  <asp:ListBox runat="server" ID="LbSelecciones" Width="230px" CssClass="list-group-item"></asp:ListBox>
-            
+
+<%--   <table>
+    
+                <tr>
+                <th class="style001">
+                    <asp:Label ID="Label8" runat="server" Text="Selecciones Actuales"></asp:Label>
+                </th>
+                </tr>
+                <tr>
+                 <th>
+                       <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
+                           Font-Overline="False" Font-Underline="True" AutoPostBack="True">
+                       </asp:ListBox>
+                 </th>
+                </tr>
+
+                        </table>
+            --%>
     <aspS:Accordion
     ID="MyAccordion"
     runat="Server"
@@ -161,41 +177,41 @@
           <aspS:AccordionPane ID="AccordionPane3" runat="server">
             <Header> Filtros</Header>
             <Content>
+                <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
                <table>
                     <tr>
-                        <td class="style12">
-                            <table>
+                        <%-- pozo --%>
+                        <td>
+                             <table>
                                 <tr>
-                                    <%-- AQUI VA EL AÑO --%>
-                                     
                                     <td class="style001" colspan="2">
-                                     <asp:Label ID="Label6" runat="server" Text="Plataforma"></asp:Label>
-                                    </td>
+                                        <asp:Label ID="Label5" runat="server" Text="Pozo"></asp:Label>
+                                        </td>
                                     <td class="style001">
-                                        <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server" 
-                                            TargetControlID="TextBox4" WatermarkCssClass="watermarked" 
-                                            WatermarkText="Busqueda de Plataforma" />
+                                        <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
+                                        <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
+                                            TargetControlID="TextBox3" WatermarkCssClass="watermarked" 
+                                            WatermarkText="Busqueda de pozo" />
                                     </td>
-                                    
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <asp:ListBox ID="LbAnio" runat="server"
+                                    <td><asp:ListBox ID="LbPozo" runat="server"
                                             SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
+                                        
                                     </td>
                                     <td>
-                                        <asp:Button ID="Button3" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
+                                        <asp:Button ID="Button8" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
                                         <br />
                                         <br />
-                                        <asp:Button ID="Button4" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
+                                        <asp:Button ID="Button7" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
                                     </td>
                                     <td>
-                                        <asp:ListBox ID="LbAnioFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                        <asp:ListBox ID="LbPozoFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
                                     </td>
                                 </tr>
                             </table>
                         </td>
+                        <%-- end pozo --%>
                         <td class="style12"></td>
                         <td>
                             <table>
@@ -223,45 +239,20 @@
                         </td>
                     </tr>
                      <tr>
-                        <td>
-                             <table>
+                         <%-- plataforma --%>
+                          <td class="style12">
+                            <table>
                                 <tr>
                                     <td class="style001" colspan="2">
-                                        <asp:Label ID="Label5" runat="server" Text="Pozo"></asp:Label>
-                                        </td>
+                                     <asp:Label ID="Label6" runat="server" Text="Plataforma"></asp:Label>
+                                    </td>
                                     <td class="style001">
-                                        <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
-                                            TargetControlID="TextBox3" WatermarkCssClass="watermarked" 
-                                            WatermarkText="Busqueda de pozo" />
+                                        <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
+                                        <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server" 
+                                            TargetControlID="TextBox4" WatermarkCssClass="watermarked" 
+                                            WatermarkText="Busqueda de Plataforma" />
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td><asp:ListBox ID="LbPozo" runat="server"
-                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
-                                        
-                                    </td>
-                                    <td>
-                                        <asp:Button ID="Button8" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
-                                        <br />
-                                        <br />
-                                        <asp:Button ID="Button7" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
-                                    </td>
-                                    <td>
-                                        <asp:ListBox ID="LbPozoFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td></td>
-                        <td>
-                             <table>
-                                <tr>
-                                    <%-- AQUI VA LA PLATAFORMA --%>
-                                   <td class="style001"
-                                        colspan="3">
-                                        <asp:Label ID="Label3" runat="server" Text="Año"></asp:Label>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>
@@ -279,6 +270,34 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                         <%-- end plataforma --%>
+                        <td></td>
+                        <td>
+                             <table>
+                                <tr>
+                                   <td class="style001"
+                                        colspan="3">
+                                        <asp:Label ID="Label3" runat="server" Text="Año"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <%-- aqui va el año --%>
+                                    <td>
+                                        <asp:ListBox ID="LbAnio" runat="server"
+                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="Button3" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
+                                        <br />
+                                        <br />
+                                        <asp:Button ID="Button4" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
+                                    </td>
+                                    <td>
+                                        <asp:ListBox ID="LbAnioFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                </tr>
+                            </table>
                             
                         </td>
                     </tr>
@@ -290,7 +309,7 @@
                                             <asp:Label ID="Label7" runat="server" Text="Equipo"></asp:Label>
                                         </td>
                                         <td class="style001">
-                                            <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control"></asp:TextBox>
+                                            <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                             <aspS:TextBoxWatermarkExtender ID="TBWE3" runat="server" 
                                                 TargetControlID="TextBox5" WatermarkCssClass="watermarked" 
                                                 WatermarkText="Busqueda de Equipo" />
