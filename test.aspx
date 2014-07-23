@@ -8,8 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NPT's WEB</title>
-    <link href="Content/Site.css"
-        rel="stylesheet" type="text/css" />
+    <link href="Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/jquery-1.10.2.js" type="text/javascript"></script>
@@ -17,6 +16,7 @@
     <script src="Scripts/respond.js" type="text/javascript"></script>
 </head>
 <body>
+    <form id="form1" runat="server">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -43,6 +43,9 @@
             <p>&copy;<% =Date.Now.Year%> - NPT's WEB</p>
         </footer>
     </div>
+        
+        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
+    </form>
 
 </body>
 </html>
