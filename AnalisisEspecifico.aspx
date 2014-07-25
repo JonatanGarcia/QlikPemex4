@@ -26,6 +26,7 @@
             runat="server">
         </asp:ScriptManager>
     <br />
+    <br />
      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
            <table>
@@ -44,6 +45,10 @@
             </table>
    
             <asp:Button ID="Button5" runat="server" Text="Atras" CssClass="btn btn-default" />
+  
+            <asp:HiddenField ID="HiddenField1" runat="server" />
+  
+            <asp:Button ID="Button6" runat="server" CssClass="btn btn-default" Text="Exportar" />
   
             <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
                             ContentCssClass="accordionContent" FadeTransitions="true" FramesPerSecond="40" 
@@ -241,6 +246,9 @@
                 </tr>
             </table>
         </ContentTemplate>
+         <Triggers>
+             <asp:PostBackTrigger ControlID="Button6"/>
+         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
 

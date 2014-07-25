@@ -80,11 +80,11 @@ Partial Class _Default
     Sub llenar(ByVal busqueda As String) 'LISTA
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
-
+        HiddenField1.Value = busqueda
         If busqueda <> "" Then
 
             Dim newBusqueda As New StringBuilder
-
+            selecciones = Me.Cache("Selecciones")
             For i As Integer = 0 To selecciones.Length - 1
                 If selecciones(i) <> "" Then
                     newBusqueda.Append(selecciones(i)).Append("AND ")
@@ -287,6 +287,88 @@ Partial Class _Default
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Remove(LbSelecciones.Items(LbSelecciones.Items.Count - 1))
             llenar("busca")
+        Else
+            Me.Cache.Remove("Selecciones")
+            Me.Cache("Selecciones") = selecciones
+            LbSelecciones.Items.Clear()
+            llenar("")
+        End If
+    End Sub
+
+    Dim bandera As Boolean = True
+    Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        If bandera Then
+            Dim sw As New System.IO.StringWriter()
+            Dim htw As New HtmlTextWriter(sw)
+
+
+            Dim ds As New DataSet
+            ds = Me.Cache("myTestCache")
+
+            If LbSelecciones.Items.Count <> 0 Then
+                selecciones = Me.Cache("Selecciones")
+                Dim newBusqueda As New StringBuilder
+                For i As Integer = 0 To selecciones.Length - 1
+                    If selecciones(i) <> "" Then
+                        newBusqueda.Append(selecciones(i)).Append("AND ")
+                    End If
+                Next
+                Dim dsAux As New DataSet
+                'dsAux.Merge(ds.Tables(0).Select(busqueda))
+                dsAux.Merge(ds.Tables(0).Select(newBusqueda.ToString.Substring(0, newBusqueda.Length - 4)))
+                ds = dsAux
+            End If
+
+            Response.Clear()
+            Response.Buffer = True
+            Response.ContentType = "application/ms-excel"
+            Response.AddHeader("content-Disposition", "attachment;filename=Example.xls")
+
+
+
+            GridView1.EnableViewState = False
+            GridView1.AllowPaging = False
+            '' LLenar Grid
+            GridView1.DataSource = ds.Tables(0)
+            GridView1.DataBind()
+
+            GridView1.RenderControl(htw)
+            Response.Charset = "UTF-8"
+            Response.ContentEncoding = Encoding.Default
+
+
+            Response.Write(sw.ToString)
+            Response.End()
+
+
+            'inicializar()
+            'llenar("")
+            ''llenaGrid()
+            'Me.Cache("Selecciones") = selecciones
+        End If
+    End Sub
+    Public Overrides Sub VerifyRenderingInServerForm(ByVal control As Control)
+        Return
+    End Sub
+
+    Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
+        Dim newPageNumber As Integer = e.NewPageIndex + 1
+        GridView1.PageIndex = e.NewPageIndex
+        llenar(HiddenField1.Value)
+    End Sub
+
+    Protected Sub LbSelecciones_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LbSelecciones.SelectedIndexChanged
+        If LbSelecciones.Items.Count > 1 Then
+            For i As Integer = 0 To LbSelecciones.Items.Count - 1
+                If LbSelecciones.Items(i).Selected Then
+                    selecciones = Me.Cache("Selecciones")
+                    selecciones(LbSelecciones.Items.Item(i).Value) = ""
+                    Me.Cache("Selecciones") = selecciones
+                    LbSelecciones.Items.Remove(LbSelecciones.Items(i))
+                    llenar("busca")
+                    Exit For
+                End If
+            Next
         Else
             Me.Cache.Remove("Selecciones")
             Me.Cache("Selecciones") = selecciones

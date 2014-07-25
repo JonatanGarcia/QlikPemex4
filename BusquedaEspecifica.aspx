@@ -39,12 +39,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <asp:scriptmanager runat="server"></asp:scriptmanager>
-    <asp:Button ID="Button13" CssClass="btn btn-default" runat="server" Text="Exportar" />
+    
             
     <asp:updatepanel runat="server">
         <ContentTemplate>
       
 <asp:Button runat="server" Text="Buscar" CssClass="btn btn-default" onclick="Unnamed3_Click"></asp:Button>
+            <asp:Button ID="Button13" CssClass="btn btn-default" runat="server" Text="Exportar" />
             <br />
             <br />
             
@@ -82,59 +83,9 @@
     SuppressHeaderPostbacks="true">
     <Panes>
         <aspS:AccordionPane runat="server">
-            <Header> Rangos </Header>
-            <Content> 
-                 <table class="style8">
-  
-        <tr>
-            <td class="style11">
-                <asp:Label ID="Label1" runat="server" Text="Fecha Inicio"></asp:Label>
-                </td>
-            <td class="style10">
-                <asp:TextBox ID="TxtFechaInicial" runat="server" CssClass="form-control"></asp:TextBox>
-                 <aspS:CalendarExtender ID="TextBox1_CalendarExtender" runat="server" 
-                    Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaInicial">
-                </aspS:CalendarExtender>
-            </td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style11">
-                <asp:Label ID="Label2" runat="server" Text="Fecha Fin"></asp:Label>
-                </td>
-            <td class="style10">
-                <asp:TextBox ID="TxtFechaFinal" runat="server" CssClass="form-control"></asp:TextBox>
-                 <aspS:CalendarExtender ID="TextBox2_CalendarExtender" runat="server" 
-                    Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaFinal">
-                </aspS:CalendarExtender>
-                  
-            </td>
-            <td>
-                &nbsp;</td>
-            <td>
-               <asp:Label ID="LblError" runat="server" ForeColor="Red"></asp:Label></td>
-        </tr>
-        <tr>
-            <td class="style11">
-                &nbsp;</td>
-            <td class="style10">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-    </table>
-            </Content>
-        </aspS:AccordionPane>        
-
-          <aspS:AccordionPane ID="AccordionPane2" runat="server">
+            <%-- Valor a mostrar --%>
             <Header> Valores a Mostrar</Header>
             <Content>
-               
                 <table>
                     <tr>
                         <td>
@@ -173,6 +124,59 @@
                 </table>
             
             </Content>
+
+            <%--  --%>
+        </aspS:AccordionPane>        
+
+          <aspS:AccordionPane ID="AccordionPane2" runat="server">
+              <%-- Filtro --%>
+              <Header> Rangos </Header>
+                <Content> 
+                <table class="style8">
+                    <tr>
+                        <td class="style11">
+                            <asp:Label ID="Label1" runat="server" Text="Fecha Inicio"></asp:Label>
+                        </td>
+                    <td class="style10">
+                         <asp:TextBox ID="TxtFechaInicial" runat="server" CssClass="form-control"></asp:TextBox>
+                         <aspS:CalendarExtender ID="TextBox1_CalendarExtender" runat="server" 
+                            Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaInicial">
+                            </aspS:CalendarExtender>
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="style11">
+                        <asp:Label ID="Label2" runat="server" Text="Fecha Fin"></asp:Label>
+                    </td>
+                    <td class="style10">
+                         <asp:TextBox ID="TxtFechaFinal" runat="server" CssClass="form-control"></asp:TextBox>
+                         <aspS:CalendarExtender ID="TextBox2_CalendarExtender" runat="server" 
+                            Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaFinal">
+                         </aspS:CalendarExtender>
+                  
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                       <asp:Label ID="LblError" runat="server" ForeColor="Red"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td class="style11">
+                        &nbsp;</td>
+                    <td class="style10">
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+            </table>
+           </Content>
+              <%--  --%>
         </aspS:AccordionPane>
           <aspS:AccordionPane ID="AccordionPane3" runat="server">
             <Header> Filtros</Header>
@@ -465,6 +469,9 @@
             <br />            
             
 </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="Button13" />
+        </Triggers>
 </asp:updatepanel>
 
 </asp:Content>

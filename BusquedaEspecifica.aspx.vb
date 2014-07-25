@@ -23,23 +23,22 @@ Partial Class _Default
         Dim seleccion As Integer
         seleccion = lista1.GetSelectedIndices.Count
         Dim aux As Integer = 0
-        Dim index As New List(Of Integer)
+        Dim index As New List(Of ListItem)
         For i As Integer = 0 To lista1.Items.Count - 1
             If lista1.Items(i).Selected Then
                 lista2.Items.Add(lista1.Items(i).Text)
                 lista2.Items(lista2.Items.Count - 1).Value = lista1.Items(i).Value
-                index.Add(lista1.SelectedIndex)
-
-
-
+                index.Add(lista1.Items(i))
                 aux = aux + 1
                 If aux = seleccion Then
                     Exit For
                 End If
             End If
         Next
+
         For i As Integer = 0 To index.Count - 1
-            lista1.Items.Remove(lista1.Items(index(i)))
+            'lista1.Items.Remove(lista1.Items(index(i)))   'poner la lista de items
+            lista1.Items.Remove(index(i))   'poner la lista de items
         Next
     End Sub
     Public Function Generic(ByVal sql As String) As DataSet
@@ -429,6 +428,7 @@ Partial Class _Default
             Dim ds As New DataSet
 
             ds = Me.Cache("pageIndex")
+
 
 
             Dim countAnio, countPozo, countEquipo, countIntervencion, countPlataforma As Integer

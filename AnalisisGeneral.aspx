@@ -46,53 +46,59 @@
             text-align: center;
             font-weight: bold;
             }
-        .auto-style1 {
-            background-color: #333333;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            width: 1097px;
-        }
-        .auto-style2 {
-            width: 1097px;
-        }
           .style12
         {
             width: 440px;
         }
+
+        .auto-style1 {
+            height: 22px;
+        }
+
+        .auto-style2 {
+            height: 22px;
+            width: 782px;
+        }
+
+        .style001
+        {
+            background-color: #244767;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: bold;
+            }
+
         </style>
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <asp:Button ID="Button4" runat="server" Text="Exportar" CssClass="btn btn-default"/>
-            
             
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-          <table>
-    
-                <tr>
-                <th class="style001">
-                    <asp:Label ID="Label6" runat="server" Text="Selecciones Actuales"></asp:Label>
-                </th>
-                </tr>
-                <tr>
-                 <th>
-                       <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
-                           Font-Overline="False" Font-Underline="True" AutoPostBack="True">
-                       </asp:ListBox>
-                 </th>
-                </tr>
-
-                        </table>
-            
-    
-            <asp:Button ID="Button1" runat="server" Text="Recargar" CssClass="btn btn-default"/>
-            <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-default"/>
-            <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-default" />
-            
+        <ContentTemplate>            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <h4>Opción</h4>
+                            <hr />
+                         <asp:Button ID="Button4" runat="server" CssClass="btn btn-primary" Text="Exportar" />      
+                    </div>
+                
+                <div class="col-md-4">
+                        <h4><asp:Label ID="Label1" runat="server" Text="Selecciones Actuales"></asp:Label></h4>
+                        <hr />
+                        <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
+                            Font-Overline="False" Font-Underline="True" AutoPostBack="True">
+                        </asp:ListBox>
+                        <br />
+                        <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-default"/>
+                        <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-default" />
+                </div>             
+                    </div>
+             </div>     
+                      
+                       
             <asp:HiddenField ID="HiddenField1" runat="server" />
 
             <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
@@ -337,15 +343,12 @@
                     </td>
                 </tr>
             </table>
+
             <table>
                 <tr>
                     <th class="style11">
                         <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
                             Width="768px">
-                            <Series>
-                                <asp:Series ChartArea="ChartArea1" Font="Microsoft Sans Serif, 8.25pt" Name="Series1">
-                                </asp:Series>
-                            </Series>
                             <chartareas>
                                 <asp:ChartArea Name="ChartArea1">
                                     <AxisY Crossing="Min" IsReversed="True" Minimum="0">
@@ -379,5 +382,8 @@
                 </tr>
             </table>
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="Button4" />
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

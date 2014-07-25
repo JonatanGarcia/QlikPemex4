@@ -1,4 +1,6 @@
 ﻿Imports System.Data
+Imports System.Drawing
+
 Partial Class _Default
     Inherits System.Web.UI.Page
 
@@ -89,7 +91,7 @@ Partial Class _Default
         ds = Me.Cache("myTestCache")
         Dim ds3 As New DataSet
         'ds3.Merge(ds.Tables(0).Select("idPozo=1 AND idTipo=1", "intCon ASC"))  'EL SEGUNDO PARAMETRO ES ORDER BY
-       
+
 
         Dim x1 As Double() = {0, 1, 2, 3, 4, 5, 6, 7}
         Dim y1 As Double() = {0, 200, 500, 500, 900, 980, 1500, 2000}
@@ -117,8 +119,21 @@ Partial Class _Default
         Chart1.Series("Maloob - 51").BorderWidth = 3
         Chart1.Series("Maloob - 51").Points.DataBindXY(x2, y2)
 
-       
 
+
+    End Sub
+
+    Sub mostrar()
+        Label1.Visible = True
+        LbSelecciones.Visible = True
+        Button2.Visible = True
+        Button3.Visible = True
+    End Sub
+    Sub ocultar()
+        Label1.Visible = False
+        LbSelecciones.Visible = False
+        Button2.Visible = False
+        Button3.Visible = False
     End Sub
     Sub llenar(ByVal busqueda As String, ByVal bandera As Integer)
 
@@ -128,9 +143,9 @@ Partial Class _Default
 
         HiddenField1.Value = busqueda
         If busqueda <> "" Then
-
+            mostrar()
             Dim newBusqueda As New StringBuilder
-
+            selecciones = Me.Cache("Selecciones")
             For i As Integer = 0 To selecciones.Length - 1
                 If selecciones(i) <> "" Then
                     newBusqueda.Append(selecciones(i)).Append("AND ")
@@ -227,7 +242,7 @@ Partial Class _Default
             ds3 = Nothing
             Chart1.Legends.Add("Legenda1")
         End If
-       
+
 
 
 
@@ -255,6 +270,7 @@ Partial Class _Default
         '                       Select Plataforma.Field(Of Double)("floatTiempo")).Sum) / 24
         'MsgBox(a)
     End Sub
+   
     Protected Sub Button2_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button2.Click
         LbPozo.ClearSelection()
         LbEquipo.ClearSelection()
@@ -263,7 +279,7 @@ Partial Class _Default
         LbAnio.ClearSelection()
         LbSelecciones.Items.Clear()
         HiddenField1.Value = ""
-
+        ocultar()
         Me.Cache.Remove("Selecciones")
         Me.Cache("Selecciones") = selecciones
         llenar("", 0)
@@ -413,9 +429,10 @@ Partial Class _Default
             Me.Cache.Remove("Selecciones")
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Clear()
+            ocultar()
             llenar("", 0)
         End If
-        
+
     End Sub
 
     Protected Sub LbSelecciones_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles LbSelecciones.SelectedIndexChanged
@@ -485,10 +502,10 @@ Partial Class _Default
             Response.Write(sw.ToString)
             Response.End()
 
-            inicializar()
-            llenar("", 0)
-            'llenaGrid()
-            Me.Cache("Selecciones") = selecciones
+            'inicializar()
+            'llenar("", 0)
+            ''llenaGrid()
+            'Me.Cache("Selecciones") = selecciones
         End If
     End Sub
     Public Overrides Sub VerifyRenderingInServerForm(ByVal control As Control)
