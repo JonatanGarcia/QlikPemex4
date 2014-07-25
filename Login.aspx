@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Login.aspx.vb" Inherits="Login" %>
+﻿    <%@ Page Language="VB" AutoEventWireup="false" CodeFile="Login.aspx.vb" Inherits="Login" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,6 +11,14 @@
     <link href="Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .auto-style1 {
+            height: 40px;
+        }
+        .auto-style2 {
+            height: 20px;
+        }
+    </style>
 </head>
 <body style="background-image: url(images/Bubble.png)">
     <form id="form1" runat="server">
@@ -28,42 +36,76 @@
                 </tr>
                 <tr>
                     <td>
-                        <img alt="Stin" class="auto-style1" src="images/stin.png" >                       
+                        <img alt="Stin" src="images/stin.png" >                       
                     </td>                     
                 </tr>                
                 <tr>
                     <td>Tiempos No Productivos</td>
                 </tr>
-                <tr align="center">
-                    <td>
-                        <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:TextBoxWatermarkExtender ID="txtUsuario_TextBoxWatermarkExtender" runat="server" Enabled="True" TargetControlID="txtUsuario" WatermarkText="Usuario">
-                        </asp:TextBoxWatermarkExtender>
-                    </td>
-                </tr>
                 <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
-                        <asp:TextBoxWatermarkExtender ID="txtPassword_TextBoxWatermarkExtender" runat="server" Enabled="True" TargetControlID="txtPassword" WatermarkText="Password">
-                        </asp:TextBoxWatermarkExtender>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="btn btn-info" />
+                    <td align="center">
+                        <asp:Login ID="Login1" runat="server" OnAuthenticate="ValidateUser" FailureText="*Usuario o Password incorrecto">
+                            <LayoutTemplate>
+                                <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                                    <tr>
+                                        <td>
+                                            <table cellpadding="0">
+                                                <tr>
+                                                    <td align="center" colspan="2">Iniciar sesión</td>
+                                                    <td align="center">&nbsp;</td>
+                                                </tr>
+                                                <tr align="right" valign="top">
+                                                    <td>
+                                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="labelwhiteTrim">Usuario:</asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="UserName" runat="server" CssClass="form-control" ValidationGroup="login1"></asp:TextBox>
+                                                    </td>
+                                                    <td>
+                                                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="El nombre de usuario es obligatorio." ToolTip="El nombre de usuario es obligatorio." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr align="right" valign="top">
+                                                    <td>
+                                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"  CssClass="labelwhiteTrim">Contraseña:</asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                                                    </td>
+                                                    <td><asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="auto-style1" valign="middle">
+                                                        <asp:CheckBox ID="RememberMe" runat="server" Text="Recordármelo la próxima vez." CssClass="checkbox" />
+                                                    </td>
+                                                    <td class="auto-style1"></td>
+                                                </tr>                                                
+                                                <tr>
+                                                    <td align="center" colspan="2" style="color: Red;" valign="top">
+                                                        <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                    </td>
+                                                    <td align="right">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" colspan="2">
+                                                        <asp:Button ID="LoginButton" runat="server" CommandName="Login" CssClass="btn btn-info" Text="Inicio de sesión" ValidationGroup="Login1" />
+                                                    </td>
+                                                    <td align="right">&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </LayoutTemplate>
+                        </asp:Login>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         &nbsp;</td>
                 </tr>
-            </table>
+                </table>
         </div>
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>

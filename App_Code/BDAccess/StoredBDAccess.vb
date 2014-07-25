@@ -53,6 +53,32 @@ Public Class StoredBDAccess
         Return ds
     End Function
 
+    Public Function validateUser(ByVal descripcion As DescripParametros) As Integer
+        Dim user As Integer
+        Dim ds As New DataSet
+        Dim obj As New Object
+        Try
+            _Adaptador = New SqlDataAdapter
+            _Commando.CommandText = descripcion.Nombre
+            _Commando.CommandType = CommandType.StoredProcedure
+            _Commando.Connection = _Conexion
+            _Conexion.Open()
+            _Commando.Parameters.Clear()
+            For i As Integer = 0 To descripcion.ListParametros.Count - 1
+                _Commando.Parameters.Add(descripcion.ListParametros(i).NombreParamtero, descripcion.ListParametros(i).TipoDato, descripcion.ListParametros(i).Valor.Length).Value = descripcion.ListParametros(i).Valor
+            Next
+            _Adaptador.SelectCommand = _Commando
+            _Adaptador.Fill(ds)            
+            user = ds.Tables(0).Rows(0).Item(0)
+        Catch ex As Exception
+            Throw ex
+        Finally
+            _Conexion.Close()
+        End Try
+        Return user
+    End Function
+    
+
 #End Region
 
 
