@@ -44,30 +44,17 @@
     <asp:updatepanel runat="server">
         <ContentTemplate>
       
-<asp:Button runat="server" Text="Buscar" CssClass="btn btn-default" onclick="Unnamed3_Click"></asp:Button>
-            <asp:Button ID="Button13" CssClass="btn btn-default" runat="server" Text="Exportar" />
-            <br />
-            <br />
-            
-    <br />
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <h3>Busqueda Especifica</h3>
+                        <hr />
+                        <asp:Button ID="Button13" CssClass="btn btn-success" runat="server" Text="Exportar" />
+                        <asp:Button runat="server" Text="Buscar" CssClass="btn btn-primary" onclick="Unnamed3_Click"></asp:Button>
+                    </div>
+                </div>
+            </div>
 
-<%--   <table>
-    
-                <tr>
-                <th class="style001">
-                    <asp:Label ID="Label8" runat="server" Text="Selecciones Actuales"></asp:Label>
-                </th>
-                </tr>
-                <tr>
-                 <th>
-                       <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
-                           Font-Overline="False" Font-Underline="True" AutoPostBack="True">
-                       </asp:ListBox>
-                 </th>
-                </tr>
-
-                        </table>
-            --%>
     <aspS:Accordion
     ID="MyAccordion"
     runat="Server"
@@ -464,10 +451,7 @@
         </aspS:AccordionPane>
      </Panes>            
     </aspS:Accordion>
-        
-            <br />
-            <br />            
-            
+       
 </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="Button13" />

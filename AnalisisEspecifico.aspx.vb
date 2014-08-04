@@ -256,7 +256,7 @@ Partial Class _Default
         selecciones = Me.Cache("Selecciones")
         selecciones(posicion) = busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
         Me.Cache("Selecciones") = selecciones
-
+        mostrar()
         Return busqueda.ToString.Substring(0, busqueda.Length - 2) & ")"
     End Function
 
@@ -280,6 +280,16 @@ Partial Class _Default
         llenar(obtenerSeleccionados(LbN4, "N4", 4))
     End Sub
 
+    Sub mostrar()
+        Button5.Visible = True
+        Label6.Visible = True
+        LbSelecciones.Visible = True
+    End Sub
+    Sub ocultar()
+        Button5.Visible = False
+        Label6.Visible = False
+        LbSelecciones.Visible = False
+    End Sub
     Protected Sub Button5_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button5.Click
         If LbSelecciones.Items.Count > 1 Then
             selecciones = Me.Cache("Selecciones")
@@ -292,6 +302,7 @@ Partial Class _Default
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Clear()
             llenar("")
+            ocultar()
         End If
     End Sub
 
@@ -373,6 +384,7 @@ Partial Class _Default
             Me.Cache.Remove("Selecciones")
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Clear()
+            ocultar()
             llenar("")
         End If
     End Sub

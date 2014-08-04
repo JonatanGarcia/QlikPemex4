@@ -451,9 +451,9 @@ Partial Class _Default
             Me.Cache.Remove("Selecciones")
             Me.Cache("Selecciones") = selecciones
             LbSelecciones.Items.Clear()
+            ocultar()
             llenar("", 0)
         End If
-
 
         'LbSelecciones.Items.Remove(LbSelecciones.SelectedItem)
         ' End If

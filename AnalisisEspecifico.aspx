@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
-    <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
+
     <style type="text/css">
         .style8 {
             width: 100%;
@@ -25,31 +25,32 @@
   <asp:ScriptManager ID="ScriptManager1" 
             runat="server">
         </asp:ScriptManager>
-    <br />
-    <br />
      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-           <table>
-                <tr>
-                    <th class="style001">
-                        <asp:Label ID="Label6" runat="server" Text="Selecciones Actuales"></asp:Label>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                       <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
-                           Font-Overline="False" Font-Underline="True" AutoPostBack="True">
+
+           
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <h3>Análisis Especifico</h3>
+                        <hr />
+                        <asp:Button ID="Button6" runat="server" CssClass="btn btn-success" Text="Exportar" />
+                        <asp:Button ID="Button5" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4><asp:Label ID="Label6" runat="server" Text="Selecciones Actuales" Visible="False"></asp:Label></h4>
+                        <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
+                           Font-Overline="False" Font-Underline="True" AutoPostBack="True" Visible="False">
                        </asp:ListBox>
-                    </th>
-                </tr>
-            </table>
-   
-            <asp:Button ID="Button5" runat="server" Text="Atras" CssClass="btn btn-default" />
-  
+                    </div>
+                </div>
+            </div>
+
+ 
+
             <asp:HiddenField ID="HiddenField1" runat="server" />
-  
-            <asp:Button ID="Button6" runat="server" CssClass="btn btn-default" Text="Exportar" />
-  
+
             <aspS:Accordion ID="MyAccordion" runat="Server" AutoSize="None" 
                             ContentCssClass="accordionContent" FadeTransitions="true" FramesPerSecond="40" 
                             HeaderCssClass="accordionHeader" 
@@ -214,41 +215,58 @@
                            </Panes>
             </aspS:Accordion>
 
-            <table>
-                <tr>
-                    <td>
-                        <asp:Button ID="Button1" runat="server" Text="Nivel 1" CssClass="btn btn-default" />
-                        <br />
-                        <asp:Button ID="Button2" runat="server" Text="Nivel 2" CssClass="btn btn-default"/>
-                        <br />
-                        <asp:Button ID="Button3" runat="server" Text="Nivel 3" CssClass="btn btn-default"/>
-                        <br />
-                        <asp:Button ID="Button4" runat="server" Text="Nivel 4" CssClass="btn btn-default"/>
-                    </td>
-                    <td>
-                        <asp:Chart ID="Chart1" runat="server" Width="980px" Height="501px">
-                            <Series>
-                                <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
-                                    Name="Series1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
-                                </asp:Series>
-                            </Series>
-                            <ChartAreas>
-                                <asp:ChartArea Name="ChartArea1">
-                                </asp:ChartArea>
-                            </ChartAreas>
-                            <Legends>
-                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
-                                </asp:Legend>
-                            </Legends>
-                        </asp:Chart>
+            <br />
+            <div class="row">
+                <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Niveles</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                                <asp:Button ID="Button1" runat="server" Text="Nivel 1" CssClass="btn btn-info" />
+                                                <br />
+                                                <br />
+                                                <asp:Button ID="Button2" runat="server" Text="Nivel 2" CssClass="btn btn-info"/>
+                                                <br />
+                                                <br />
+                                                <asp:Button ID="Button3" runat="server" Text="Nivel 3" CssClass="btn btn-info"/>
+                                                <br />
+                                                <br />
+                                                <asp:Button ID="Button4" runat="server" Text="Nivel 4" CssClass="btn btn-info"/>
+                                    </div>
+                                </div>
+                            </div>
+                <div class="col-sm-10">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Días NPT's</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                          <asp:Chart ID="Chart1" runat="server" Width="920px" Height="501px">
+                                            <Series>
+                                                <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
+                                                    Name="Series1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
+                                                </asp:Series>
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
+                                                </asp:Legend>
+                                            </Legends>
+                                        </asp:Chart>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
 
-                    </td>
-                </tr>
-            </table>
         </ContentTemplate>
          <Triggers>
              <asp:PostBackTrigger ControlID="Button6"/>
          </Triggers>
+
     </asp:UpdatePanel>
 </asp:Content>
 

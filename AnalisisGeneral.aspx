@@ -14,10 +14,7 @@
         {
             width: 100%;
         }
-        .style9
-        {
-            height: 23px;
-        }
+
         .style10
         {
             width: 586px;
@@ -30,15 +27,7 @@
         {
             width: 861px;
         } 
-        .style15
-        {
-            width: 87px;
-        }
-        .style16
-        {
-            height: 23px;
-            width: 87px;
-        }
+    
           .style001
         {
             background-color: #333333;
@@ -76,26 +65,25 @@
     </asp:ScriptManager>
             
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>            
+        <ContentTemplate>     
+                    
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-8">
-                        <h4>Opción</h4>
+                        <h3>Análisis General</h3>
                             <hr />
-                         <asp:Button ID="Button4" runat="server" CssClass="btn btn-primary" Text="Exportar" />      
+                         <asp:Button ID="Button4" runat="server" CssClass="btn btn-success" Text="Exportar" />      
+                        <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False"/>
+                        <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-primary" Visible="False" />
                     </div>
                 
-                <div class="col-md-4">
-                        <h4><asp:Label ID="Label1" runat="server" Text="Selecciones Actuales"></asp:Label></h4>
-                        <hr />
+                    <div class="col-md-4">
+                        <h4><asp:Label ID="Label1" runat="server" Text="Selecciones Actuales" Visible="False"></asp:Label></h4>
                         <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
-                            Font-Overline="False" Font-Underline="True" AutoPostBack="True">
+                            Font-Overline="False" Font-Underline="True" AutoPostBack="True" CssClass="list-group-item" Visible="False">
                         </asp:ListBox>
-                        <br />
-                        <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-default"/>
-                        <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-default" />
-                </div>             
-                    </div>
+                    </div>             
+                </div>
              </div>     
                       
                        
@@ -290,65 +278,115 @@
                             </Panes>
                         </aspS:Accordion>
             <br />
-                <table>
-                <tr>
-                   <th class="style15">
-                   </th>
-                    <th colspan="4" style="text-align: center">
-                        
-                    </th>
-                </tr>
-                <tr>
-                    <th class="style15">
-                        &nbsp;</th>
-                    <th colspan="3" rowspan="2">
-                        <table style="width: 772px">
-                            <tr>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días Perforación"></asp:Label></th>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días Terminación"></asp:Label></th>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días RMA"></asp:Label></th>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Días NPT's"></asp:Label></th>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="Continuidad OP."></asp:Label></th>
-                                <th style="background-color: #333333; color: #FFFFFF"><asp:Label runat="server" Text="#Pozos"></asp:Label></th>
-                            </tr>
-                            <tr align="center">
-                                <td>
-                                    <asp:Label ID="LbldiasPerfora" runat="server" Text="Label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LblDiasTerm" runat="server" Text="Label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LblDiasRMA" runat="server" Text="Label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LblDiasNPTS" runat="server" Text="Label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LblCO" runat="server" Text="Label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LblPozos" runat="server" Text="Label"></asp:Label>
-                                </td>
-                            </tr>
-                        </table>
-                        </th>
-                    <th>
-                        &nbsp;</th>
-                </tr>
-                <tr>
-                    <td class="style16">
-                    </td>
-                    <td class="style9">
-                    </td>
-                </tr>
-            </table>
 
-            <table>
-                <tr>
-                    <th class="style11">
-                        <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
-                            Width="768px">
+                      <div class="row">
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Días Perforación</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                    <asp:Label ID="LbldiasPerfora" runat="server" Text="Label"></asp:Label>
+                                                </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Días Terminación</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                       <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                     <asp:Label ID="LblDiasTerm" runat="server" Text="Label"></asp:Label>
+                                                </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Días RMA</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                    <asp:Label ID="LblDiasRMA" runat="server" Text="Label"></asp:Label>
+                                                </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Días NPT's</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                    <asp:Label ID="LblDiasNPTS" runat="server" Text="Label"></asp:Label>
+                                                </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Continuidad OP.</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                    <asp:Label ID="LblCO" runat="server" Text="Label"></asp:Label>
+                                                </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">#Pozos</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center>
+                                            <h4 class="panel-title">
+                                                <b>
+                                                    <asp:Label ID="LblPozos" runat="server" Text="Label"></asp:Label>
+                                                 </b>
+                                            </h4>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-8">
+                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Gráfica de Avance</h4>
+                        </div>
+                        <div class="panel-body">
+                             <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
+                            Width="720px">
                             <chartareas>
                                 <asp:ChartArea Name="ChartArea1">
                                     <AxisY Crossing="Min" IsReversed="True" Minimum="0">
@@ -358,11 +396,17 @@
                                 </asp:ChartArea>
                             </chartareas>
                         </asp:Chart>
-                    </th>
-                    <th class="style10">
-                        &nbsp;</th>
-                    <th>
-                        <asp:Chart ID="Chart2" runat="server" Width="399px" Palette="None" 
+                        </div>
+                      </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Distribución de NPT's</h4>
+                        </div>
+                    <div class="panel-body">
+                        <asp:Chart ID="Chart2" runat="server" Width="340px" Palette="None" 
                             PaletteCustomColors="Highlight; Gray; 255, 128, 0">
                             <Series>
                                 <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
@@ -374,13 +418,17 @@
                                 </asp:ChartArea>
                             </ChartAreas>
                             <Legends>
-                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
+                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8pt, style=Bold">
                                 </asp:Legend>
                             </Legends>
                         </asp:Chart>
-                    </th>
-                </tr>
-            </table>
+                    </div>
+                    </div>
+                </div>
+
+
+            </div>
+            
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="Button4" />
