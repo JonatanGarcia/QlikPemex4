@@ -15,17 +15,12 @@ Partial Class Login
             Dim busca = New DescripParametros("Valida_Usuario", listParametros)
             'ejecuta consulta y devuelve resultado
             Dim user = dao.validateUser(busca)
-            Select Case user
-                Case -1
-                    Login1.FailureText = "Usuario y/o password incorrecto."
-                    Exit Select
-                Case -2
-                    Login1.FailureText = "La cuenta no ha sido activada."
-                    Exit Select
-                Case Else
-                    FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
-                    Exit Select
-            End Select
+            If user <> -1 Then
+                Session.Add("rolUsuario", user)
+                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
+            Else
+                Login1.FailureText = "Usuario y/o password incorrecto."
+            End If
         Catch ex As Exception
             Throw ex
         End Try

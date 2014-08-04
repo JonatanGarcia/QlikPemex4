@@ -55,7 +55,7 @@
                                                     <td align="center">&nbsp;</td>
                                                 </tr>
                                                 <tr align="right" valign="top">
-                                                    <td>
+                                                    <td align="right" valign="middle">
                                                         <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="labelwhiteTrim">Usuario:</asp:Label>
                                                     </td>
                                                     <td>
@@ -66,7 +66,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr align="right" valign="top">
-                                                    <td>
+                                                    <td align="right" valign="middle">
                                                         <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"  CssClass="labelwhiteTrim">Contraseña:</asp:Label>
                                                     </td>
                                                     <td>

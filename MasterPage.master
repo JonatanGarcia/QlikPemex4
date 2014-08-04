@@ -35,16 +35,16 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivos <span class="caret"></span></a>
+                        <li id="idArchivos" runat="server" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivos<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li> <a href="FrmArchivo.aspx">Excel</a></li>                            
                             </ul>
                         </li>
 
-                        <li class="dropdown">
+                        <li id="mCatalogos" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu" role="admin">
                                 <li> <a href="FrmActividades.aspx">Actividades</a></li>
                                 <li> <a href="FrmCompanias.aspx">Compa&ntilde;ias</a></li>
                                 <li> <a href="FrmEquipos.aspx">Equipos</a></li>
@@ -61,8 +61,8 @@
                             </ul>
                        </li>
                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <span class="caret"></span></a>
+                    <li id="mReportes" runat="server" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="AnalisisGeneral.aspx">Análisis General</a></li>
                             <li><a href="AnalisisEspecifico.aspx">Análisis Especifico</a></li>
