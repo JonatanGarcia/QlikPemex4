@@ -38,42 +38,49 @@
                         <li id="idArchivos" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivos<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li> <a href="FrmArchivo.aspx">Excel</a></li>                            
+                                <li><a href="FrmArchivo.aspx">Excel</a></li>
                             </ul>
                         </li>
 
                         <li id="mCatalogos" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="admin">
-                                <li> <a href="FrmActividades.aspx">Actividades</a></li>
-                                <li> <a href="FrmCompanias.aspx">Compa&ntilde;ias</a></li>
-                                <li> <a href="FrmEquipos.aspx">Equipos</a></li>
-                                <li> <a href="FrmEtapas.aspx">Etapas</a></li>
-                                <li> <a href="FrmNptsActividades.aspx">Npts Actividades</a></li>
-                                <li> <a href="FrmPlataformas.aspx">Plataformas</a></li>
-                                <li> <a href="FrmPozos.aspx">Pozo</a></li>
-                                <li> <a href="FrmCatTr.aspx">Tr</a></li>
+                                <li><a href="FrmActividades.aspx">Actividades</a></li>
+                                <li><a href="FrmCompanias.aspx">Compa&ntilde;ias</a></li>
+                                <li><a href="FrmEquipos.aspx">Equipos</a></li>
+                                <li><a href="FrmEtapas.aspx">Etapas</a></li>
+                                <li><a href="FrmNptsActividades.aspx">Npts Actividades</a></li>
+                                <li><a href="FrmPlataformas.aspx">Plataformas</a></li>
+                                <li><a href="FrmPozos.aspx">Pozo</a></li>
+                                <li><a href="FrmCatTr.aspx">Tr</a></li>
                                 <li class="divider"></li>
-                                <li> <a href="FrmNivel1.aspx">Nivel 1</a></li>
-                                <li> <a href="FrmNivel2.aspx">Nivel 2</a></li>
-                                <li> <a href="FrmNivel3.aspx">Nivel 3</a></li>
-                                <li> <a href="FrmNivel4.aspx">Nivel 4</a></li>
+                                <li><a href="FrmNivel1.aspx">Nivel 1</a></li>
+                                <li><a href="FrmNivel2.aspx">Nivel 2</a></li>
+                                <li><a href="FrmNivel3.aspx">Nivel 3</a></li>
+                                <li><a href="FrmNivel4.aspx">Nivel 4</a></li>
                             </ul>
-                       </li>
-                   
-                    <li id="mReportes" runat="server" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="AnalisisGeneral.aspx">Análisis General</a></li>
-                            <li><a href="AnalisisEspecifico.aspx">Análisis Especifico</a></li>
-                            <li><a href="BusquedaEspecifica.aspx">Busqueda Especifica</a></li>
-                        </ul>
-                    </li>
-
+                        </li>
+                        <li id="mReportes" runat="server" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="AnalisisGeneral.aspx">Análisis General</a></li>
+                                <li><a href="AnalisisEspecifico.aspx">Análisis Especifico</a></li>
+                                <li><a href="BusquedaEspecifica.aspx">Busqueda Especifica</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>            
-                            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" />
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <asp:LoginName ID="LoginName2" runat="server" />
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" />
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -81,10 +88,6 @@
         </div>
         <div class="container body-content">
             <br />
-            <div runat="server" style="text-align: right">
-                Bienvenido:
-            <asp:LoginName ID="LoginName1" runat="server" />
-            </div>
             &nbsp;<asp:ContentPlaceHolder
                 ID="ContentPlaceHolder1"
                 runat="server">

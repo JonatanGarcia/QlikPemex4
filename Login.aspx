@@ -20,8 +20,7 @@
 <body style="background-image: url(images/Bubble.png)">
     <form id="form1" runat="server">
         <div style="text-align: center; width: 80%; position: absolute; left: 10%; right: 10%; top: 15%; bottom: 15%;">
-            a&nbsp; 
-            <table 
+            &nbsp;<table 
                     width="50%";
                     style="margin: auto; 
                     vertical-align: middle; 
