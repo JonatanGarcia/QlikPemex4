@@ -13,7 +13,7 @@ Partial Class Login
             listParametros.Add(New Parametros("@Password", SqlDbType.VarChar, Login1.Password))
             'indicamos el store a ejecutar y mandamos los parametros
             Dim busca = New DescripParametros("Valida_Usuario", listParametros)
-            'ejecuta consulta y devuelve resultado
+            'ejecuta consulta y devuelve resultado ds
             Dim user = dao.validateUser(busca)
             If user <> -1 Then
                 Session.Add("rolUsuario", user)
