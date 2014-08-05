@@ -9,11 +9,18 @@ Partial Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            inicializar()
-            llenar("", 0)
-            'llenaGrid()
+            inicializar()            
+            'llenar("", 0)
             MyAccordion.SelectedIndex = -1
             Me.Cache("Selecciones") = selecciones
+            Dim ds As New DataSet
+            ds = Me.Cache("myTestCache")
+            LbAnio.DataSource = (From Plataforma In ds.Tables(0) _
+                             Order By Plataforma("anio") Ascending _
+                                Select Plataforma.Field(Of Integer)("anio")).Distinct
+            LbAnio.DataBind()
+            LbAnio.SelectedIndex = 4
+            llenar(obtenerSeleccionados(LbAnio, "anio", 0), 1)
         End If
 
     End Sub

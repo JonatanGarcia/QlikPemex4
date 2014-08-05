@@ -3,7 +3,8 @@ Partial Class _Default
     Inherits System.Web.UI.Page
 
     Dim selecciones(4) As String
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load        
+
         If Not IsPostBack Then
             inicializar()
             llenar("")

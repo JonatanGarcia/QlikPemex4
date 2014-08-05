@@ -22,6 +22,9 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+
+
   <asp:ScriptManager ID="ScriptManager1" 
             runat="server">
         </asp:ScriptManager>
@@ -34,14 +37,16 @@
                     <div class="col-md-8">
                         <h3>Análisis Especifico</h3>
                         <hr />
-                        <asp:Button ID="Button6" runat="server" CssClass="btn btn-success" Text="Exportar" />
-                        <asp:Button ID="Button5" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False" />
+                        <%--<asp:Button ID="Button6"  runat="server" CssClass="btn btn-success " Text="Exportar" />--%>
+                        <asp:LinkButton ID="Button6" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-save"></i>&nbsp;Exportar</asp:LinkButton>
+                        <%--<asp:Button ID="Button5" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False" />--%>
+                        <asp:LinkButton ID="Button5" runat="server"  CssClass="btn btn-primary" Visible="false"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Atras</asp:LinkButton>
                     </div>
 
                     <div class="col-md-4">
                         <h4><asp:Label ID="Label6" runat="server" Text="Selecciones Actuales" Visible="False"></asp:Label></h4>
-                        <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Font-Bold="True" 
-                           Font-Overline="False" Font-Underline="True" AutoPostBack="True" Visible="False">
+                        <asp:ListBox ID="LbSelecciones" runat="server" Width="230px" Height="100px" Font-Bold="True" SelectionMode="Multiple" 
+                           Font-Overline="False" Font-Underline="True" AutoPostBack="True" Visible="False" class="form-control">
                        </asp:ListBox>
                     </div>
                 </div>

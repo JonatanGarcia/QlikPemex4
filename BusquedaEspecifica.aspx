@@ -44,6 +44,9 @@
     <asp:updatepanel runat="server">
         <ContentTemplate>
       
+            <div class="alert alert-warning" id="msg" runat="server">
+                          <span class="glyphicon glyphicon-remove"></span>  <asp:Label ID="LblError" runat="server" ForeColor="Red"></asp:Label>
+                        </div>
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-8">
@@ -149,7 +152,7 @@
                     <td>
                         &nbsp;</td>
                     <td>
-                       <asp:Label ID="LblError" runat="server" ForeColor="Red"></asp:Label></td>
+                       </td>
                 </tr>
                 <tr>
                     <td class="style11">

@@ -5,6 +5,7 @@ Partial Class _Default
     Dim selecciones(4) As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
+            msg.Visible = False
             inicializar()
             llenar("")
             MyAccordion.SelectedIndex = -1
@@ -316,10 +317,15 @@ Partial Class _Default
                     dsAux.Merge(ds.Tables(0).Select("dateOperacion>='" & TxtFechaInicial.Text & "' AND dateOperacion<='" & TxtFechaFinal.Text & "'"))
                     ds = dsAux
                 End If
+                msg.Visible = False
                 llenarGrid(ds)
                 Me.Cache("pageIndex") = ds
                 MyAccordion.SelectedIndex = 3
             End If
+        Else
+            LblError.Text = " Seleccione que campos quiere mostrar"
+            MyAccordion.SelectedIndex = 0
+            msg.Visible = True
         End If
     End Sub
 
@@ -336,8 +342,9 @@ Partial Class _Default
     Public Function validarRangos() As Boolean
         LblError.Text = ""
         If TxtFechaFinal.Text < TxtFechaInicial.Text Then
-            LblError.Text = "* Verifique su rango de fechas"
-            MyAccordion.SelectedIndex = 0
+            LblError.Text = " Verifique su rango de fechas"
+            MyAccordion.SelectedIndex = 1
+            msg.Visible = True
             Return False
         End If
         Return True
@@ -366,10 +373,13 @@ Partial Class _Default
 
     Function validarDs(ds As DataSet, mensaje As String) As Boolean
         If ds.Tables.Count = 0 Then
-            LblMsg.Text = "* No se encontró " & mensaje
+            '   LblMsg.Text = "* No se encontró " & mensaje
+            LblError.Text = " No se encontró " & mensaje
+            msg.Visible = True
             Return False
         End If
-        LblMsg.Text = ""
+        'LblMsg.Text = ""
+        msg.Visible = False
         Return True
     End Function
     Protected Sub TextBox3_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
