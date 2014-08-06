@@ -72,9 +72,12 @@
                     <div class="col-md-8">
                         <h3>Análisis General</h3>
                             <hr />
-                         <asp:Button ID="Button4" runat="server" CssClass="btn btn-success" Text="Exportar" />      
-                        <asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False"/>
-                        <asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-primary" Visible="False" />
+                            <asp:LinkButton ID="Button4" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-save"></i>&nbsp;Exportar</asp:LinkButton>
+                         <%--<asp:Button ID="Button4" runat="server" CssClass="btn btn-success" Text="Exportar" />--%>   
+                        <asp:LinkButton ID="Button3" runat="server"  CssClass="btn btn-primary" Visible="false"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Atras</asp:LinkButton>
+                        <%--<asp:Button ID="Button3" runat="server" Text="Atras" CssClass="btn btn-primary" Visible="False"/>--%>
+                        <%--<asp:Button ID="Button2" runat="server" Text="Borrar" CssClass="btn btn-primary" Visible="False" />--%>
+                        <asp:LinkButton ID="Button2" runat="server"  CssClass="btn btn-primary" Visible="false"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Borrar</asp:LinkButton>
                     </div>
                 
                     <div class="col-md-4">

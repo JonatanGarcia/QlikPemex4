@@ -14,8 +14,8 @@
             </div>            
         </div>
     </div>
-    
-    <asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />
+    <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
+    <%--<asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />--%>
     <br />
 <br />
 

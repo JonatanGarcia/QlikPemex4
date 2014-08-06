@@ -48,7 +48,8 @@
                     <tr>
                         <td>
                             <br />
-                            <asp:Button ID="Button1" runat="server" Text="Subir" CssClass="btn btn-primary" />
+                            <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-primary"><i class="glyphicon glyphicon-upload"></i>&nbsp;Subir</asp:LinkButton>
+                            <%--<asp:Button ID="Button1" runat="server" Text="Subir" CssClass="btn btn-primary" />--%>
                             <br />
                             <br />
                             <br />
@@ -73,8 +74,10 @@
                     </tr>
                 </table>
                 <br />
-                <asp:Button ID="Button2" runat="server" Text="Visualizar"  CssClass="btn btn-info"/>
-                <asp:Button ID="Button3" runat="server" Text="Guardar"  CssClass="btn btn-success"/>
+                <asp:LinkButton ID="Button2" runat="server"  CssClass="btn btn-info"><i class="glyphicon glyphicon-search"></i>&nbsp;Visualizar</asp:LinkButton>
+                <%--<asp:Button ID="Button2" runat="server" Text="Visualizar"  CssClass="btn btn-info"/>--%>
+                <asp:LinkButton ID="Button3" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
+                <%--<asp:Button ID="Button3" runat="server" Text="Guardar"  CssClass="btn btn-success"/>--%>
             </div>
         </div>
     </div>

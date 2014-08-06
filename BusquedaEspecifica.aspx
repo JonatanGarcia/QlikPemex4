@@ -52,8 +52,11 @@
                     <div class="col-md-8">
                         <h3>Busqueda Especifica</h3>
                         <hr />
-                        <asp:Button ID="Button13" CssClass="btn btn-success" runat="server" Text="Exportar" />
-                        <asp:Button runat="server" Text="Buscar" CssClass="btn btn-primary" onclick="Unnamed3_Click"></asp:Button>
+                        <%--<asp:Button ID="Button13" CssClass="btn btn-success" runat="server" Text="Exportar" />--%>
+                        <asp:LinkButton ID="Button13" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-save"></i>&nbsp;Exportar</asp:LinkButton>
+
+                        <%--<asp:Button runat="server" Text="Buscar" CssClass="btn btn-primary" onclick="Unnamed3_Click"></asp:Button>--%>
+                        <asp:LinkButton ID="LinkButton1" runat="server"  CssClass="btn btn-primary" OnClick="Unnamed3_Click"><i class="glyphicon glyphicon-search"></i>&nbsp;Buscar</asp:LinkButton>
                     </div>
                 </div>
             </div>

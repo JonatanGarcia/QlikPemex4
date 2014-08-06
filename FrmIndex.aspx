@@ -8,30 +8,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <div class="form-group has-success has-feedback">
-  <label class="control-label" for="inputSuccess2">Input with success</label>
-  <input type="text" class="form-control" id="inputSuccess2">
-  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-</div>
- 
-<div class="btn-toolbar" role="toolbar">
-  <button type="button" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-star"></span> Star
-  </button>
- 
-  <button type="button" class="btn btn-success">
-    <span class="glyphicon glyphicon-save"></span> Star
-  </button>
- 
-  <button type="button" class="btn btn-default btn-sm">
-    <span class="glyphicon glyphicon-star"></span> Star
-  </button>
- 
-  <button type="button" class="btn btn-default btn-xs">
-    <span class="glyphicon glyphicon-star"></span> Star
-  </button>
-</div>
-
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
