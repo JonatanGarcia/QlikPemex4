@@ -22,7 +22,7 @@
                   <div class="carousel-caption">
                       <h1>STIN - Tiempos No Productivos</h1>
                       <p>
-                          " NPT's de Perforación - Terminación - Reparación Mayor "
+                          " Perforación - Terminación - Reparación Mayor "
                       </p>
                   </div>
               </div>
@@ -59,7 +59,5 @@
             <span class="glyphicon glyphicon-chevron-right" ></span>
         </a>
       </div>
-  
-  
 </asp:Content>
 
