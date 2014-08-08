@@ -35,7 +35,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
 
-                        <li id="idArchivos" runat="server" class="dropdown">
+                        <li id="mCargas" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-save"></i>&nbsp;Carga <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="FrmArchivo.aspx">Excel</a></li>
@@ -60,7 +60,7 @@
                                 <li><a href="FrmNivel4.aspx">Nivel 4</a></li>
                             </ul>
                         </li>
-                        <li id="mReportes" runat="server" class="dropdown">
+                        <li id="mAnalisis" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-stats"></i>&nbsp;&nbsp;Visualización <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="AnalisisGeneral.aspx">Análisis General</a></li>
@@ -68,7 +68,7 @@
                                 <li><a href="BusquedaEspecifica.aspx">Busqueda Especifica</a></li>
                             </ul>
                         </li>
-                        <li id="Li1" runat="server" class="dropdown">
+                        <li id="mReportes" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="rptCrystal.aspx">Pozo</a></li>        
