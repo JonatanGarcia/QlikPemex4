@@ -36,7 +36,7 @@
                     <ul class="nav navbar-nav">
 
                         <li id="idArchivos" runat="server" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i>&nbsp;Archivos <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-save"></i>&nbsp;Carga <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="FrmArchivo.aspx">Excel</a></li>
                             </ul>
@@ -52,7 +52,7 @@
                                 <li><a href="FrmNptsActividades.aspx">Npts Actividades</a></li>
                                 <li><a href="FrmPlataformas.aspx">Plataformas</a></li>
                                 <li><a href="FrmPozos.aspx">Pozo</a></li>
-                                <li><a href="FrmCatTr.aspx">Tr</a></li>
+                                <li><a href="FrmCatTr.aspx">TR</a></li>
                                 <li class="divider"></li>
                                 <li><a href="FrmNivel1.aspx">Nivel 1</a></li>
                                 <li><a href="FrmNivel2.aspx">Nivel 2</a></li>
@@ -61,11 +61,17 @@
                             </ul>
                         </li>
                         <li id="mReportes" runat="server" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;Reportes <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-stats"></i>&nbsp;&nbsp;Visualización <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="AnalisisGeneral.aspx">Análisis General</a></li>
                                 <li><a href="AnalisisEspecifico.aspx">Análisis Especifico</a></li>
                                 <li><a href="BusquedaEspecifica.aspx">Busqueda Especifica</a></li>
+                            </ul>
+                        </li>
+                        <li id="Li1" runat="server" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;Reportes <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="rptCrystal.aspx">Pozo</a></li>        
                             </ul>
                         </li>
                     </ul>
