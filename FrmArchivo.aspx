@@ -7,7 +7,7 @@
     <div class="row">
         <div class="form-group">
             <div class="col-md-8">
-                <h3>Siop / Plantillas</h3>
+                <h3>Siop / Plantilla / Programa</h3>
                 <hr />
             </div>            
         </div>
@@ -31,7 +31,7 @@
                         <td><br /><asp:DropDownList ID="CmbInter" runat="server" CssClass="form-control" Height="28px" Width="180px" AutoPostBack="True"></asp:DropDownList></td>
                     </tr>
                     <tr>
-                        <td><br /><asp:Label ID="LblTipo" runat="server" Text="Tipo Intervención" Visible="False"></asp:Label></td>
+                        <td><br /><asp:Label ID="LblTipo" runat="server" Text="Tipo Rma" Visible="False"></asp:Label></td>
                         <td><br /><asp:DropDownList ID="CmbTipoInter" runat="server" CssClass="form-control" Height="28px" Width="180px" AutoPostBack="True" Visible="False"></asp:DropDownList></td>
                     </tr>
                 </table>
