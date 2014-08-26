@@ -20,6 +20,8 @@
 <body>
     <form id="form1" runat="server">
         <div class="navbar navbar-inverse navbar-fixed-top">
+            <script src="Scripts/highcharts.js"></script>
+            <script src="Scripts/exporting.js"></script>
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -71,7 +73,7 @@
                         <li id="mReportes" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="rptCrystal.aspx">Pozo</a></li>        
+                                <li><a href="rptCrystal.aspx">Pozo</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -97,7 +99,6 @@
             &nbsp;<asp:ContentPlaceHolder
                 ID="ContentPlaceHolder1"
                 runat="server">
-                
             </asp:ContentPlaceHolder>
             <footer>
             <p>&copy;2014 - Copyright NPT's WEB</p>
