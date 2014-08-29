@@ -12,15 +12,18 @@ Partial Class Login
             listParametros.Add(New Parametros("@Username", SqlDbType.VarChar, Login1.UserName))
             listParametros.Add(New Parametros("@Password", SqlDbType.VarChar, Login1.Password))
             'indicamos el store a ejecutar y mandamos los parametros
-            Dim busca = New DescripParametros("Valida_Usuario", listParametros)
+            Dim sp = New DescripParametros("Valida_Usuario", listParametros)
             'ejecuta consulta y devuelve resultado ds
-            Dim user = dao.validateUser(busca)
+            Dim dsUser = dao.getDataSet(sp)
+            Dim user = dsUser.Tables(0).Rows(0).Item(0)
+
             If user <> -1 Then
                 Session.Add("rolUsuario", user)
                 FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
             Else
                 Login1.FailureText = "Usuario y/o password incorrecto."
             End If
+
         Catch ex As Exception
             Throw ex
         End Try
