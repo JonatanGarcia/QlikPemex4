@@ -1,5 +1,8 @@
 ﻿Imports System.Data
 Imports System.Drawing
+Imports DotNet.Highcharts
+Imports DotNet.Highcharts.Options
+Imports DotNet.Highcharts.Helpers
 
 Partial Class _Default
     Inherits System.Web.UI.Page
@@ -9,7 +12,7 @@ Partial Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            inicializar()            
+            inicializar()
             'llenar("", 0)
             MyAccordion.SelectedIndex = -1
             Me.Cache("Selecciones") = selecciones
@@ -110,21 +113,21 @@ Partial Class _Default
 
 
 
-        ' Grafica de avance
-        Chart1.Series.Add("Ku-84")
+        '' Grafica de avance
+        'Chart1.Series.Add("Ku-84")
 
-        Chart1.ChartAreas(0).AxisX.Title = "Días"
-        Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
+        'Chart1.ChartAreas(0).AxisX.Title = "Días"
+        'Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
 
-        Chart1.Series("Ku-84").ChartType = DataVisualization.Charting.SeriesChartType.Line
-        Chart1.Series("Ku-84").BorderWidth = 3
-        Chart1.Series("Ku-84").Points.DataBindXY(x1, y1)
-        Chart1.Legends.Add("Legends1")
+        'Chart1.Series("Ku-84").ChartType = DataVisualization.Charting.SeriesChartType.Line
+        'Chart1.Series("Ku-84").BorderWidth = 3
+        'Chart1.Series("Ku-84").Points.DataBindXY(x1, y1)
+        'Chart1.Legends.Add("Legends1")
 
-        Chart1.Series.Add("Maloob - 51")
-        Chart1.Series("Maloob - 51").ChartType = DataVisualization.Charting.SeriesChartType.Line
-        Chart1.Series("Maloob - 51").BorderWidth = 3
-        Chart1.Series("Maloob - 51").Points.DataBindXY(x2, y2)
+        'Chart1.Series.Add("Maloob - 51")
+        'Chart1.Series("Maloob - 51").ChartType = DataVisualization.Charting.SeriesChartType.Line
+        'Chart1.Series("Maloob - 51").BorderWidth = 3
+        'Chart1.Series("Maloob - 51").Points.DataBindXY(x2, y2)
 
 
 
@@ -224,60 +227,142 @@ Partial Class _Default
 
 
         ' Grafica de avance
-        If bandera = 1 Then
-            Dim ds3 As New DataSet
-            For i As Integer = 0 To LbPozo.Items.Count - 1
-                ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & LbPozo.Items(i).ToString & "%'"))
-                Chart1.Series.Add(LbPozo.Items(i).ToString())
-                Chart1.Series(LbPozo.Items(i).ToString()).ChartType = DataVisualization.Charting.SeriesChartType.Line
-                Chart1.Series(LbPozo.Items(i).ToString()).BorderWidth = 3
-                Dim a = (From Pozo In ds3.Tables(0) _
-                            Order By Pozo("intCon") Ascending _
-                            Select Pozo.Field(Of Integer)("intCon"))
-                Dim b = (From Pozo In ds3.Tables(0) _
-                            Order By Pozo("intCon") Ascending _
-                            Select Pozo.Field(Of Integer)("intProf"))
-                'Dim x11 As New List(Of Integer)
-                'x11 = a.ToList
-                'Dim y11 As New List(Of Integer)
-                'y11 = b.ToList
-                Chart1.Series(LbPozo.Items(i).ToString()).Points.DataBindXY(a.ToList, b.ToList)
+        Dim titulo As New Title()
+        ' If bandera = 1 Then
+        titulo.Text = "Grafica de Avance"
+        Dim ds3 As New DataSet
+        Dim progressChart As New DotNet.Highcharts.Highcharts("chart")
+        progressChart.SetTitle(titulo)
 
-                ds3.Clear()
 
+        Dim plot As New PlotOptions
+        plot.Series = New PlotOptionsSeries
+        plot.Series.Marker = New PlotOptionsSeriesMarker
+        plot.Series.Marker.Enabled = False
+
+        Dim ay As YAxis
+        ay = New YAxis
+        ay.Labels = New YAxisLabels
+        ay.Title = New YAxisTitle()
+        ay.Title.Text = "Profundidad"
+        ay.TickInterval = 500
+
+
+        ay.Labels.Format = "{value:.,of}"
+
+
+        Dim ll As Integer = 0
+        Dim series(LbPozo.Items.Count - 1) As Series
+        'Dim ax(LbPozo.Items.Count - 1) As XAxis
+
+        For i As Integer = 0 To LbPozo.Items.Count - 1
+            ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & LbPozo.Items(i).ToString & "%'"))
+
+            Dim b = (From Pozo In ds3.Tables(0) _
+                      Order By Pozo("intCon") Ascending _
+                              Select New With {
+                                   .con = Pozo.Field(Of Object)("intCon"),
+                                   .prof = Pozo.Field(Of Object)("intProf") * -1}).ToArray
+
+            Dim tam As Integer = b.Count - 1
+
+            Dim das(tam) As Object
+
+            For f As Integer = 0 To tam
+                das(f) = New Object
+                das(f) = {b(f).con, b(f).prof}
             Next
-            ds3 = Nothing
-            Chart1.Legends.Add("Legenda1")
-        End If
+            Dim datas As New Data(das)
+
+            series(i) = New Series
+            series(i).Data = datas
+
+            series(i).Name = LbPozo.Items(i).ToString()
+            ds3.Clear()
+        Next
+
+        Dim ax As New XAxis
+        ax.Title = New XAxisTitle
+        ax.Title.Text = "Días"
+        ax.TickInterval = 10
+
+        progressChart.SetPlotOptions(plot)
+        progressChart.SetYAxis(ay)
+        progressChart.SetXAxis(ax)
+
+        'progressChart.SetXAxis(ax)
+        progressChart.SetSeries(series)
+
+        ltrLine.Text = progressChart.ToHtmlString()
+        'Else
+        'ltrLine.Text = ""
+        'End If
+
+
+
+        '' ANTERIOR
+        'If bandera = 1 Then
+        '    Dim ds3 As New DataSet
+        '    For i As Integer = 0 To LbPozo.Items.Count - 1
+        '        ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & LbPozo.Items(i).ToString & "%'"))
+        '        Chart1.Series.Add(LbPozo.Items(i).ToString())
+        '        Chart1.Series(LbPozo.Items(i).ToString()).ChartType = DataVisualization.Charting.SeriesChartType.Line
+        '        Chart1.Series(LbPozo.Items(i).ToString()).BorderWidth = 3
+        '        Dim a = (From Pozo In ds3.Tables(0) _
+        '                    Order By Pozo("intCon") Ascending _
+        '                    Select Pozo.Field(Of Integer)("intCon"))
+        '        Dim b = (From Pozo In ds3.Tables(0) _
+        '                    Order By Pozo("intCon") Ascending _
+        '                    Select Pozo.Field(Of Integer)("intProf"))
+        '        Chart1.Series(LbPozo.Items(i).ToString()).Points.DataBindXY(a.ToList, b.ToList)
+
+        '        ds3.Clear()
+
+        '    Next
+        '    ds3 = Nothing
+        '    Chart1.Legends.Add("Legenda1")
+        'End If
 
 
 
 
         'Grafica de pastel
-        Dim x3 As String() = {"Normal", "Esperas", "Problemas Operativos"}
-        Dim y3(2) As Double
-        y3(0) = CDbl(LblCO.Text)
-        y3(1) = (((From PER In ds.Tables(0) _
+        Dim plotOption As New PlotOptions
+        plotOption.Pie() = New PlotOptionsPie()
+        plotOption.Pie.AllowPointSelect = True
+        plotOption.Pie.Cursor = Enums.Cursors.Pointer
+        plotOption.Pie.DataLabels = New PlotOptionsPieDataLabels
+        plotOption.Pie.DataLabels.Enabled = True
+        plotOption.Pie.ShowInLegend = True
+        plotOption.Pie.DataLabels.Format = "<b>{point.name}</b>: {point.percentage:.1f} %"
+
+        titulo.Text = "Distribución Npts"
+        Dim pieChart As New DotNet.Highcharts.Highcharts("chart2") ' es muy importante el nombre
+        pieChart.SetTitle(titulo)
+        Dim seriesPie As New Series()
+        Dim esperas As Double = (((From PER In ds.Tables(0) _
                               Where PER("N1") = "ESPERAS" _
                             Select PER.Field(Of Double)("floatTiempo")).Sum) / 24).ToString("00.0")
-        y3(2) = (((From PER In ds.Tables(0) _
+        Dim po As Double = (((From PER In ds.Tables(0) _
                               Where PER("N1") = "PROBLEMAS OPERATIVOS" _
                             Select PER.Field(Of Double)("floatTiempo")).Sum) / 24).ToString("00.0")
+        Dim datasPie As New Data(New Object() {New Object() {"Normal", LblCO.Text}, New Object() {"Esperas", esperas}, New Object() {"PO", po}})
 
-        'Chart2.Series.Add("Series1")
-        Chart2.Series("Series1").ChartType = DataVisualization.Charting.SeriesChartType.Pie
 
-        Chart2.Series("Series1").Points.DataBindXY(x3, y3)
-        Me.Chart2.Legends(0).Alignment = Drawing.StringAlignment.Near
-        'WHERE IN
-        'Dim ids As Integer() = {1, 2}
+        Dim serieColors As New GlobalOptions
+        serieColors.Colors = {Color.FromArgb(43, 143, 243), Color.FromArgb(117, 111, 111), Color.FromArgb(250, 104, 7)}
+        pieChart.SetOptions(serieColors)
 
-        'Dim a = ((From Plataforma In ds.Tables(0) _
-        '         Where ids.Contains(Plataforma("idPozo")) And Plataforma("Nintervencion") = "PERFORACIÓN" _
-        '                       Select Plataforma.Field(Of Double)("floatTiempo")).Sum) / 24
-        'MsgBox(a)
+        seriesPie.Name = "Npts"
+        seriesPie.Data = datasPie
+        seriesPie.Type = Enums.ChartTypes.Pie
+        pieChart.SetPlotOptions(plotOption)
+        pieChart.SetSeries(seriesPie)
+        ltrPieChart.Text = pieChart.ToHtmlString()
+
+
     End Sub
-   
+
     Protected Sub Button2_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button2.Click
         LbPozo.ClearSelection()
         LbEquipo.ClearSelection()
@@ -362,8 +447,8 @@ Partial Class _Default
 
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
-        Chart1.ChartAreas(0).AxisX.Title = "Días"
-        Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
+        'Chart1.ChartAreas(0).AxisX.Title = "Días"
+        'Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
 
         Dim muestaBusqueda As New StringBuilder
 

@@ -28,8 +28,8 @@
   <asp:ScriptManager ID="ScriptManager1" 
             runat="server">
         </asp:ScriptManager>
-     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
+     <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
+        <%--<ContentTemplate>--%>
 
            
             <div class="row">
@@ -247,7 +247,8 @@
                                         <h4 class="panel-title">Días NPT's</h4>
                                     </div>
                                     <div class="panel-body">
-                                          <asp:Chart ID="Chart1" runat="server" Width="920px" Height="501px">
+                                        <asp:literal id="ltrPieChart" runat="server"></asp:literal>
+                                          <%--<asp:Chart ID="Chart1" runat="server" Width="920px" Height="501px">
                                             <Series>
                                                 <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
                                                     Name="Series1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
@@ -261,17 +262,20 @@
                                                 <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
                                                 </asp:Legend>
                                             </Legends>
-                                        </asp:Chart>
+                                        </asp:Chart>--%>
                                     </div>
                                 </div>
                             </div>
                 </div>
 
-        </ContentTemplate>
+       <%-- </ContentTemplate>
          <Triggers>
              <asp:PostBackTrigger ControlID="Button6"/>
          </Triggers>
 
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
+
+
+
 </asp:Content>
 

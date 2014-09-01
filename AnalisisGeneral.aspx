@@ -64,8 +64,8 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
             
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>     
+    <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
+        <%--<ContentTemplate>--%>     
                     
             <div class="row">
                 <div class="form-group">
@@ -388,7 +388,8 @@
                             <h4 class="panel-title">Gráfica de Avance</h4>
                         </div>
                         <div class="panel-body">
-                             <asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
+                            <asp:literal id="ltrLine" runat="server"></asp:literal>
+                             <%--<asp:Chart ID="Chart1" runat="server" Palette="Bright" Height="374px" 
                             Width="720px">
                             <chartareas>
                                 <asp:ChartArea Name="ChartArea1">
@@ -398,7 +399,7 @@
                                     </AxisX>
                                 </asp:ChartArea>
                             </chartareas>
-                        </asp:Chart>
+                        </asp:Chart>--%>
                         </div>
                       </div>
                 </div>
@@ -409,22 +410,7 @@
                             <h4 class="panel-title">Distribución de NPT's</h4>
                         </div>
                     <div class="panel-body">
-                        <asp:Chart ID="Chart2" runat="server" Width="340px" Palette="None" 
-                            PaletteCustomColors="Highlight; Gray; 255, 128, 0">
-                            <Series>
-                                <asp:Series ChartType="Pie" IsValueShownAsLabel="True" Legend="Legend1" 
-                                    Name="Series1" Font="Microsoft Sans Serif, 8.25pt, style=Bold">
-                                </asp:Series>
-                            </Series>
-                            <ChartAreas>
-                                <asp:ChartArea Name="ChartArea1">
-                                </asp:ChartArea>
-                            </ChartAreas>
-                            <Legends>
-                                <asp:Legend Docking="Top" IsTextAutoFit="False" Name="Legend1" Font="Microsoft Sans Serif, 8pt, style=Bold">
-                                </asp:Legend>
-                            </Legends>
-                        </asp:Chart>
+                        <asp:literal id="ltrPieChart" runat="server"></asp:literal>
                     </div>
                     </div>
                 </div>
@@ -432,9 +418,13 @@
 
             </div>
             
-        </ContentTemplate>
+       <%-- </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="Button4" />
         </Triggers>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
+
+       
+    
+      
 </asp:Content>
