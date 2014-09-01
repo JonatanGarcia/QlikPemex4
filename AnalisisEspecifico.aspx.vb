@@ -1,9 +1,13 @@
 ﻿Imports System.Data
+Imports DotNet.Highcharts
+Imports DotNet.Highcharts.Options
+Imports DotNet.Highcharts.Helpers
+
 Partial Class _Default
     Inherits System.Web.UI.Page
 
     Dim selecciones(4) As String
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load        
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
             inicializar()
@@ -129,27 +133,73 @@ Partial Class _Default
     End Sub
 
     Sub LlenarGraficas(ByVal nivel As String, ByVal bandera As Integer, ByVal dsAux As DataSet) ' Grficas
-     
+
+        'Dim lista = From N1 In dsAux.Tables(0) _
+        '                        Where N1(nivel) <> "NORMAL" _
+        '                            Group N1 By lol = N1(nivel)
+        '                            Into Group _
+        '                        Select New With {
+        '                                .N1 = lol,
+        '                                .dias = Group.Sum(Function(x) x.Field(Of Double)("floatTiempo") / 24)}
+
+        'Dim tamano As Integer = lista.Count
+        'Dim listaNiveles(tamano) As String
+        'Dim listaDias(tamano) As Double
+        'For i As Integer = 0 To tamano - 1
+        '    listaNiveles(i) = lista(i).N1
+        '    listaDias(i) = lista(i).dias.ToString("0.00")
+        'Next
+
+        'Chart1.Series("Series1").ChartType = DataVisualization.Charting.SeriesChartType.Pie
+
+        'Chart1.Series("Series1").Points.DataBindXY(listaNiveles, listaDias)
+        'Me.Chart1.Legends(0).Alignment = Drawing.StringAlignment.Near
+
+
+
         Dim lista = From N1 In dsAux.Tables(0) _
-                                Where N1(nivel) <> "NORMAL" _
-                                    Group N1 By lol = N1(nivel)
-                                    Into Group _
-                                Select New With {
-                                        .N1 = lol,
-                                        .dias = Group.Sum(Function(x) x.Field(Of Double)("floatTiempo") / 24)}
+                               Where N1(nivel) <> "NORMAL" _
+                                   Group N1 By nv = N1(nivel)
+                                   Into Group _
+                               Select New With {
+                                       .N1 = nv,
+                                       .dias = Group.Sum(Function(x) x.Field(Of Double)("floatTiempo") / 24)}
 
         Dim tamano As Integer = lista.Count
-        Dim listaNiveles(tamano) As String
-        Dim listaDias(tamano) As Double
+
+
+
+        ' Grafica de pastel
+        Dim plotOption As New PlotOptions
+        plotOption.Pie() = New PlotOptionsPie()
+        plotOption.Pie.AllowPointSelect = True
+        plotOption.Pie.Cursor = Enums.Cursors.Pointer
+        plotOption.Pie.DataLabels = New PlotOptionsPieDataLabels
+        plotOption.Pie.DataLabels.Enabled = True
+        plotOption.Pie.ShowInLegend = True
+        plotOption.Pie.DataLabels.Format = "<b>{point.name}</b>: {point.percentage:.1f} %"
+
+        Dim pieChart As New DotNet.Highcharts.Highcharts("chart2") ' es muy importante el nombre
+        Dim titulo As New Title()
+        titulo.Text = nivel
+        pieChart.SetTitle(titulo)
+        Dim seriesPie As New Series()
+
+
+        Dim valor(tamano - 1) As Object
         For i As Integer = 0 To tamano - 1
-            listaNiveles(i) = lista(i).N1
-            listaDias(i) = lista(i).dias.ToString("0.00")
+            valor(i) = {lista(i).N1, lista(i).dias.ToString("0.00")}
         Next
 
-        Chart1.Series("Series1").ChartType = DataVisualization.Charting.SeriesChartType.Pie
+        Dim datasPie As New Data(valor)
+        Dim serieColors As New GlobalOptions
+        seriesPie.Name = "Npts"
+        seriesPie.Data = datasPie
+        seriesPie.Type = Enums.ChartTypes.Pie
+        pieChart.SetPlotOptions(plotOption)
+        pieChart.SetSeries(seriesPie)
+        ltrPieChart.Text = pieChart.ToHtmlString()
 
-        Chart1.Series("Series1").Points.DataBindXY(listaNiveles, listaDias)
-        Me.Chart1.Legends(0).Alignment = Drawing.StringAlignment.Near
     End Sub
 
     Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
@@ -218,8 +268,8 @@ Partial Class _Default
 
         Dim ds As New DataSet
         ds = Me.Cache("myTestCache")
-        Chart1.ChartAreas(0).AxisX.Title = "Días"
-        Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
+        'Chart1.ChartAreas(0).AxisX.Title = "Días"
+        'Chart1.ChartAreas(0).AxisY.Title = "Profundidad"
 
         Dim muestaBusqueda As New StringBuilder
 
