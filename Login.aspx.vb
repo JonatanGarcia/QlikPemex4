@@ -5,27 +5,29 @@ Partial Class Login
 
     Protected Sub ValidateUser(sender As Object, e As EventArgs)
         Try
-            'Preparamos conexion
-            Dim dao As New StoredBDAccess
-            'mandamos los parametros a la consulta generica
-            Dim listParametros As New List(Of Parametros)
-            listParametros.Add(New Parametros("@Username", SqlDbType.VarChar, Login1.UserName))
-            listParametros.Add(New Parametros("@Password", SqlDbType.VarChar, Login1.Password))
-            'indicamos el store a ejecutar y mandamos los parametros
-            Dim sp = New DescripParametros("Valida_Usuario", listParametros)
-            'ejecuta consulta y devuelve resultado ds
-            Dim dsUser = dao.getDataSet(sp)
-            Dim user = dsUser.Tables(0).Rows(0).Item(0)
-
-            If user <> -1 Then
-                Session.Add("rolUsuario", user)
+            If validaUsuario(Login1.UserName, Login1.Password) = 1 Then
+                Session.Add("rolUsuario", User)
                 FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
             Else
                 Login1.FailureText = "Usuario y/o password incorrecto."
             End If
-
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
+
+    Function validaUsuario(user As String, password As String) As Integer
+        'Preparamos conexion
+        Dim dao As New StoredBDAccess
+        'mandamos los parametros a la consulta generica
+        Dim listParametros As New List(Of Parametros)
+        listParametros.Add(New Parametros("@Username", SqlDbType.VarChar, user))
+        listParametros.Add(New Parametros("@Password", SqlDbType.VarChar, password))
+        'indicamos el store a ejecutar y mandamos los parametros
+        Dim sp = New DescripParametros("Valida_Usuario", listParametros)
+        'ejecuta consulta y devuelve resultado ds
+        Dim dsUser = dao.getDataSet(sp)
+        Dim myUser = dsUser.Tables(0).Rows(0).Item(0)
+        Return myUser
+    End Function
 End Class

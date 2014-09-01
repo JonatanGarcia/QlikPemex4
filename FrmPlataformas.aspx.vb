@@ -19,26 +19,34 @@ Partial Class _Default
     End Sub
 
     Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
+        msg.Visible = False
         Dim newPageNumber As Integer = e.NewPageIndex + 1
         GridView1.PageIndex = e.NewPageIndex
         bindData()
     End Sub
 
     Protected Sub GridView1_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles GridView1.RowCancelingEdit
+        msg.Visible = False
         GridView1.EditIndex = -1
         bindData()
     End Sub
 
-    Protected Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView1.RowDeleting
-        'Eliminando Plataformas
-
+    Protected Sub GridView1_RowDeleting(sender As Object, e As EventArgs) Handles GridView1.RowDeleting
+        'Elimina Plataformas si aun no hay informacion
+        msg.Visible = False
         Dim lnkRemove As LinkButton = DirectCast(sender, LinkButton)
         Dim dao As New StoredBDAccess
         Dim parametros As New List(Of Parametros)
         'Recuperamos el id del GridView
         parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, lnkRemove.CommandArgument))
         Dim sp As New DescripParametros("borraPlataforma", parametros)
-        dao.executeQry(sp)
+        Try
+            dao.executeQry(sp)
+        Catch ex As Exception
+            'validador bootstrap
+            lblError.Text = "La Plataforma que intenta eliminar ya contiene información relacionada."
+            msg.Visible = True
+        End Try
         bindData()
     End Sub
 
@@ -48,6 +56,7 @@ Partial Class _Default
     End Sub
 
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
+        msg.Visible = False
         Dim idPlataforma As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), TextBox).Text
         Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
         'Codigo para modificar en la BDS
