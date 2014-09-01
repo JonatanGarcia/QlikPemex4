@@ -1,70 +1,82 @@
 ﻿Imports System.Data
+Imports System.Data.SqlClient
+
 Partial Class _Default
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            inicializar()
-            llenar()
+            msg.Visible = False
+            bindData()
         End If
     End Sub
-    Sub llenar()
-        Dim ds As New DataSet
-        ds = Me.Cache("plataforma")
 
-
-        'LbIntervencion.DataSource = ds.Tables(0)
-        'LbIntervencion.DataTextField = "strNombre"
-        'LbIntervencion.DataValueField = "idTipo"
-        'LbIntervencion.DataBind()
-
-
-        'CmdN1.DataSource = (From N1 In ds.Tables(0) _
-        '                   Where N1("nivel1") <> "NORMAL" _
-        '                   Select New With {
-        '                       .idN1 = N1("idNPTN1"),
-        '                       .nivel1 = N1("nivel1")}).Distinct
-
-        'HiddenField1.Value = busqueda
-        'If busqueda <> "" Then
-
-        '    Dim newBusqueda As New StringBuilder
-
-        '    selecciones = Me.Cache("Selecciones")
-        '    For i As Integer = 0 To selecciones.Length - 1
-        '        If selecciones(i) <> "" Then
-        '            newBusqueda.Append(selecciones(i)).Append("AND ")
-        '        End If
-        '    Next
-        '    Dim dsAux As New DataSet
-        '    dsAux.Merge(ds.Tables(0).Select(newBusqueda.ToString.Substring(0, newBusqueda.Length - 4)))
-        '    ds = dsAux
-
-        'End If
-        ' '' LLenar Grid
-        GridView1.DataSource = ds.Tables(0)
-        GridView1.DataBind()
-
-    End Sub
-    Public Function Generic(ByVal sql As String) As DataSet
-        Dim ds As New DataSet
+    Sub bindData()
         Dim dao As New StoredBDAccess
-        Dim listParametros As New List(Of Parametros)
-        listParametros.Add(New Parametros("@SQL_QUERY", SqlDbType.VarChar, sql))
-        Dim busca = New DescripParametros("getGeneric", listParametros)
-        ds = dao.getDataSet(busca)
-        Return ds
-    End Function
-    Sub inicializar()
-        If Me.Cache("plataforma") Is Nothing Then
-            Me.Cache.Insert("plataforma", Generic("SELECT " & _
-                " idPlataforma, strNombre FROM CAT_PLATAFORMA"))
-        End If
+        Dim cmd = dao.getDataSet("getPlataformas")
+        GridView1.DataSource = cmd
+        GridView1.DataBind()
     End Sub
 
     Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
         Dim newPageNumber As Integer = e.NewPageIndex + 1
         GridView1.PageIndex = e.NewPageIndex
-        llenar()
+        bindData()
+    End Sub
+
+    Protected Sub GridView1_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles GridView1.RowCancelingEdit
+        GridView1.EditIndex = -1
+        bindData()
+    End Sub
+
+    Protected Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView1.RowDeleting
+        'Eliminando Plataformas
+
+        Dim lnkRemove As LinkButton = DirectCast(sender, LinkButton)
+        Dim dao As New StoredBDAccess
+        Dim parametros As New List(Of Parametros)
+        'Recuperamos el id del GridView
+        parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, lnkRemove.CommandArgument))
+        Dim sp As New DescripParametros("borraPlataforma", parametros)
+        dao.executeQry(sp)
+        bindData()
+    End Sub
+
+    Protected Sub GridView1_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles GridView1.RowEditing
+        GridView1.EditIndex = e.NewEditIndex
+        bindData()
+    End Sub
+
+    Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
+        Dim idPlataforma As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), TextBox).Text
+        Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
+        'Codigo para modificar en la BDS
+        Dim dao As New StoredBDAccess
+        Dim parametros As New List(Of Parametros)
+        parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, idPlataforma))
+        parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
+        Dim sp As New DescripParametros("modificaPlataforma", parametros)
+        dao.executeQry(sp)
+        'Sale del modo edicion y actualiza el GridView
+        GridView1.EditIndex = -1
+        bindData()
+    End Sub
+
+    Protected Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
+        Dim plataforma As String = txtPlataforma.Text
+        If plataforma <> "" Then
+            Dim dao As New StoredBDAccess
+            Dim parametros As New List(Of Parametros)
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, plataforma))
+            Dim sp As New DescripParametros("AltaPlataforma", parametros)
+            dao.executeQry(sp)
+            bindData()
+            'validador bootstrap
+            msg.Visible = False
+        Else
+            'validador bootstrap
+            lblError.Text = "Debe ingresar un nombre para la plataforma."
+            msg.Visible = True
+        End If
     End Sub
 End Class
