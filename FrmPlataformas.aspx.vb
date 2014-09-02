@@ -17,7 +17,6 @@ Partial Class _Default
         Dim parametros As New List(Of Parametros)
         'Recuperamos el id del GridView
         Dim sp As New DescripParametros("getPlataformas", parametros)
-
         Dim cmd = dao.getDataSet(sp)
         GridView1.DataSource = cmd
         GridView1.DataBind()
@@ -85,7 +84,8 @@ Partial Class _Default
             Dim sp As New DescripParametros("AltaPlataforma", parametros)
             dao.getDataSet(sp)
             bindData()
-            'validador bootstrap
+            txtPlataforma.Text = ""
+            'validador bootstrap          
             msg.Visible = False
         Else
             'validador bootstrap

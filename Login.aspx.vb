@@ -5,8 +5,9 @@ Partial Class Login
 
     Protected Sub ValidateUser(sender As Object, e As EventArgs)
         Try
-            If validaUsuario(Login1.UserName, Login1.Password) = 1 Then
-                Session.Add("rolUsuario", User)
+            Dim rolUsuario As Integer = validaUsuario(Login1.UserName, Login1.Password)
+            If rolUsuario > 0 Then
+                Session.Add("rolUsuario", rolUsuario)
                 FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
             Else
                 Login1.FailureText = "Usuario y/o password incorrecto."
