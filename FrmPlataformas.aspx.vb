@@ -13,7 +13,12 @@ Partial Class _Default
 
     Sub bindData()
         Dim dao As New StoredBDAccess
-        Dim cmd = dao.getDataSet("getPlataformas")
+
+        Dim parametros As New List(Of Parametros)
+        'Recuperamos el id del GridView
+        Dim sp As New DescripParametros("getPlataformas", parametros)
+
+        Dim cmd = dao.getDataSet(sp)
         GridView1.DataSource = cmd
         GridView1.DataBind()
     End Sub
@@ -41,7 +46,7 @@ Partial Class _Default
         parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, lnkRemove.CommandArgument))
         Dim sp As New DescripParametros("borraPlataforma", parametros)
         Try
-            dao.executeQry(sp)
+            dao.getDataSet(sp)
         Catch ex As Exception
             'validador bootstrap
             lblError.Text = "La Plataforma que intenta eliminar ya contiene información relacionada."
@@ -65,7 +70,7 @@ Partial Class _Default
         parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, idPlataforma))
         parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
         Dim sp As New DescripParametros("modificaPlataforma", parametros)
-        dao.executeQry(sp)
+        dao.getDataSet(sp)
         'Sale del modo edicion y actualiza el GridView
         GridView1.EditIndex = -1
         bindData()
@@ -78,7 +83,7 @@ Partial Class _Default
             Dim parametros As New List(Of Parametros)
             parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, plataforma))
             Dim sp As New DescripParametros("AltaPlataforma", parametros)
-            dao.executeQry(sp)
+            dao.getDataSet(sp)
             bindData()
             'validador bootstrap
             msg.Visible = False
