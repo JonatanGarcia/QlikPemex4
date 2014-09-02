@@ -73,7 +73,10 @@
                         <li id="mReportes" runat="server" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="rptCrystal.aspx">Pozo</a></li>
+                                <li><a href="FrmReporteEquipo.aspx">Equipo</a></li>
+                                <li><a href="FrmReporteIntervencion.aspx">Internveción</a></li>
+                                <li><a href="FrmReportePlataforma.aspx">Plataforma</a></li>
+                                <li><a href="FrmReportePozo.aspx">Pozo</a></li>
                             </ul>
                         </li>
                     </ul>
