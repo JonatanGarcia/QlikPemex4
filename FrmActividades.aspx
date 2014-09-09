@@ -134,7 +134,8 @@
                                     runat="server">                                    
                                 </asp:DropDownList>
                               </EditItemTemplate>                          
-                            <ItemTemplate>                              
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlTipoInt" runat="server"></asp:DropDownList>
                             </ItemTemplate>
                             <HeaderStyle VerticalAlign="Top" Width="200px" />
                             <ItemStyle HorizontalAlign="Left" Width="200px" />

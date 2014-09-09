@@ -6,10 +6,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <center>
-        <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="True" GroupTreeImagesFolderUrl="" Height="1202px" ReportSourceID="CrystalReportSource1" ToolbarImagesFolderUrl="" ToolPanelWidth="200px" Width="1104px" />
+        <CR:CrystalReportViewer 
+                ID="CrystalReportViewer1" 
+            runat="server" 
+            AutoDataBind="True" 
+            GroupTreeImagesFolderUrl="" 
+            Height="1202px" 
+            ReportSourceID="CrystalReportSource1" 
+            ToolbarImagesFolderUrl="" 
+            ToolPanelWidth="200px"
+            Width="1104px" />
     </center>
     <CR:CrystalReportSource ID="CrystalReportSource1" runat="server">
-        <Report FileName="Rpts/cr_Pozo.rpt">
+        <Report FileName="Rpts/crPozo.rpt">
         </Report>
     </CR:CrystalReportSource>
 </asp:Content>

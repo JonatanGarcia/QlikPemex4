@@ -24,14 +24,17 @@ Partial Class _Default
         Dim spActividades As New DescripParametros("getActividades", parametros)
         'llenamos DataSets para ddl y gridview 
         Dim dsIntervenciones = dao.getDataSet(spIntervenciones)
+        Session.Add("dsIntervenciones", dsIntervenciones)
         Dim dsActividades = dao.getDataSet(spActividades)
+        Session.Add("dsActividades", dsActividades)
         'Llenamos DropDown List
         ddlIntervencion.DataSource = dsIntervenciones.Tables(0)
         ddlIntervencion.DataTextField = "strNombre"
-        ddlIntervencion.DataValueField = ""
+        ddlIntervencion.DataValueField = "idTipo"
         ddlIntervencion.DataBind()
+        'llenamos Dropdown del Grid
         'Llenamos Grid
-        GridView1.DataSource = dsIntervenciones
+        GridView1.DataSource = dsActividades
         GridView1.DataBind()       
     End Sub
     Sub llenaDdlIntervencion(ByVal ddl As DropDownList)
@@ -148,9 +151,28 @@ Partial Class _Default
     End Sub
     'Cachamos el evento y llenamos el ddl en tiempo de ejecucion
     Protected Sub GridView1_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridView1.RowDataBound
+        'Si y solo si esta editando
         If e.Row.RowState = DataControlRowState.Edit Then
             Dim ddl As DropDownList = DirectCast(e.Row.FindControl("ddlEditInterv"), DropDownList)
             llenaDdlIntervencion(ddl)
         End If
+        'If (e.Row.RowType = DataControlRowType.DataRow) Then
+        '    'Recupera Dataset de la sesion
+        '    Dim dsI = Session("dsIntervenciones")
+        '    Dim dsA = Session("dsActividades")
+        '    'Find the DropDownList in the Row
+        '    Dim ddlIntervencion As DropDownList = CType(e.Row.FindControl("ddlTipoInt"), DropDownList)          
+        '    ddlIntervencion.DataSource = dsA.Tables(0)
+        '    ddlIntervencion.DataTextField = "strNombreTipo"
+        '    ddlIntervencion.DataValueField = "idTipo"
+        '    ddlIntervencion.DataBind()
+
+        '    'Add Default Item in the DropDownList
+        '    'ddlIntervencion.Items.Insert(0, New ListItem("Please select"))
+
+        '    'Select the intervention of activitie in DropDownList
+        '    Dim tipo As String = CType(e.Row.FindControl("ddlTipoInt"), DropDownList).SelectedItem.Text.ToString
+        '    ddlIntervencion.Items.FindByValue(tipo).Selected = True
+        'End If
     End Sub
 End Class

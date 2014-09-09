@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="FrmPlataformas.aspx.vb" Inherits="_Default" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -9,11 +8,14 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:scriptmanager runat="server"></asp:scriptmanager>
+    <asp:updatepanel runat="server">
+         <ContentTemplate>
     <div class="alert alert-danger" id="msg" runat="server">
         <span class="glyphicon glyphicon-remove"></span>
         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
     </div>
-    <div class="row">
+            <div class="row">
         <div class="form-group">
             <div class="col-md-8">
                 
@@ -23,8 +25,8 @@
             </div>            
         </div>
     </div>
-<br />
-    <div class="well">
+            <br />
+            <div class="well">
         <table>
             <tr valign="middle">
                 <td class="auto-style1"><asp:Label ID="Label1" runat="server" Text="Plataforma"></asp:Label></td>
@@ -34,7 +36,7 @@
             </tr>
             </table>
     </div>
-    <div class="panel panel-default">
+            <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Lista de Plataformas</h3>
         </div>
@@ -98,5 +100,7 @@
                 </center>
         </div>
     </div>
+           </ContentTemplate>        
+     </asp:updatepanel>
 </asp:Content>
 

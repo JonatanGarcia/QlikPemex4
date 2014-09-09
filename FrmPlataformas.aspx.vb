@@ -74,10 +74,23 @@ Partial Class _Default
         GridView1.EditIndex = -1
         bindData()
     End Sub
-
+    Function validar() As Boolean
+        If txtPlataforma.Text = "" Then
+            lblError.Text = "Debe ingresar un nombre para la Plataforma"
+            msg.Visible = True
+            Return False
+        End If
+        If IsNumeric(txtPlataforma.Text) Then
+            lblError.Text = "El nombre de la plataforma no puede ser numerico"
+            msg.Visible = True
+            Return False
+        End If
+        msg.Visible = False
+        Return True
+    End Function
     Protected Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-        Dim plataforma As String = txtPlataforma.Text
-        If plataforma <> "" Then
+        Dim plataforma As String = txtPlataforma.Text.ToUpper
+        If validar() Then
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
             parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, plataforma))
@@ -85,11 +98,8 @@ Partial Class _Default
             dao.getDataSet(sp)
             bindData()
             txtPlataforma.Text = ""
-            'validador bootstrap          
-            msg.Visible = False
         Else
             'validador bootstrap
-            lblError.Text = "Debe ingresar un nombre para la plataforma."
             msg.Visible = True
         End If
     End Sub
