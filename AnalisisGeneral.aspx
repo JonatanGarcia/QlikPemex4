@@ -6,58 +6,6 @@
 <%@ Register assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" namespace="System.Web.UI.DataVisualization.Charting" tagprefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-
-    <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
-    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .style8
-        {
-            width: 100%;
-        }
-
-        .style10
-        {
-            width: 586px;
-        }
-        .style11
-        {
-            width: 1470px;
-        }
-        .style14
-        {
-            width: 861px;
-        } 
-    
-          .style001
-        {
-            background-color: #333333;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            }
-          .style12
-        {
-            width: 440px;
-        }
-
-        .auto-style1 {
-            height: 22px;
-        }
-
-        .auto-style2 {
-            height: 22px;
-            width: 782px;
-        }
-
-        .style001
-        {
-            background-color: #244767;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            }
-
-        </style>
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -65,7 +13,11 @@
     </asp:ScriptManager>
             
     <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
-        <%--<ContentTemplate>--%>     
+        <%--<ContentTemplate>--%>   
+    
+    <div class="alert alert-warning" id="msg" runat="server">
+        <span class="glyphicon glyphicon-remove"></span> <asp:Label ID="LblMsg" runat="server" ForeColor="Red" ></asp:Label>  
+    </div>    
                     
             <div class="row">
                 <div class="form-group">
@@ -103,15 +55,17 @@
                                         Filtros
                                     </Header>
                                     <Content>
+
                                         <%-- la tabla --%>
-                                        <asp:Label ID="LblMsg" runat="server" ForeColor="Red" ></asp:Label>
-                                         <table>
-                                            <tr>
-                                                <td class="style12">
+                                        <div class="col-sm-5">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Pozos</h3>
+                                                </div>
+                                                <div class="panel-body">
                                                     <table>
                                                         <tr>
-                                                            <td class="style001" colspan="2">Pozo</td>
-                                                            <td class="style001">
+                                                            <td>
                                                                  <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                                                  <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
                                                                         TargetControlID="TextBox2"
@@ -121,33 +75,22 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                 <asp:ListBox ID="LbPozo" runat="server" SelectionMode="Multiple" Width="150px" 
+                                                                 <asp:ListBox ID="LbPozo" runat="server" SelectionMode="Multiple" Width="220px" 
                                                                     AutoPostBack="True" CssClass="list-group-item">
                                                                 </asp:ListBox>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                </td>
-                                                <td>
-                                                    <table>
-                                                        <tr>
-                                                            <td class="style001" colspan="3">Año</td>
-                                                        </tr>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Plataformas</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                     <table>
                                                         <tr>
                                                             <td>
-                                                                <asp:ListBox ID="LbAnio" runat="server" SelectionMode="Multiple" 
-                                                                    AutoPostBack="True" Width="150px" CssClass="list-group-item"></asp:ListBox>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="style12">
-                                                    <table>
-                                                        <tr>
-                                                            <td class="style001" colspan="2">Plataforma</td>
-                                                            <td class="style001">
                                                                  <asp:TextBox ID="TextBox4" runat="server"  CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                                                  <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server"
                                                                         TargetControlID="TextBox4"
@@ -158,31 +101,20 @@
                                                         <tr>
                                                             <td>
                                                                 <asp:ListBox ID="LbPlataforma" runat="server" SelectionMode="Multiple" 
-                                                                        Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                                        Width="220px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                </td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Equipos</h3>
+                                                </div>
+                                                <div class="panel-body">
                                                     <table>
-                                                        <tr>
-                                                            <td class="style001" colspan="3">Intervención</td>
-                                                        </tr>
                                                         <tr>
                                                             <td>
-                                                                <asp:ListBox ID="LbIntervencion" runat="server" SelectionMode="Multiple" 
-                                                                Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="style12">
-                                                    <table>
-                                                        <tr>
-                                                            <td class="style001" colspan="2">Equipo</td>
-                                                            <td class="style001">
                                                                  <asp:TextBox ID="TextBox3" runat="server"  CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                                                  <aspS:TextBoxWatermarkExtender ID="TBWE3" runat="server"
                                                                         TargetControlID="TextBox3"
@@ -193,14 +125,49 @@
                                                         <tr>
                                                             <td>
                                                                 <asp:ListBox ID="LbEquipo" runat="server" SelectionMode="Multiple" 
-                                                                    Width="150px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                                    Width="220px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                        </table>
+                                                </div>
+                                            </div>
+                                        </div> <!-- Final div6 -->
+
+                                         <div class="col-sm-5">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Año</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                     <table>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:ListBox ID="LbAnio" runat="server" SelectionMode="Multiple" 
+                                                                    AutoPostBack="True" Width="220px" CssClass="list-group-item"></asp:ListBox>
+                                                                <br />
+                                                            </td>
+                                                        </tr>
+                                                    </table>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Intervención</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                     <table>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:ListBox ID="LbIntervencion" runat="server" SelectionMode="Multiple" 
+                                                                Width="220px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                                <br />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div> <!-- Final div 6-->
+
                                     </Content>
                                  </aspS:AccordionPane>
               

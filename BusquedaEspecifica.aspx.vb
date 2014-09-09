@@ -229,8 +229,7 @@ Partial Class _Default
         'ds3.Merge(ds.Tables(0).Select("idPozo=1", "intCon ASC"))
 
         'filtros
-        'WHERE IN
-        Dim ids As Integer() = {1, 2}
+        'WHERE IN        
 
         ' Ocultar columnas
         For i As Integer = 0 To LbInicial.Items.Count - 1
@@ -277,7 +276,7 @@ Partial Class _Default
     End Function
 
     Dim bandera As Boolean = True
-    Protected Sub Unnamed3_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Sub Unnamed3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles LinkButton1.Click
         'saber que campos va a mostrar
         Dim mostrarCampos As Integer = LbFinal.Items.Count
         If mostrarCampos > 0 Then
@@ -295,20 +294,20 @@ Partial Class _Default
                 countIntervencion = LbIntervencionFinal.Items.Count
                 countPlataforma = LbPlataformaFinal.Items.Count
 
-                If countAnio > 0 Then
+                If countAnio > 0 Then ' validar LOS DS 
                     ds = ListaSeleccionados(countAnio, LbAnioFinal, "anio", ds)
                 End If
-                If countPozo > 0 Then
+                If countPozo > 0 And ds.Tables.Count > 0 Then
                     ds = ListaSeleccionados(countPozo, LbPozoFinal, "Npozo", ds)
                 End If
 
-                If countEquipo > 0 Then
+                If countEquipo > 0 And ds.Tables.Count > 0 Then
                     ds = ListaSeleccionados(countEquipo, LbEquipoFinal, "equ", ds)
                 End If
-                If countIntervencion > 0 Then
+                If countIntervencion > 0 And ds.Tables.Count > 0 Then
                     ds = ListaSeleccionados(countIntervencion, LbIntervencionFinal, "NIntervencion", ds)
                 End If
-                If countPlataforma > 0 Then
+                If countPlataforma > 0 And ds.Tables.Count > 0 Then
                     ds = ListaSeleccionados(countPlataforma, LbPlataformaFinal, "Plata", ds)
                 End If
 
@@ -318,9 +317,15 @@ Partial Class _Default
                     ds = dsAux
                 End If
                 msg.Visible = False
-                llenarGrid(ds)
-                Me.Cache("pageIndex") = ds
-                MyAccordion.SelectedIndex = 3
+                If ds.Tables.Count > 0 Then
+                    llenarGrid(ds)
+                    Me.Cache("pageIndex") = ds
+                    MyAccordion.SelectedIndex = 2
+                Else
+                    LblError.Text = "No se econtro información con estos filtros"
+                    MyAccordion.SelectedIndex = 1
+                    msg.Visible = True
+                End If
             End If
         Else
             LblError.Text = " Seleccione que campos quiere mostrar"
@@ -373,12 +378,10 @@ Partial Class _Default
 
     Function validarDs(ds As DataSet, mensaje As String) As Boolean
         If ds.Tables.Count = 0 Then
-            '   LblMsg.Text = "* No se encontró " & mensaje
             LblError.Text = " No se encontró " & mensaje
             msg.Visible = True
             Return False
         End If
-        'LblMsg.Text = ""
         msg.Visible = False
         Return True
     End Function
