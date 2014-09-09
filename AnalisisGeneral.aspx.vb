@@ -7,13 +7,13 @@ Imports DotNet.Highcharts.Helpers
 Partial Class _Default
     Inherits System.Web.UI.Page
 
-
     Dim selecciones(4) As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             inicializar()
             'llenar("", 0)
+            msg.Visible = False
             MyAccordion.SelectedIndex = -1
             Me.Cache("Selecciones") = selecciones
             Dim ds As New DataSet
@@ -255,7 +255,9 @@ Partial Class _Default
         Dim series(LbPozo.Items.Count - 1) As Series
         'Dim ax(LbPozo.Items.Count - 1) As XAxis
 
-        For i As Integer = 0 To LbPozo.Items.Count - 1
+        Dim tamPozo As Integer = LbPozo.Items.Count - 1
+
+        For i As Integer = 0 To tamPozo
             ds3.Merge(ds.Tables(0).Select("NPozo LIKE '%" & LbPozo.Items(i).ToString & "%'"))
 
             Dim b = (From Pozo In ds3.Tables(0) _
@@ -276,7 +278,10 @@ Partial Class _Default
 
             series(i) = New Series
             series(i).Data = datas
+            Dim rand As New Random
 
+
+            series(i).Color = Color.FromArgb(rand.Next(255), rand.Next(155), rand.Next(255))
             series(i).Name = LbPozo.Items(i).ToString()
             ds3.Clear()
         Next
@@ -379,9 +384,11 @@ Partial Class _Default
 
     Function validarDs(ds As DataSet, mensaje As String) As Boolean
         If ds.Tables.Count = 0 Then
-            LblMsg.Text = "* No se encontró " & mensaje
+            LblMsg.Text = " No se encontró " & mensaje
+            msg.Visible = True
             Return False
         End If
+        msg.Visible = False
         LblMsg.Text = ""
         Return True
     End Function

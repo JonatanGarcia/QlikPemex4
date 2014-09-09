@@ -2,39 +2,6 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="aspS" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-
-    <link href="Content/Accordion.css" rel="stylesheet" type="text/css" />
-    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .style8
-        {
-            width: 100%;
-        }
-        .style10
-        {
-            width: 137px;
-        }
-        .style11
-        {
-            width: 78px;
-        }
-        
-        .style001
-        {
-            background-color: #333333;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            }
-        
-       
-        
-        .style12
-        {
-            width: 240px;
-        }
-        
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -119,72 +86,20 @@
             </Content>
 
             <%--  --%>
-        </aspS:AccordionPane>        
-
-          <aspS:AccordionPane ID="AccordionPane2" runat="server">
-              <%-- Filtro --%>
-              <Header> Rangos </Header>
-                <Content> 
-                <table class="style8">
-                    <tr>
-                        <td class="style11">
-                            <asp:Label ID="Label1" runat="server" Text="Fecha Inicio"></asp:Label>
-                        </td>
-                    <td class="style10">
-                         <asp:TextBox ID="TxtFechaInicial" runat="server" CssClass="form-control"></asp:TextBox>
-                         <aspS:CalendarExtender ID="TextBox1_CalendarExtender" runat="server" 
-                            Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaInicial">
-                            </aspS:CalendarExtender>
-                    </td>
-                    <td>
-                        &nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="style11">
-                        <asp:Label ID="Label2" runat="server" Text="Fecha Fin"></asp:Label>
-                    </td>
-                    <td class="style10">
-                         <asp:TextBox ID="TxtFechaFinal" runat="server" CssClass="form-control"></asp:TextBox>
-                         <aspS:CalendarExtender ID="TextBox2_CalendarExtender" runat="server" 
-                            Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaFinal">
-                         </aspS:CalendarExtender>
-                  
-                    </td>
-                    <td>
-                        &nbsp;</td>
-                    <td>
-                       </td>
-                </tr>
-                <tr>
-                    <td class="style11">
-                        &nbsp;</td>
-                    <td class="style10">
-                        &nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                </tr>
-            </table>
-           </Content>
-              <%--  --%>
         </aspS:AccordionPane>
           <aspS:AccordionPane ID="AccordionPane3" runat="server">
             <Header> Filtros</Header>
             <Content>
-                <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
-               <table>
-                    <tr>
-                        <%-- pozo --%>
-                        <td>
-                             <table>
+                  <div class="col-sm-6">
+                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Pozos
+                                </h3>                                
+                        </div>
+                        <div class="panel-body">
+                            <table>
                                 <tr>
-                                    <td class="style001" colspan="2">
-                                        <asp:Label ID="Label5" runat="server" Text="Pozo"></asp:Label>
-                                        </td>
-                                    <td class="style001">
+                                    <td>
                                         <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                         <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" 
                                             TargetControlID="TextBox3" WatermarkCssClass="watermarked" 
@@ -193,7 +108,7 @@
                                 </tr>
                                 <tr>
                                     <td><asp:ListBox ID="LbPozo" runat="server"
-                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
+                                            SelectionMode="Multiple" Width="220px" CssClass="list-group-item"></asp:ListBox>
                                         
                                     </td>
                                     <td>
@@ -203,58 +118,31 @@
                                         <asp:Button ID="Button7" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
                                     </td>
                                     <td>
-                                        <asp:ListBox ID="LbPozoFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                        <asp:ListBox ID="LbPozoFinal" runat="server" Width="220px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
                                     </td>
                                 </tr>
                             </table>
-                        </td>
-                        <%-- end pozo --%>
-                        <td class="style12"></td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="style001" colspan="3">
-                                        <asp:Label ID="Label4" runat="server" Text="Intervencion"></asp:Label>
-                                    </td>
-                                </tr>
+                        </div>
+                    </div>
+                       
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Plataformas</h3>
+                        </div>
+                        <div class="panel-body">
+                             <table>
                                 <tr>
                                     <td>
-                                        <asp:ListBox ID="LbIntervencion" runat="server" 
-                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
-                                    </td>
-                                    <td>
-                                        <asp:Button ID="Button5" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
-                                        <br />
-                                        <br />
-                                        <asp:Button ID="Button6" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
-                                    </td>
-                                    <td>
-                                        <asp:ListBox ID="LbIntervencionFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                     <tr>
-                         <%-- plataforma --%>
-                          <td class="style12">
-                            <table>
-                                <tr>
-                                    <td class="style001" colspan="2">
-                                     <asp:Label ID="Label6" runat="server" Text="Plataforma"></asp:Label>
-                                    </td>
-                                    <td class="style001">
                                         <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                         <aspS:TextBoxWatermarkExtender ID="TBWE4" runat="server" 
                                             TargetControlID="TextBox4" WatermarkCssClass="watermarked" 
                                             WatermarkText="Busqueda de Plataforma" />
                                     </td>
-                                    
                                 </tr>
                                 <tr>
                                     <td>
                                         <asp:ListBox ID="LbPlataforma" runat="server"
-                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
+                                            SelectionMode="Multiple" Width="220px" CssClass="list-group-item"></asp:ListBox>
                                     </td>
                                     <td>
                                         <asp:Button ID="Button10" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
@@ -263,49 +151,20 @@
                                         <asp:Button ID="Button9" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
                                     </td>
                                     <td>
-                                        <asp:ListBox ID="LbPlataformaFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                        <asp:ListBox ID="LbPlataformaFinal" runat="server" Width="220px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
                                     </td>
                                 </tr>
                             </table>
-                        </td>
-                         <%-- end plataforma --%>
-                        <td></td>
-                        <td>
-                             <table>
-                                <tr>
-                                   <td class="style001"
-                                        colspan="3">
-                                        <asp:Label ID="Label3" runat="server" Text="Año"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <%-- aqui va el año --%>
-                                    <td>
-                                        <asp:ListBox ID="LbAnio" runat="server"
-                                            SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
-                                    </td>
-                                    <td>
-                                        <asp:Button ID="Button3" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
-                                        <br />
-                                        <br />
-                                        <asp:Button ID="Button4" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
-                                    </td>
-                                    <td>
-                                        <asp:ListBox ID="LbAnioFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>
-                                <table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Equipos</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table>
                                     <tr>
-                                        <td class="style001" colspan="2">
-                                            <asp:Label ID="Label7" runat="server" Text="Equipo"></asp:Label>
-                                        </td>
-                                        <td class="style001">
+                                        <td>
                                             <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
                                             <aspS:TextBoxWatermarkExtender ID="TBWE3" runat="server" 
                                                 TargetControlID="TextBox5" WatermarkCssClass="watermarked" 
@@ -315,7 +174,7 @@
                                     <tr>
                                         <td>
                                             <asp:ListBox ID="LbEquipo" runat="server"
-                                                SelectionMode="Multiple" Width="160px" CssClass="list-group-item"></asp:ListBox>
+                                                SelectionMode="Multiple" Width="220px" CssClass="list-group-item"></asp:ListBox>
                                         </td>
                                         <td>
                                             <asp:Button ID="Button12" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
@@ -324,16 +183,102 @@
                                             <asp:Button ID="Button11" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
                                         </td>
                                         <td>
-                                            <asp:ListBox ID="LbEquipoFinal" runat="server" Width="160px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                            <asp:ListBox ID="LbEquipoFinal" runat="server" Width="220px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
                                         </td>
                                     </tr>
                                 </table>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-               </table>
-            
+                        </div>
+                    </div>
+
+                    </div><!-- Final del div 6-->
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Fechas</h3>
+                            </div>
+                            <div class="panel-body">
+                                 <table>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="Label1" runat="server" Text="Fecha Inicio"></asp:Label>
+                                        </td>
+                                        <td>
+                                                <asp:TextBox ID="TxtFechaInicial" runat="server" CssClass="form-control"></asp:TextBox>
+                                                <aspS:CalendarExtender ID="TextBox1_CalendarExtender" runat="server" 
+                                                    Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaInicial" PopupPosition="Left">
+                                                </aspS:CalendarExtender>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                <br />
+                                            <asp:Label ID="Label2" runat="server" Text="Fecha Fin"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <br />
+                                            <asp:TextBox ID="TxtFechaFinal" runat="server" CssClass="form-control"></asp:TextBox>
+                                                    <aspS:CalendarExtender ID="TextBox2_CalendarExtender" runat="server" 
+                                                    Enabled="True" Format="yyyy-MM-dd" TargetControlID="TxtFechaFinal" PopupPosition="Left">
+                                                    </aspS:CalendarExtender>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </div>
+                        </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Intervención</h3>
+                        </div>
+                        <div class="panel-body">
+                              <table>
+                                <tr>
+                                    <td>
+                                        <asp:ListBox ID="LbIntervencion" runat="server" 
+                                            SelectionMode="Multiple" Width="220px" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="Button5" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
+                                        <br />
+                                        <br />
+                                        <asp:Button ID="Button6" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
+                                    </td>
+                                    <td>
+                                        <asp:ListBox ID="LbIntervencionFinal" runat="server" Width="220px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Años</h3>
+                        </div>
+                        <div class="panel-body">
+                               <table>
+                                <tr>
+                                    <td>
+                                        <asp:ListBox ID="LbAnio" runat="server"
+                                            SelectionMode="Multiple" Width="220px" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="Button3" runat="server" Text="&gt;&gt;" CssClass="btn btn-default"/>
+                                        <br />
+                                        <br />
+                                        <asp:Button ID="Button4" runat="server" Text="&lt;&lt;" CssClass="btn btn-default"/>
+                                    </td>
+                                    <td>
+                                        <asp:ListBox ID="LbAnioFinal" runat="server" Width="220px" SelectionMode="Multiple" CssClass="list-group-item"></asp:ListBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                        </div>
+                    </div>
+                </div><!--  final del div 6-->
             </Content>      
         </aspS:AccordionPane>      
   

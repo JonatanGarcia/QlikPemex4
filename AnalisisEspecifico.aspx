@@ -68,79 +68,82 @@
                                     </Header>
                                     <Content>
                                         <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
-                                        <table>
-                                            <tr>
-                                                <td class="style001">Pozo
+                                        <div class="col-sm-3">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"> Pozo</h3>
+                                                </div>
+                                                <div class="panel-body">
                                                     <asp:TextBox ID="TxtPozos" runat="server" Width="160px" 
                                                             AutoPostBack="True"></asp:TextBox>
                                                     <aspS:TextBoxWatermarkExtender ID="TBWE2" runat="server" 
                                                             TargetControlID="TxtPozos" WatermarkCssClass="watermarked" 
                                                             WatermarkText="Busqueda de pozo" />
-                                                </td>
-                                                <td class="style11"></td>
-                                                <td class="style001">Nivel 1
-                                                    <asp:TextBox ID="TxtN1" runat="server" Width="200px"  AutoPostBack="True" ></asp:TextBox>
+                                                    <asp:ListBox ID="LbPozo" runat="server"
+                                                            SelectionMode="Multiple" Width="220px" 
+                                                            Height="290px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"> Nivel 1</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <asp:TextBox ID="TxtN1" runat="server" Width="160px"  AutoPostBack="True" ></asp:TextBox>
                                                     <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" 
                                                                 TargetControlID="TxtN1" WatermarkCssClass="watermarked" 
                                                                 WatermarkText="Busqueda de Nivel 1" />
-                                                </td>
-                                                <td class="style11"></td>
-                                                <td class="style001">Nivel 3
-                                                    <asp:TextBox ID="TxtN3" runat="server" Width="200px" AutoPostBack="True" ></asp:TextBox>
-                                                    <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" 
-                                                            TargetControlID="TxtN3" WatermarkCssClass="watermarked" 
-                                                            WatermarkText="Busqueda de Nivel 3" />
-                                                </td>
-                                                <td class="style11"></td>
-                                                <td class="style001">Nivel 4
-                                                    <asp:TextBox ID="TxtN4" runat="server" AutoPostBack="True"></asp:TextBox>
-                                                    <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" 
-                                                                                TargetControlID="TxtN4" WatermarkCssClass="watermarked" 
-                                                                                WatermarkText="Busqueda de Nivel 4" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td rowspan="3">
-                                                    <asp:ListBox ID="LbPozo" runat="server"
-                                                            SelectionMode="Multiple" Width="160px" 
-                                                            Height="250px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
-                                                </td>
-                                                <td></td>
-                                                <td>
-                                                    <asp:ListBox ID="LbN1" runat="server" SelectionMode="Multiple" Width="260px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
-                                                    <br />
-                                                </td>
-                                                <td></td>
-                                                <td rowspan="3">
-                                                    <asp:ListBox ID="LbN3" runat="server" SelectionMode="Multiple" Height="250px" Width="260px" 
-                                                            AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
-                                                    </td>
-                                                <td></td>
-                                                <td rowspan="3">
-                                                    <asp:ListBox ID="LbN4" runat="server" SelectionMode="Multiple" Height="250px" Width="260px" 
-                                                        AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
-                                                </td>
-                                            </tr>
-                                                
-                                            <tr>
-                                                <td></td>
-                                                <td class="style001">Nivel 2
+                                                    <asp:ListBox ID="LbN1" runat="server" SelectionMode="Multiple" Width="220px" AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                </div>
+                                            </div>
+                                              <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"> Nivel 2</h3>
+                                                </div>
+                                                <div class="panel-body">
                                                     <asp:TextBox ID="TxtN2" runat="server" Width="200px" AutoPostBack="True"></asp:TextBox>
                                                     <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" 
                                                                                 TargetControlID="TxtN2" WatermarkCssClass="watermarked" 
                                                                                 WatermarkText="Busqueda de Nivel 2" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                    <asp:ListBox ID="LbN2" runat="server" SelectionMode="Multiple" Height="124px" Width="260px" 
+                                                    <asp:ListBox ID="LbN2" runat="server" SelectionMode="Multiple" Width="220px"
                                                         AutoPostBack="True" CssClass="list-group-item">
                                                     </asp:ListBox>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"> Nivel 3</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <asp:TextBox ID="TxtN3" runat="server" Width="200px" AutoPostBack="True" ></asp:TextBox>
+                                                    <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" 
+                                                            TargetControlID="TxtN3" WatermarkCssClass="watermarked" 
+                                                            WatermarkText="Busqueda de Nivel 3" />
+                                                    <asp:ListBox ID="LbN3" runat="server" SelectionMode="Multiple" Height="290px" Width="220px" 
+                                                            AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title"> Nivel 4</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                     <asp:TextBox ID="TxtN4" runat="server" AutoPostBack="True"></asp:TextBox>
+                                                    <aspS:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" 
+                                                                                TargetControlID="TxtN4" WatermarkCssClass="watermarked" 
+                                                                                WatermarkText="Busqueda de Nivel 4" />
+                                                    <asp:ListBox ID="LbN4" runat="server" SelectionMode="Multiple" Height="290px" Width="220px" 
+                                                        AutoPostBack="True" CssClass="list-group-item"></asp:ListBox>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </Content>
                                 </aspS:AccordionPane>
                                 <aspS:AccordionPane ID="AccorditionPane6" runat="server">
