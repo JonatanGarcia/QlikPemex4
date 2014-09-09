@@ -42,7 +42,7 @@
                         <asp:GridView ID="GridView1" runat="server" AllowPaging="True"
                             AutoGenerateColumns="False"
                             CellPadding="4"
-                            Font-Size="Smaller" ForeColor="#333333" GridLines="None">
+                            Font-Size="Smaller" ForeColor="#333333" GridLines="None" AutoGenerateEditButton="True">
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
                                 <asp:TemplateField HeaderText="Id">

@@ -135,7 +135,7 @@
                                 </asp:DropDownList>
                               </EditItemTemplate>                          
                             <ItemTemplate>
-                                <asp:DropDownList ID="ddlTipoInt" runat="server"></asp:DropDownList>
+                                <asp:Label ID="Label8" runat="server" Text='<%# Bind("strNombreTipo")%>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle VerticalAlign="Top" Width="200px" />
                             <ItemStyle HorizontalAlign="Left" Width="200px" />
