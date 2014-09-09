@@ -5,16 +5,16 @@ Partial Class Default3
         Dim cadena As New StringBuilder
 
         CrystalReportViewer1.RefreshReport()
-        If cadena.ToString() = "" Then
-            Return ""
-        End If
+       
         If TxtFechaInicial.Text <> "" Then
             cadena.Append("{comando.dateOperacion}>=DateTime(").Append(TxtFechaInicial.Text.Replace("-", ",")).Append(") AND ")
         End If
         If TxtFechaFinal.Text <> "" Then
             cadena.Append("{comando.dateOperacion}<=DateTime(").Append(TxtFechaFinal.Text.Replace("-", ",")).Append(") AND ")
         End If
-        
+        If cadena.ToString() = "" Then
+            Return ""
+        End If
         Return cadena.ToString.Substring(0, cadena.ToString.Length - 4)
     End Function
     Protected Sub LinkButton1_Click(sender As Object, e As EventArgs) Handles LinkButton1.Click

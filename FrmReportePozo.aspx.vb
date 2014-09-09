@@ -23,9 +23,6 @@ Partial Class Default3
         ' CrystalReportViewer1.SelectionFormula = "{comando.dateOperacion}>=DateTime(2014,01,01) AND {comando.dateOperacion}<=DateTime(2014,01,07)"        
         ' CrystalReportViewer1.SelectionFormula = "{comando.dateOperacion}>=DateTime(2014,01,01) AND {comando.NIntervencion} in ['PERFORACIÓN','TERMINACIÓN','REPARACIÓN MAYOR']"
         CrystalReportViewer1.RefreshReport()
-        If cadena.ToString() = "" Then
-            Return ""
-        End If
         If TxtFechaInicial.Text <> "" Then
             cadena.Append("{comando.dateOperacion}>=DateTime(").Append(TxtFechaInicial.Text.Replace("-", ",")).Append(") AND ")
         End If
@@ -40,6 +37,9 @@ Partial Class Default3
             Next
 
             cadena.Append(cadenaInter.ToString().Substring(0, cadenaInter.Length - 1)).Append("] AND ")
+        End If
+        If cadena.ToString() = "" Then
+            Return ""
         End If
         Return cadena.ToString.Substring(0, cadena.ToString.Length - 4)
     End Function
