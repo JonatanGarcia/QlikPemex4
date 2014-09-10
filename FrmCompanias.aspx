@@ -6,19 +6,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager runat="server"></asp:ScriptManager>
     <asp:UpdatePanel runat="server">
-        <ContentTemplate>
-            <div class="alert alert-danger" id="msg" runat="server">
-                <span class="glyphicon glyphicon-remove"></span>
-                <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
-            </div>
+        <ContentTemplate>            
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-8">
-
                         <h3>Catálogo Compañias</h3>
                         <hr />
                     </div>
                 </div>
+            </div>
+            <div class="alert alert-danger" id="msg" runat="server">
+                <span class="glyphicon glyphicon-remove"></span>
+                <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
             </div>
             <div class="well">
                 <table>
@@ -33,6 +32,10 @@
                     </tr>
                 </table>
             </div>
+            <div id="GridMsg" runat="server" class="alert alert-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                <asp:Label ID="lblGridMsg" runat="server" ForeColor="Red"></asp:Label>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Lista de Compañias</h3>
@@ -45,9 +48,9 @@
                             Font-Size="Smaller" ForeColor="#333333" GridLines="None" AutoGenerateEditButton="True">
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:TemplateField HeaderText="Id">
+                                <asp:TemplateField HeaderText="Id" Visible =" false">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("idCatCompania") %>'></asp:TextBox>
+                                        <asp:Label ID="lblEditIdCia" runat="server" Text='<%# Bind("idCatCompania") %>' Visible="false"></asp:Label>                                        
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("idCatCompania") %>'></asp:Label>

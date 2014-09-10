@@ -4,6 +4,7 @@ Partial Class _Default
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
             msg.Visible = False
+            GridMsg.Visible = False
             bindData()
         End If
     End Sub
@@ -28,6 +29,7 @@ Partial Class _Default
     End Sub
     Protected Sub GridView1_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles GridView1.RowCancelingEdit
         msg.Visible = False
+        GridMsg.Visible = False
         GridView1.EditIndex = -1
         bindData()
     End Sub
@@ -43,6 +45,20 @@ Partial Class _Default
             Return False
         End If
         msg.Visible = False
+        Return True
+    End Function
+    Function validaGrid(ByVal nombre As String) As Boolean
+        If nombre = "" Then
+            GridMsg.Visible = True
+            lblGridMsg.Text = "Debe ingresar un nombre para la Compañia."
+            Return False
+        End If
+        If IsNumeric(nombre) Then
+            GridMsg.Visible = True
+            lblGridMsg.Text = "El Nombre no puede ser completamente numerico"
+            Return False
+        End If
+        GridMsg.Visible = False
         Return True
     End Function
     Public Function Generic(ByVal sql As String) As DataSet
@@ -70,19 +86,20 @@ Partial Class _Default
         End If
     End Sub
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
-        msg.Visible = False
-        Dim idPlataforma As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), TextBox).Text
+        Dim idPlataforma As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("lblEditIdCia"), Label).Text
         Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
-        'Codigo para modificar en la BDS
-        Dim dao As New StoredBDAccess
-        Dim parametros As New List(Of Parametros)
-        parametros.Add(New Parametros("@idCatCompania", SqlDbType.Int, idPlataforma))
-        parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
-        Dim sp As New DescripParametros("modificaCia", parametros)
-        dao.getDataSet(sp)
-        'Sale del modo edicion y actualiza el GridView
-        GridView1.EditIndex = -1
-        bindData()
+        If validaGrid(strNombre) Then
+            'Codigo para modificar en la BDS
+            Dim dao As New StoredBDAccess
+            Dim parametros As New List(Of Parametros)
+            parametros.Add(New Parametros("@idCatCompania", SqlDbType.Int, idPlataforma))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
+            Dim sp As New DescripParametros("modificaCia", parametros)
+            dao.getDataSet(sp)
+            'Sale del modo edicion y actualiza el GridView
+            GridView1.EditIndex = -1
+            bindData()
+        End If       
     End Sub
     Protected Sub GridView1_RowDeleting(sender As Object, e As EventArgs) Handles GridView1.RowDeleting
         'Elimina Compañia si aun no hay informacion
@@ -97,8 +114,8 @@ Partial Class _Default
             dao.getDataSet(sp)
         Catch ex As Exception
             'validador bootstrap
-            lblError.Text = "La Compañia que intenta eliminar ya contiene información relacionada."
-            msg.Visible = True
+            lblGridMsg.Text = "La Compañia que intenta eliminar ya contiene información relacionada."
+            GridMsg.Visible = True
         End Try
         bindData()
     End Sub

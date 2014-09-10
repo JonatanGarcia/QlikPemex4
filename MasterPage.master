@@ -55,6 +55,7 @@
                                 <li><a href="FrmNptsActividades.aspx">Npts Actividades</a></li>
                                 <li><a href="FrmPlataformas.aspx">Plataformas</a></li>
                                 <li><a href="FrmPozos.aspx">Pozo</a></li>
+                                <li><a href="FrmIntervenciones.aspx">Intervención</a></li>
                                 <li><a href="FrmCatTr.aspx">TR</a></li>
                                 <li class="divider"></li>
                                 <li><a href="FrmNivel1.aspx">Nivel 1</a></li>
