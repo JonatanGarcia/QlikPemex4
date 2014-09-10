@@ -4,6 +4,7 @@ Partial Class _Default
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
             msg.Visible = False
+            msgUpdate.Visible = False
             bindData()
         End If
     End Sub
@@ -15,9 +16,7 @@ Partial Class _Default
         Dim spActividades As New DescripParametros("getActividades", parametros)
         'llenamos DataSets para ddl y gridview 
         Dim dsIntervenciones = dao.getDataSet(spIntervenciones)
-        Session.Add("dsIntervenciones", dsIntervenciones)
         Dim dsActividades = dao.getDataSet(spActividades)
-        Session.Add("dsActividades", dsActividades)
         'Llenamos DropDown List
         ddlIntervencion.DataSource = dsIntervenciones.Tables(0)
         ddlIntervencion.DataTextField = "strNombre"
@@ -46,22 +45,26 @@ Partial Class _Default
     End Sub
     Protected Sub GridView1_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles GridView1.RowCancelingEdit
         msg.Visible = False
+        msgUpdate.Visible = False
         GridView1.EditIndex = -1
         bindData()
     End Sub
     Protected Sub GridView1_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles GridView1.RowEditing
+        msgUpdate.Visible = False
         GridView1.EditIndex = e.NewEditIndex
         bindData()
     End Sub
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
-        msg.Visible = False
-        If validar() Then
-            Dim idActividad As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), Label).Text
-            Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
-            Dim secuencia As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox3"), TextBox).Text
-            Dim strDesc As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox5"), TextBox).Text
-            Dim ddl As DropDownList = DirectCast(GridView1.Rows(e.RowIndex).FindControl("ddlEditInterv"), DropDownList)
-            Dim idTipo As Integer = 0
+
+        msgUpdate.Visible = False
+
+        Dim idActividad As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), Label).Text
+        Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
+        Dim secuencia As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox3"), TextBox).Text
+        Dim strDesc As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox5"), TextBox).Text
+        Dim ddl As DropDownList = DirectCast(GridView1.Rows(e.RowIndex).FindControl("ddlEditInterv"), DropDownList)
+        Dim idTipo As Integer = 0
+        If validaUpdate(strNombre, secuencia, strDesc) Then
             For i As Integer = 0 To ddl.Items.Count - 1
                 If ddl.Items(i).Selected Then
                     idTipo = ddl.Items(i).Value
@@ -84,6 +87,27 @@ Partial Class _Default
             bindData()
         End If
     End Sub
+    Function validaUpdate(strNombre As String, secuencia As String, strDesc As String) As Boolean
+        msgUpdate.Visible = True
+        If strNombre = "" Then
+            lblErrorUpdate.Text = "Debe ingresar un nombre para la Actividad."
+            Return False
+        End If
+        If Not IsNumeric(secuencia) Then
+            lblErrorUpdate.Text = "Secuencia debe ser un valor numerico"
+            Return False
+        End If
+        If secuencia < 0 Then
+            lblErrorUpdate.Text = "Secuencia debe ser un valor mayor a cero"
+            Return False
+        End If
+        If strDesc = "" Then
+            lblErrorUpdate.Text = "Debe describir la Actividad " & strNombre
+        End If
+        msgUpdate.Visible = False
+        Return True
+    End Function
+
     Function validar() As Boolean
         If txtNombre.Text = "" Then
             msg.Visible = True
@@ -107,7 +131,7 @@ Partial Class _Default
         End If
         If txtDescripcion.Text = "" Then
                 msg.Visible = True
-                lblError.Text = "Debe describir la Actividad " + txtNombre.Text.ToUpper
+                lblError.Text = "Debe describir la Actividad " & txtNombre.Text.ToUpper
                 Return False
         End If
         msg.Visible = False
@@ -137,7 +161,7 @@ Partial Class _Default
     End Sub
     Protected Sub GridView1_RowDeleting(sender As Object, e As EventArgs) Handles GridView1.RowDeleting
         'Elimina Actvividad si aun no hay informacion relacionada
-        msg.Visible = False
+        msgUpdate.Visible = False
         Dim lnkRemove As LinkButton = DirectCast(sender, LinkButton)
         Dim dao As New StoredBDAccess
         Dim parametros As New List(Of Parametros)
@@ -148,8 +172,8 @@ Partial Class _Default
             dao.getDataSet(sp)
         Catch ex As Exception
             'validador bootstrap
-            lblError.Text = "La Actividad que intenta eliminar ya contiene información relacionada."
-            msg.Visible = True
+            lblErrorUpdate.Text = "La Actividad que intenta eliminar ya contiene información relacionada."
+            msgUpdate.Visible = True
         End Try
         bindData()
     End Sub

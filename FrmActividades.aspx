@@ -4,10 +4,6 @@
     <asp:scriptmanager runat="server"></asp:scriptmanager>
     <asp:updatepanel runat="server">
          <ContentTemplate>
-    <div class="alert alert-danger" id="msg" runat="server">
-        <span class="glyphicon glyphicon-remove"></span>
-        <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
-    </div>
     <div class="row">
         <div class="form-group">
             <div class="col-md-8">
@@ -17,6 +13,10 @@
         </div>
     </div>
     <br />
+   <div class="alert alert-danger" id="msg" runat="server">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+    </div>
     <div class="well">
         <table>
             <tr>
