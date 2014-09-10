@@ -7,15 +7,6 @@ Partial Class _Default
             bindData()
         End If
     End Sub
-    Public Function Generic(ByVal sql As String) As DataSet
-        Dim ds As New DataSet
-        Dim dao As New StoredBDAccess
-        Dim listParametros As New List(Of Parametros)
-        listParametros.Add(New Parametros("@SQL_QUERY", SqlDbType.VarChar, sql))
-        Dim busca = New DescripParametros("getGeneric", listParametros)
-        ds = dao.getDataSet(busca)
-        Return ds
-    End Function
     Sub bindData()
         Dim dao As New StoredBDAccess
         Dim parametros As New List(Of Parametros)
@@ -59,26 +50,39 @@ Partial Class _Default
         bindData()
     End Sub
     Protected Sub GridView1_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles GridView1.RowEditing
-        GridView1.EditIndex = e.NewEditIndex       
+        GridView1.EditIndex = e.NewEditIndex
         bindData()
     End Sub
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
         msg.Visible = False
-        Dim actividad As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
-        Dim secuencia As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox3"), TextBox).Text
-        Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
-        Dim ddl As DropDownList = DirectCast(GridView1.Rows(e.RowIndex).FindControl("ddlEditInterv"), DropDownList)
-        llenaDdlIntervencion(ddl)
-        'Codigo para modificar en la BDS
-        Dim dao As New StoredBDAccess
-        Dim parametros As New List(Of Parametros)
-        parametros.Add(New Parametros("@idPlataforma", SqlDbType.Int, actividad))
-        parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
-        Dim sp As New DescripParametros("modificaPlataforma", parametros)
-        dao.getDataSet(sp)
-        'Sale del modo edicion y actualiza el GridView
-        GridView1.EditIndex = -1
-        bindData()
+        If validar() Then
+            Dim idActividad As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), Label).Text
+            Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
+            Dim secuencia As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox3"), TextBox).Text
+            Dim strDesc As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox5"), TextBox).Text
+            Dim ddl As DropDownList = DirectCast(GridView1.Rows(e.RowIndex).FindControl("ddlEditInterv"), DropDownList)
+            Dim idTipo As Integer = 0
+            For i As Integer = 0 To ddl.Items.Count - 1
+                If ddl.Items(i).Selected Then
+                    idTipo = ddl.Items(i).Value
+                    Exit For
+                End If
+            Next
+            'Codigo para modificar en la BDS
+            Dim dao As New StoredBDAccess
+            Dim parametros As New List(Of Parametros)
+            parametros.Add(New Parametros("@idActividad", SqlDbType.Int, idActividad))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
+            parametros.Add(New Parametros("@strDesc", SqlDbType.VarChar, strDesc))
+            parametros.Add(New Parametros("@secuencia", SqlDbType.VarChar, secuencia))
+            parametros.Add(New Parametros("@idTipo", SqlDbType.VarChar, idTipo))
+            Dim sp As New DescripParametros("modificaActividades", parametros)
+            dao.getDataSet(sp)
+
+            'Sale del modo edicion y actualiza el GridView
+            GridView1.EditIndex = -1
+            bindData()
+        End If
     End Sub
     Function validar() As Boolean
         If txtNombre.Text = "" Then
@@ -87,24 +91,24 @@ Partial Class _Default
             Return False
         End If
         If txtSecuencia.Text = "" Then
-            msg.Visible = True
-            lblError.Text = "Debe ingresar un valor de secuencia (1-100)."
-            Return False
+                msg.Visible = True
+                lblError.Text = "Debe ingresar un valor de secuencia (1-100)."
+                Return False
         End If
         If Not IsNumeric(txtSecuencia.Text) Then
-            msg.Visible = True
-            lblError.Text = "El valor debe ser un numerico"
-            Return False
+                msg.Visible = True
+                lblError.Text = "El valor debe ser un numerico"
+                Return False
         End If
         If txtSecuencia.Text <= 0 Then
-            msg.Visible = True
-            lblError.Text = "El valor debe ser mayor a cero"
-            Return False
+                msg.Visible = True
+                lblError.Text = "El valor debe ser mayor a cero"
+                Return False
         End If
         If txtDescripcion.Text = "" Then
-            msg.Visible = True
-            lblError.Text = "Debe describir la Actividad " + txtNombre.Text.ToUpper
-            Return False
+                msg.Visible = True
+                lblError.Text = "Debe describir la Actividad " + txtNombre.Text.ToUpper
+                Return False
         End If
         msg.Visible = False
         Return True
@@ -126,7 +130,7 @@ Partial Class _Default
             bindData()
             txtNombre.Text = ""
             txtSecuencia.Text = ""
-            txtDescripcion.Text = ""            
+            txtDescripcion.Text = ""
         Else
             msg.Visible = True
         End If
@@ -151,28 +155,12 @@ Partial Class _Default
     End Sub
     'Cachamos el evento y llenamos el ddl en tiempo de ejecucion
     Protected Sub GridView1_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridView1.RowDataBound
-        'Si y solo si esta editando
-        If e.Row.RowState = DataControlRowState.Edit Then
+        'Si y solo si esta editando   
+        If ((e.Row.RowState And DataControlRowState.Edit) > 0) Then
+            Dim ll As Label = CType(e.Row.FindControl("lblInter"), Label)
             Dim ddl As DropDownList = DirectCast(e.Row.FindControl("ddlEditInterv"), DropDownList)
             llenaDdlIntervencion(ddl)
+            ddl.SelectedValue = ll.Text
         End If
-        'If (e.Row.RowType = DataControlRowType.DataRow) Then
-        '    'Recupera Dataset de la sesion
-        '    Dim dsI = Session("dsIntervenciones")
-        '    Dim dsA = Session("dsActividades")
-        '    'Find the DropDownList in the Row
-        '    Dim ddlIntervencion As DropDownList = CType(e.Row.FindControl("ddlTipoInt"), DropDownList)          
-        '    ddlIntervencion.DataSource = dsA.Tables(0)
-        '    ddlIntervencion.DataTextField = "strNombreTipo"
-        '    ddlIntervencion.DataValueField = "idTipo"
-        '    ddlIntervencion.DataBind()
-
-        '    'Add Default Item in the DropDownList
-        '    'ddlIntervencion.Items.Insert(0, New ListItem("Please select"))
-
-        '    'Select the intervention of activitie in DropDownList
-        '    Dim tipo As String = CType(e.Row.FindControl("ddlTipoInt"), DropDownList).SelectedItem.Text.ToString
-        '    ddlIntervencion.Items.FindByValue(tipo).Selected = True
-        'End If
     End Sub
 End Class

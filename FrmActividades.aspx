@@ -71,6 +71,12 @@
         <br />
         <br />
     </div>
+
+    <div class="alert alert-danger" id="msgUpdate" runat="server">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblErrorUpdate" runat="server" ForeColor="Red"></asp:Label>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Lista de Actividades</h3>
@@ -88,9 +94,9 @@
                     GridLines="None" AutoGenerateEditButton="True">
                     <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Id">
+                        <asp:TemplateField HeaderText="Id" Visible="false">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("idActividad") %>'></asp:TextBox>
+                                <asp:Label ID="TextBox1" Visible="false" runat="server" Text='<%# Bind("idActividad") %>'></asp:Label>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="Label5" runat="server" Text='<%# Bind("idActividad") %>'></asp:Label>
@@ -129,6 +135,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Intervencion">
                             <EditItemTemplate>
+                                <asp:Label ID="lblInter" Visible="false" runat="server" Text='<%# Bind("idTipo")%>'></asp:Label>
                                 <asp:DropDownList 
                                     ID="ddlEditInterv" 
                                     runat="server">                                    
