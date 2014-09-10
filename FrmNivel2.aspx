@@ -14,6 +14,10 @@
     </div>
     <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
     <%--<asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />--%>
+    <div class="alert alert-danger" id="msg" runat="server" Visible="false">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+    </div>
     <br />
     <br />    
 
@@ -35,32 +39,69 @@
         </table>
     </div>
 
+    
+    <div class="alert alert-danger" id="msgUpdate" runat="server" visible="false">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblErrorUpdate" runat="server" ForeColor="Red"></asp:Label>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Lista Nivel 2</h3>
         </div>
         <div class="panel-body">
             <center>
-                <asp:GridView ID="GridView2" runat="server">
-                </asp:GridView>
             <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                              AutoGenerateColumns="False" 
                             CellPadding="4" 
-                            Font-Size="Smaller" ForeColor="#333333" GridLines="None">
+                            Font-Size="Smaller" ForeColor="#333333" GridLines="None" AutoGenerateEditButton="True">
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:BoundField DataField="idNPTN2" HeaderText="Id"  HtmlEncode="false">
-                                    <ItemStyle Width="100px" />
+                                <asp:TemplateField HeaderText="Id" Visible="false">
+                                    <EditItemTemplate>
+                                        <asp:Label ID="TextBox1" runat="server" Text='<%# Bind("idNPTN2") %>' Visible="false"></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("idNPTN2") %>' Visible="false"></asp:Label>
+                                    </ItemTemplate>
                                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="nivel2" HeaderText="Nivel 2" HtmlEncode="false">
-                                    <ItemStyle HorizontalAlign="Left" Width="200px"/>
-                                    <HeaderStyle  VerticalAlign="Top" Width="200px" />
-                                </asp:BoundField>
-                               <asp:BoundField DataField="nivel1" HeaderText="Nivel 1" HtmlEncode="false">
+                                    <ItemStyle Width="100px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nivel 2">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("nivel2") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("nivel2") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle VerticalAlign="Top" Width="200px" />
                                     <ItemStyle HorizontalAlign="Left" Width="200px" />
-                                    <HeaderStyle  VerticalAlign="Top" Width="200px" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nivel 1">
+                                    <EditItemTemplate>
+                                        <asp:Label ID="lblIdN1" runat="server" Text='<%# Bind("idNPTN1")%>' Visible="false"></asp:Label>
+                                        <asp:DropDownList 
+                                            ID="ddlEditN1" 
+                                            runat="server">
+                                        </asp:DropDownList>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("nivel1") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle VerticalAlign="Top" Width="200px" />
+                                    <ItemStyle HorizontalAlign="Left" Width="200px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton 
+                                            ID="lnkRemove" 
+                                            runat="server" 
+                                            CommandArgument='<%# Eval("idNPTN2")%>'
+                                            Text="Eliminar"
+                                            OnClick="GridView1_RowDeleting">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EditRowStyle BackColor="#999999" />
                             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />

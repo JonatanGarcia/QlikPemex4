@@ -4,6 +4,13 @@
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:scriptmanager runat="server"></asp:scriptmanager>
+    <asp:updatepanel runat="server">
+         <ContentTemplate>
+    <div class="alert alert-danger" id="msg" runat="server" visible="false">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+    </div>
 
     <div class="row">
         <div class="form-group">
@@ -31,27 +38,60 @@
                 
 
     </div>
+
+    <div class="alert alert-danger" id="msgUpdate" runat="server" visible="false">
+        <span class="glyphicon glyphicon-remove"></span>
+        <asp:Label ID="lblErrorUpdate" runat="server" ForeColor="Red"></asp:Label>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Lista Nivel 1</h3>
         </div>
         <div class="panel-body">
             <center>
-            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
-                            AutoGenerateColumns="False" 
-                            CellPadding="4" 
-                            Font-Size="Smaller" ForeColor="#333333" GridLines="None" >
+            <asp:GridView 
+                ID="GridView1" 
+                runat="server" 
+                AllowPaging="True" 
+                AutoGenerateColumns="False"
+                CellPadding="4" 
+                Font-Size="Smaller" 
+                ForeColor="#333333" 
+                GridLines="None" AutoGenerateEditButton="True" >
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:BoundField DataField="idNPTN1" HeaderText="Id" HtmlEncode="false">
-                                    <ItemStyle Width="100px" />
+                                <asp:TemplateField HeaderText="Id">
+                                    <EditItemTemplate>
+                                        <asp:Label ID="TextBox1" runat="server" Text='<%# Bind("idNPTN1") %>'></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("idNPTN1") %>' Visible="false"></asp:Label>
+                                    </ItemTemplate>
                                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
-                                </asp:BoundField>
-                                    <asp:BoundField DataField="strNombre" HeaderText="Nivel 1" HtmlEncode="false">
+                                    <ItemStyle Width="100px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Nivel 1">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("strNombre") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("strNombre") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle VerticalAlign="Top" Width="200px" />
                                     <ItemStyle HorizontalAlign="Left" Width="200px" />
-                                <HeaderStyle VerticalAlign="Top" Width="200px" />
-                                </asp:BoundField>
-                               
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton 
+                                            ID="lnkRemove"
+                                            runat="server" 
+                                            CommandArgument='<%# Eval("idNPTN1")%>'
+                                            Text="Eliminar"
+                                            OnClick="GridView1_RowDeleting">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EditRowStyle BackColor="#999999" />
                             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
@@ -69,7 +109,8 @@
         </div>
     </div>
 
-    
+        </ContentTemplate>        
+    </asp:updatepanel>
 </asp:Content>
 
 
