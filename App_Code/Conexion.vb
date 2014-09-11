@@ -11,7 +11,7 @@ Public Class Conexion
     Friend _Adaptador As SqlDataAdapter
 
     Public Sub New()
-        _StrConexion = "server=localhost;uid=sa;pwd=stin2014;database=PMX_NPTS_CI;Connect Timeout=10000;"
+        _StrConexion = "server=localhost;uid=sa;pwd=stin2014;database=NPTSPRUEBAS;Connect Timeout=10000;"
         _Conexion = New SqlConnection(_StrConexion)
         _Commando = New SqlCommand
         _Commando.CommandTimeout = 3600

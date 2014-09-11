@@ -52,6 +52,7 @@ Partial Class _Default
             parametros.Add(New Parametros("@idNPTN1", SqlDbType.VarChar, CmdN1.SelectedValue))
             Dim sp As New DescripParametros("AltaNivel2", parametros)
             dao.getDataSet(sp)
+            TxtNivel2.Text = ""
             bindData()
         End If
     End Sub
@@ -116,5 +117,17 @@ Partial Class _Default
     Protected Sub GridView1_RowDeleting(sender As Object, e As EventArgs) Handles GridView1.RowDeleting
         msgUpdate.Visible = False
         Dim lnkRemove As LinkButton = DirectCast(sender, LinkButton)
+        Dim dao As New StoredBDAccess
+
+        Dim parametros As New List(Of Parametros)
+        parametros.Add(New Parametros("@idCatNivel2", SqlDbType.Int, lnkRemove.CommandArgument))
+        Dim sp As New DescripParametros("borraNivel2", parametros)
+        Try
+            dao.getDataSet(sp)
+        Catch ex As Exception
+            lblErrorUpdate.Text = "La Actividad que intenta eliminar ya contiene información relacionada."
+            msgUpdate.Visible = True
+        End Try
+        bindData()
     End Sub
 End Class
