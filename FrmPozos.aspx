@@ -70,6 +70,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Status">
                                     <EditItemTemplate>
+                                        <asp:Label ID="editChkValue" runat="server" Text='<%# Bind("bitVisible")%>' Visible="false"></asp:Label>
                                         <asp:CheckBox ID="CheckBox1" runat="server" />
                                     </EditItemTemplate>
                                     <ItemTemplate>

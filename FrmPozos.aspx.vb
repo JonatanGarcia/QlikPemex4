@@ -17,6 +17,22 @@ Partial Class _Default
         GridView1.DataSource = cmd
         GridView1.DataBind()
     End Sub
+    Protected Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
+        Dim cia As String = txtCia.Text.ToUpper
+
+        If validar() Then
+            Dim dao As New StoredBDAccess
+            Dim parametros As New List(Of Parametros)
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, cia))
+            Dim sp As New DescripParametros("AltaPozo", parametros)
+            dao.getDataSet(sp)
+            bindData()
+            txtCia.Text = ""
+        Else
+            'validador bootstrap
+            msg.Visible = True
+        End If
+    End Sub
     Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
         msg.Visible = False
         Dim newPageNumber As Integer = e.NewPageIndex + 1
@@ -69,54 +85,49 @@ Partial Class _Default
         Dim busca = New DescripParametros("getGeneric", listParametros)
         ds = dao.getDataSet(busca)
         Return ds
-    End Function   
-    Protected Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-        Dim cia As String = txtCia.Text.ToUpper
-        If validar() Then
-            Dim dao As New StoredBDAccess
-            Dim parametros As New List(Of Parametros)
-            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, cia))
-            Dim sp As New DescripParametros("AltaPozo", parametros)
-            dao.getDataSet(sp)
-            bindData()
-            txtCia.Text = ""
-        Else
-            'validador bootstrap
-            msg.Visible = True
-        End If
-    End Sub
+    End Function       
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
-        Dim idPlataforma As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("lblEditIdCia"), Label).Text
+        Dim idPozo As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("lblEditIdPozo"), Label).Text
         Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
+        Dim visible As Boolean = DirectCast(GridView1.Rows(e.RowIndex).FindControl("CheckBox1"), CheckBox).Checked       
         If validaGrid(strNombre) Then
             'Codigo para modificar en la BDS
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
-            parametros.Add(New Parametros("@idCatCompania", SqlDbType.Int, idPlataforma))
+            parametros.Add(New Parametros("@idPozo", SqlDbType.Int, idPozo))
             parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
-            Dim sp As New DescripParametros("modificaCia", parametros)
+            parametros.Add(New Parametros("@visible", SqlDbType.Bit, visible))
+            Dim sp As New DescripParametros("modificaPozo", parametros)
             dao.getDataSet(sp)
             'Sale del modo edicion y actualiza el GridView
             GridView1.EditIndex = -1
             bindData()
-        End If       
+        End If
     End Sub
     Protected Sub GridView1_RowDeleting(sender As Object, e As EventArgs) Handles GridView1.RowDeleting
-        'Elimina Compañia si aun no hay informacion
+        'Elimina Pozo si aun no hay informacion
         msg.Visible = False
         Dim lnkRemove As LinkButton = DirectCast(sender, LinkButton)
         Dim dao As New StoredBDAccess
         Dim parametros As New List(Of Parametros)
         'Recuperamos el id del GridView
-        parametros.Add(New Parametros("@idCatCompania", SqlDbType.Int, lnkRemove.CommandArgument))
-        Dim sp As New DescripParametros("borraCia", parametros)
+        parametros.Add(New Parametros("@idPozo", SqlDbType.Int, lnkRemove.CommandArgument))
+        Dim sp As New DescripParametros("borraPozo", parametros)
         Try
             dao.getDataSet(sp)
         Catch ex As Exception
             'validador bootstrap
-            lblGridMsg.Text = "La Compañia que intenta eliminar ya contiene información relacionada."
+            lblGridMsg.Text = "El Pozo que intenta eliminar ya contiene información relacionada."
             GridMsg.Visible = True
         End Try
         bindData()
+    End Sub
+    Protected Sub GridView1_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridView1.RowDataBound
+        'Si y solo si esta editando   
+        If ((e.Row.RowState And DataControlRowState.Edit) > 0) Then
+            Dim checkValue As Boolean = CType(e.Row.FindControl("editChkValue"), Label).Text
+            Dim chkVisible As CheckBox = DirectCast(e.Row.FindControl("CheckBox1"), CheckBox)
+            chkVisible.Checked = checkValue            
+        End If
     End Sub
 End Class

@@ -4,49 +4,78 @@
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <div class="row">
+    <div class="row">
         <div class="form-group">
-            <div class="col-md-8">
-                
-                <h3>Catálogo Tr</h3>
-                <hr />
-                
+            <div class="col-md-8">                
+                <h3>Catálogo TRs</h3>
+                <hr />                
             </div>            
         </div>
-    </div>
-    <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
-    <%--<asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />--%>
-    <br />
-<br />
-
+    </div>  
+    <div class="alert alert-danger" id="msg" runat="server">
+                <span class="glyphicon glyphicon-remove"></span>
+                <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+            </div>
     <div class="well">
-        <table>
-            <tr>
-                <td><asp:Label ID="Label1" runat="server" Text="Diámetro Tr"></asp:Label></td>
-                <td><asp:TextBox ID="TxtNivel3" runat="server" CssClass="form-control" Height="28px" Width="180px"></asp:TextBox></td>
-            </tr>
-        </table>
-    </div>
+                <table>
+                    <tr valign="middle">
+                        <td class="auto-style1">
+                            <asp:Label ID="Label2" runat="server" Text="TR"></asp:Label></td>
+                        <td class="auto-style1">
+                            <asp:TextBox ID="txtTr" runat="server" CssClass="form-control" Height="28px" Width="180px" CausesValidation="True"></asp:TextBox>
+                            <td class="auto-style1">
+                                <asp:LinkButton ID="btnNuevo" runat="server" CssClass="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton></td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+    <div id="GridMsg" runat="server" class="alert alert-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                <asp:Label ID="lblGridMsg" runat="server" ForeColor="Red"></asp:Label>
+            </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Lista de Tr</h3>
+            <h3 class="panel-title">Lista de TR</h3>
         </div>
         <div class="panel-body">
             <center>
             <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                             AutoGenerateColumns="False" 
                             CellPadding="4"
-                            Font-Size="Smaller" ForeColor="#333333" GridLines="None">
+                            Font-Size="Smaller" ForeColor="#333333" GridLines="None" AutoGenerateEditButton="True">
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:BoundField DataField="idCatTr" HeaderText="Id" HtmlEncode="false">
-                                    <ItemStyle  Width="100px" />
+                                <asp:TemplateField HeaderText="Id" Visible="False">
+                                    <EditItemTemplate>
+                                        <asp:label ID="lblEditIdTr" runat="server" Text='<%# Bind("idCatTr") %>'></asp:label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("idCatTr") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width="100px" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="strNombre" HeaderText="Nivel 3" HtmlEncode="false">
+                                    <ItemStyle Width="100px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="TR">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("strNombre") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("strNombre") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle VerticalAlign="Top" Width="200px" />
                                     <ItemStyle HorizontalAlign="Left" Width="200px" />
-                                    <HeaderStyle  VerticalAlign="Top" Width="200px" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton 
+                                            ID="lnkRemove" 
+                                            runat="server"
+                                            CommandArgument='<%# Eval("idCatTr")%>'
+                                            Text="Eliminar" 
+                                            OnClick="GridView1_RowDeleting">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EditRowStyle BackColor="#999999" />
                             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
