@@ -55,22 +55,14 @@ Partial Class _Default
         bindData()
     End Sub
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GridView1.RowUpdating
-
         msgUpdate.Visible = False
-
         Dim idActividad As Integer = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox1"), Label).Text
         Dim strNombre As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox2"), TextBox).Text
         Dim secuencia As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox3"), TextBox).Text
         Dim strDesc As String = DirectCast(GridView1.Rows(e.RowIndex).FindControl("TextBox5"), TextBox).Text
         Dim ddl As DropDownList = DirectCast(GridView1.Rows(e.RowIndex).FindControl("ddlEditInterv"), DropDownList)
-        Dim idTipo As Integer = 0
-        If validaUpdate(strNombre, secuencia, strDesc) Then
-            For i As Integer = 0 To ddl.Items.Count - 1
-                If ddl.Items(i).Selected Then
-                    idTipo = ddl.Items(i).Value
-                    Exit For
-                End If
-            Next
+        Dim idTipo As Integer = ddl.SelectedValue
+        If validaUpdate(strNombre, secuencia, strDesc) Then            
             'Codigo para modificar en la BDS
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
@@ -81,7 +73,6 @@ Partial Class _Default
             parametros.Add(New Parametros("@idTipo", SqlDbType.VarChar, idTipo))
             Dim sp As New DescripParametros("modificaActividades", parametros)
             dao.getDataSet(sp)
-
             'Sale del modo edicion y actualiza el GridView
             GridView1.EditIndex = -1
             bindData()
