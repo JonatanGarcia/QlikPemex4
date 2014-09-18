@@ -12,18 +12,13 @@ Partial Class _Default
     Sub llenar()
         Dim ds As New DataSet
         ds = Me.Cache("pozo")
-
-
-
+        CmbInter.Items.Add("-- nanniiii --")
         CmbInter.DataSource = (From N1 In ds.Tables(0) _
                             Select N1.Field(Of String)("inter")).Distinct
         CmbInter.DataBind()
-
         CmbTipoInter.DataSource = (From N1 In ds.Tables(0) _
                             Select N1.Field(Of String)("subInter")).Distinct
         CmbTipoInter.DataBind()
-
-        
 
     End Sub
     Sub mostrar()
@@ -65,14 +60,48 @@ Partial Class _Default
     End Sub
     Protected Sub CmbInter_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbInter.SelectedIndexChanged
         If CmbInter.SelectedValue = "REPARACIÓN MAYOR" Then
+            CmbPozo.Items.Clear()
             mostrar()
         Else
             ocultar()
-
         End If
     End Sub
 
     Protected Sub CmbTipoInter_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbTipoInter.SelectedIndexChanged
         asignaPozo(Me.Cache("pozo"), CmbInter.SelectedValue, CmbTipoInter.SelectedValue)
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        MsgBox("visualizar")
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        MsgBox("guardar")
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim path As String = Server.MapPath("~/archivos/")
+        Dim fileOk As Boolean = False
+        If FileUpload1.HasFile Then
+            Dim fileExtension As String
+            fileExtension = System.IO.Path.GetExtension(FileUpload1.FileName).ToLower
+            Dim allowedExtension As String() = {".jpg", ".png"}
+            For i As Integer = 0 To allowedExtension.Length - 1
+                If fileExtension = allowedExtension(i) Then
+                    fileOk = True
+                End If
+            Next
+            If fileOk Then
+                Try
+                    FileUpload1.PostedFile.SaveAs(path & FileUpload1.FileName)
+
+                Catch ex As Exception
+
+                End Try
+            End If
+        End If
+
+
+
     End Sub
 End Class

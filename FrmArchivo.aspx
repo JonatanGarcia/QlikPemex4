@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="FrmArchivo.aspx.vb" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <asp:scriptmanager runat="server"></asp:scriptmanager>
+    <%--<asp:updatepanel runat="server">
+         <ContentTemplate>--%>
     <div class="row">
         <div class="form-group">
             <div class="col-md-8">
@@ -82,6 +84,11 @@
         </div>
     </div>
 
-    
+<%--</ContentTemplate>        
+    <Triggers>
+        <asp:AsyncPostBackTrigger ControlID = "btnAsyncUpload"
+          EventName = "Click" />
+        <asp:PostBackTrigger ControlID = "btnUpload" />
+    </Triggers>
+    </asp:updatepanel>--%>
 </asp:Content>
-

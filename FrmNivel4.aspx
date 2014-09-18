@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="FrmNivel4.aspx.vb" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:scriptmanager runat="server"></asp:scriptmanager>
+    <asp:updatepanel runat="server">
+         <ContentTemplate>
     <div class="row">
         <div class="form-group">
             <div class="col-md-8">
@@ -17,8 +19,7 @@
     <div class="alert alert-danger" id="msg" runat="server" Visible="false">
         <span class="glyphicon glyphicon-remove"></span>
         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
-    </div>
-    <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
+    </div>    
     <%--<asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />--%>
     
     <br />
@@ -37,6 +38,10 @@
                 <td>
                     <br />
                     <asp:DropDownList ID="CmdN3" runat="server" CssClass="form-control" Height="28px" Width="180px" ></asp:DropDownList> </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><br /><asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton></td>
             </tr>
         </table>
     </div>
@@ -140,5 +145,7 @@
         </div>
     </div>
 
+        </ContentTemplate>        
+    </asp:updatepanel>
 </asp:Content>
 

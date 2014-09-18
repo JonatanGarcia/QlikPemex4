@@ -58,7 +58,7 @@ Partial Class _Default
             ocultaMsg()
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
-            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, TxtNivel4.Text))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, TxtNivel4.Text.ToUpper))
             parametros.Add(New Parametros("@idNPTN3", SqlDbType.Int, CmdN3.SelectedValue))
 
             Dim sp As New DescripParametros("AltaNivel4", parametros)
@@ -101,7 +101,7 @@ Partial Class _Default
             Dim parametros As New List(Of Parametros)
             parametros.Add(New Parametros("@idNPTN4", SqlDbType.Int, idNPTN4))
             parametros.Add(New Parametros("@idNPTN3", SqlDbType.Int, idNPTN3))
-            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre.ToUpper))
 
             Dim sp As New DescripParametros("modificaNivel4", parametros)
             dao.getDataSet(sp)

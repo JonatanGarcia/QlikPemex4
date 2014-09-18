@@ -53,7 +53,7 @@ Partial Class _Default
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
             parametros.Add(New Parametros("@idNPTN2", SqlDbType.Int, CmdN2.SelectedValue))
-            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, TxtNivel3.Text))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, TxtNivel3.Text.ToUpper))
 
             Dim sp As New DescripParametros("AltaNivel3", parametros)
             dao.getDataSet(sp)
@@ -97,7 +97,7 @@ Partial Class _Default
             Dim dao As New StoredBDAccess
             Dim parametros As New List(Of Parametros)
             parametros.Add(New Parametros("@idNPTN2", SqlDbType.Int, idNPTN2))
-            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre))
+            parametros.Add(New Parametros("@nombre", SqlDbType.VarChar, strNombre.ToUpper))
             parametros.Add(New Parametros("@idNPTN3", SqlDbType.Int, idNPTN3))
 
             Dim sp As New DescripParametros("modificaNivel3", parametros)

@@ -1,37 +1,37 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="FrmNivel1.aspx.vb" Inherits="_Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
-</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    
     <asp:scriptmanager runat="server"></asp:scriptmanager>
     <asp:updatepanel runat="server">
          <ContentTemplate>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-8">
+                <h3>Nivel 1</h3>
+                <hr />
+            </div>            
+        </div>
+    </div>
+   <br />
+   <br />
+
     <div class="alert alert-danger" id="msg" runat="server" visible="false">
         <span class="glyphicon glyphicon-remove"></span>
         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
     </div>
-
-    <div class="row">
-        <div class="form-group">
-            <div class="col-md-8">
-                
-                <h3>Nivel 1</h3>
-                <hr />
-                
-            </div>            
-        </div>
-    </div>
-    <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton>
-    <%--<asp:Button ID="Button1" runat="server" Text="Guardar" CssClass="btn btn-success" />--%>
-    <br />
-<br />
+    
 
     <div class="well">
         <table>
             <tr>
                 <td><asp:Label ID="Label1" runat="server" Text="Nombre" ></asp:Label></td>
                 <td><asp:TextBox ID="TxtNivel1" runat="server" CssClass="form-control" Height="28px"  Width="180px"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><br /> <asp:LinkButton ID="Button1" runat="server"  CssClass="btn btn-sm btn-success "><i class="glyphicon glyphicon-saved"></i>&nbsp;Guardar</asp:LinkButton></td>
             </tr>
         </table>
 
@@ -61,7 +61,7 @@
                 GridLines="None" AutoGenerateEditButton="True" >
                             <AlternatingRowStyle CssClass="alt" BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:TemplateField HeaderText="Id">
+                                <asp:TemplateField HeaderText="Id" visible="false">
                                     <EditItemTemplate>
                                         <asp:Label ID="TextBox1" runat="server" Text='<%# Bind("idNPTN1") %>'></asp:Label>
                                     </EditItemTemplate>
